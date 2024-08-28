@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('materi');
         Schema::create('materi', function (Blueprint $table) {
             $table->id('id_materi');
             $table->unsignedBigInteger('id_pemateri');
@@ -22,16 +23,25 @@ return new class extends Migration
 
         });
 
+        Schema::dropIfExists('peserta_materi');
         Schema::create('peserta_materi', function (Blueprint $table) {
             $table->id('id_materi');
             $table->unsignedBigInteger('id_peserta');
-            // table relation id_user
-            $table->foreign('id_pemateri')
-              ->references('id_user')
-              ->on('users');
             $table->timestamps();
 
         });
+
+        // Create Stored Procedures
+        DB::statement('DROP PROCEDURE IF EXISTS `insert_peserta`');
+        DB::statement('
+        CREATE PROCEDURE `insert_peserta`(
+          IN `id_materi` BIGINT,
+          IN `id_peserta` BIGINT)
+          BEGIN
+              INSERT INTO `peserta_materi` (`id_materi`, `id_peserta`)
+              VALUES (id_materi, id_peserta);
+          END;
+        ');
     }
 
     /**
