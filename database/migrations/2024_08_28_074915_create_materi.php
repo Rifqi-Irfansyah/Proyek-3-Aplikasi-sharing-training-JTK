@@ -13,7 +13,6 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('materi');
         Schema::create('materi', function (Blueprint $table) {
             $table->id('id_materi');
             $table->unsignedBigInteger('id_pemateri');
@@ -23,10 +22,15 @@ return new class extends Migration
 
         });
 
-        Schema::dropIfExists('peserta_materi');
         Schema::create('peserta_materi', function (Blueprint $table) {
-            $table->id('id_materi');
+            $table->unsignedBigInteger('id_materi');
+            $table->foreign('id_materi')
+              ->references('id_materi')
+              ->on('materi');
             $table->unsignedBigInteger('id_peserta');
+            $table->foreign('id_peserta')
+              ->references('username')
+              ->on('users');
             $table->timestamps();
 
         });
@@ -36,10 +40,12 @@ return new class extends Migration
         DB::statement('
         CREATE PROCEDURE `insert_peserta`(
           IN `id_materi` BIGINT,
-          IN `id_peserta` BIGINT)
+          IN `id_peserta` BIGINT,
+          IN `status_pembayaran` VARCHAR(10)
+          )
           BEGIN
-              INSERT INTO `peserta_materi` (`id_materi`, `id_peserta`)
-              VALUES (id_materi, id_peserta);
+              INSERT INTO `peserta_materi` (`id_materi`, `id_peserta`, `status_pembayaran`)
+              VALUES (id_materi, id_peserta, status_pembayaran);
           END;
         ');
     }
@@ -51,6 +57,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('peserta_materi');
         Schema::dropIfExists('materi');
     }
 };
