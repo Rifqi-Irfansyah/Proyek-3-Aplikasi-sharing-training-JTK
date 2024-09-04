@@ -23,6 +23,7 @@ return new class extends Migration
         });
 
         Schema::create('peserta_materi', function (Blueprint $table) {
+            $table->id('id_peserta_materi');
             $table->unsignedBigInteger('id_materi');
             $table->foreign('id_materi')
               ->references('id_materi')
