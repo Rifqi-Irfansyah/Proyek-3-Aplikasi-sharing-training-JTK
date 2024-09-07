@@ -10,14 +10,17 @@ class LoginController extends Controller
 {
     public function login()
     {
-        if (Auth::check()) 
-        {
-            return redirect('home');
+        if (Auth::check()) {
+            $role = Auth::user()->role;
+            if ($role == 'admin')
+                return redirect('welcome');
+            else if ($role == 'pemateri')
+                return redirect('a');
+            else if($role == 'peserta')
+                return redirect();
         }
         else
-        {
             return view('auth.login');
-        }
     }
 
     public function loginaksi(Request $request)
@@ -27,12 +30,16 @@ class LoginController extends Controller
             'password' => $request->input('password'),
         ];
 
-        if (Auth::Attempt($data)) 
-        {
-            return redirect('home');
+        if (Auth::Attempt($data)) { 
+            $role = Auth::user()->role;
+            if ($role == 'admin')
+                return redirect('welcome');
+            else if ($role == 'pemateri')
+                return redirect('a');
+            else if($role == 'peserta')
+                return redirect();
         }
-        else
-        {
+        else{
             Session::flash('error', 'Username atau Password Salah');
             return redirect()->back();
         }

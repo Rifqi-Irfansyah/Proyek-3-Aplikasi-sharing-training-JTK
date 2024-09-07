@@ -22,6 +22,13 @@ class UserSeeder extends Seeder
             'username' => "2315",
             'role' => "admin",
             'name' => "Rifqi Irfansyah",
+            'password' => Hash::make('123'),
+        ]);
+
+        DB::table('users')->insert([
+            'username' => "123",
+            'role' => "pemateri",
+            'name' => "Pemateri 1",
             'password' => Hash::make('123')
         ]);
     }

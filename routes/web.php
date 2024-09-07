@@ -16,7 +16,7 @@ use App\Http\Controllers\LoginController;
 */
 
 // Route::get('/', 'LoginController@login')->name('login');
-Route::get('/', [LoginController::class, 'login']);
+Route::get('/', [LoginController::class, 'login'])->name('login');
 
 
 Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
