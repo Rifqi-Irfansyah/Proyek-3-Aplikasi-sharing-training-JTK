@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('materi', function (Blueprint $table) {
             $table->id('id_materi');
-            $table->unsignedBigInteger('id_pemateri');
+            $table->string('email_pemateri');
+            $table->foreign('email_pemateri')
+            ->references('email')
+            ->on('users');
             $table->string('judul_materi');
             $table->enum('status', ['Terkirim', 'Terverifikasi','Selesai']);
             $table->timestamps();
@@ -28,9 +31,9 @@ return new class extends Migration
             $table->foreign('id_materi')
               ->references('id_materi')
               ->on('materi');
-            $table->unsignedBigInteger('id_peserta');
-            $table->foreign('id_peserta')
-              ->references('username')
+            $table->string('email_peserta');
+            $table->foreign('email_peserta')
+              ->references('email')
               ->on('users');
             $table->timestamps();
 
@@ -40,13 +43,13 @@ return new class extends Migration
         DB::statement('DROP PROCEDURE IF EXISTS `insert_peserta`');
         DB::statement('
         CREATE PROCEDURE `insert_peserta`(
-          IN `id_materi` BIGINT,
-          IN `id_peserta` BIGINT,
-          IN `status_pembayaran` VARCHAR(10)
-          )
+          IN `id_peserta_materi` BIGINT UNSIGNED,
+          IN `id_materi` BIGINT UNSIGNED,
+          IN `email_peserta` VARCHAR(255)
+        )
           BEGIN
-              INSERT INTO `peserta_materi` (`id_materi`, `id_peserta`, `status_pembayaran`)
-              VALUES (id_materi, id_peserta, status_pembayaran);
+              INSERT INTO `peserta_materi` (`id_peserta_materi`, `id_materi`, `email_peserta`)
+              VALUES (id_peserta_materi, id_materi, email_peserta);
           END;
         ');
     }
