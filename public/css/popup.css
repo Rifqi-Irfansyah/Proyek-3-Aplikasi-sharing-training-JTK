@@ -1,0 +1,66 @@
+.background{
+    border-radius: 30px !important;
+    max-width: 70vh !important;
+
+}
+
+.popup-error{
+    border-radius: 30px !important;
+    max-width: 70vh !important;
+    color: #E34343;
+}
+
+.btn-confirm{
+    min-width: 100px !important;
+    border-radius: 25px !important;
+    font-size: 14px !important;
+    background-color: #9BB8F2 !important;
+}
+
+.btn-cancel{
+    min-width: 70px !important;
+    border-radius: 25px !important;
+    font-size: 14px !important;
+    background-color: rgb(184, 31, 31) !important;
+}
+
+.title{
+    font-size: 22px !important;
+    font-weight: bold;
+}
+
+.text{
+    font-size: 12rem !important;
+}
+
+/* Popup Preview */
+.background-preview{
+    border-radius: 15px !important;
+    width: auto !important;
+    margin: 2% 25% !important;
+}
+
+.title-preview{
+    text-align: center !important;
+    font-size: 24px !important;
+}
+
+.btn-confirm-preview{
+    width: auto !important;
+    border-radius: 25px !important;
+    font-size: 14px !important;
+    background-color: #758ABA !important;
+}
+
+.btn-comment{
+    width: auto !important;
+    border-radius: 25px !important;
+    font-size: 14px !important;
+    color: #0a0a0a !important;
+    background-color: #F8C300 !important;
+}
+
+.input-text{
+    border-radius: 20px !important;
+    font-size: 14px !important;
+}

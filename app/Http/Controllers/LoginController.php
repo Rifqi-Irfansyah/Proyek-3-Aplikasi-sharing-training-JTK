@@ -40,7 +40,7 @@ class LoginController extends Controller
                 return redirect();
         }
         else{
-            Session::flash('error', 'Username atau Password Salah');
+            Session::flash('error', 'Username or Password Wrong !!');
             return redirect()->back();
         }
     }
@@ -49,5 +49,9 @@ class LoginController extends Controller
     {
         Auth::logout();
         return redirect('/');
+    }
+
+    public function beranda(){
+        return view('welcome');
     }
 }

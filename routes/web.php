@@ -27,9 +27,6 @@ Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('
 Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->name('logoutaksi')->middleware('auth');
 
 // User Access
-Route::middleware('user')->group(function () {
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
-    Route::post('/report', [ReportController::class, 'submit'])->name('submit_report');
-    Route::get('/yourreport', [YourReportController::class, 'index'])->name('your_report');
-    Route::delete('/report/delete/{id}', [YourReportController::class, 'delete'])->name('report_delete');
+Route::middleware('admin')->group(function () {
+    Route::get('welcome', [LoginController::class, 'beranda']);
 });

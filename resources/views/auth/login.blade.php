@@ -3,19 +3,31 @@
 @section('title', 'Halaman Utama')
 
 @section('content')
-@if (session('error'))
-<div class="alert alert-danger">
-    {{ session('error') }}
-</div>
+
+<!-- FAILED LOGIN POP UP MODAL -->
+<script>
+@if(session('error'))
+var errorMessage = "{{ Session::get('error') }}";
+Swal.fire({
+    icon: 'error',
+    title: 'Login Failed',
+    text: errorMessage,
+    confirmButtonText: 'OK',
+    customClass: {
+        popup: 'popup-error',
+        confirmButton: 'btn-confirm',
+        title: 'title',
+        color: '#DE2323',
+    }
+})
 @endif
+</script>
+<!-- END FAILED LOGIN POP UP MODAL -->
+     
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="row justify-content-center w-100">
         <div class="col-md-6 m-5rounded-4 d-flex flex-column left-box">
-            <!-- <div id="lottie-container" class="featured-image mb-3">
-                
-            </div> -->
-            <div id="lottie-container" ></div>
-            
+            <div id="lottie-container" ></div>      
             <script>
                 var animation = lottie.loadAnimation({
                     container: document.getElementById('lottie-container'),
@@ -35,12 +47,12 @@
                 <form action="{{route('loginaksi')}}" method="post" autocomplete="off" class="w-100 form-floating">
                     @csrf
                     <div class="input-group mb-3 ">
-                        <input type="text" name="username" id="username"
-                            class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Username">
+                        <input type="email" name="username" id="username"
+                            class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Username" required="">
                     </div>
                     <div class="input-group mb-4">
                         <input type="password" name="password"
-                            class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Password">
+                            class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Password" required="">
                     </div>
                     <div class="input-group mb-5 justify-content-center">
                         <button class="btn btn-md btn-primary w-50 fs-6 rounded-5 bg-custom">Login</button>
