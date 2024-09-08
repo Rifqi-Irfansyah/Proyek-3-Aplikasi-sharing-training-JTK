@@ -36,8 +36,18 @@ return new class extends Migration
               ->references('email')
               ->on('users');
             $table->timestamps();
-
         });
+
+        Schema::create('jadwal_materi', function (Blueprint $table) {
+          $table->id('id_jadwal');
+          $table->unsignedBigInteger('id_materi');
+          $table->foreign('id_materi')
+            ->references('id_materi')
+            ->on('materi');
+          $table->DATETIME('waktu_mulai');
+          $table->DATETIME('waktu_selesai');
+          $table->timestamps();
+      });
 
         // Create Stored Procedures
         DB::statement('DROP PROCEDURE IF EXISTS `insert_peserta`');
@@ -62,6 +72,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('peserta_materi');
+        Schema::dropIfExists('jadwal_materi');
         Schema::dropIfExists('materi');
     }
 };

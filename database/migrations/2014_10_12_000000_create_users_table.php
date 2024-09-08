@@ -21,6 +21,16 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('tambahan_pemateri', function (Blueprint $table) {
+            $table->string('email');
+            $table->foreign('email')
+              ->references('email')
+              ->on('users');
+            $table->string('no_wa');
+            $table->string('pengalaman');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -30,6 +40,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('tambahan_pemateri');
         Schema::dropIfExists('users');
     }
 };
