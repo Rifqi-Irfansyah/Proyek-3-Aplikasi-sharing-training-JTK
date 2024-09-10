@@ -16,6 +16,18 @@
     color: #E34343;
 }
 
+.popup-success{
+    border-radius: 30px !important;
+    max-width: 70vh !important;
+    background-color: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(10px);
+    border-style: solid;
+    border-color: #6293f4;
+    border-width: 3px;
+    color: #12ca08;
+}
+
 .btn-confirm{
     min-width: 100px !important;
     border-radius: 25px !important;

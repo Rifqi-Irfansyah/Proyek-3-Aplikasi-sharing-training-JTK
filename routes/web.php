@@ -22,7 +22,7 @@ Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
 
 // Route::get('home', return)->middleware('pemateri');
 
-Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->name('logoutaksi')->middleware('auth');
+Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('auth')->name('logout');
 
 // User Access
 Route::middleware(['admin'])->group(function () {
