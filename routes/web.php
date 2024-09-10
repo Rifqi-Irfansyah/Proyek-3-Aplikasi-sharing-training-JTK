@@ -15,18 +15,16 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-// Route::get('/', 'LoginController@login')->name('login');
 Route::get('/', [LoginController::class, 'login'])->name('login');
 
 
 Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
-Route::get('register', [RegisterController::class, 'register'])->name('register');
-Route::post('register', [RegisterController::class, 'registeraksi'])->name('registeraksi');
 
-Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+// Route::get('home', return)->middleware('pemateri');
+
 Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->name('logoutaksi')->middleware('auth');
 
 // User Access
-Route::middleware('admin')->group(function () {
-    Route::get('welcome', [LoginController::class, 'beranda']);
+Route::middleware(['admin'])->group(function () {
+    Route::get('beranda', [LoginController::class, 'beranda'])->name('welcome');
 });

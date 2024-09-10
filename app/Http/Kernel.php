@@ -67,6 +67,6 @@ class Kernel extends HttpKernel
         // Add Middleware
         'admin' => \App\Http\Middleware\isAdmin::class,
         'peserta' => \App\Http\Middleware\isUser::class,
-        'pemateri' => \App\Http\Middleware\isPemateri::class
+        'pemateri' => \App\Http\Middleware\isPemateri::class,
     ];
 }

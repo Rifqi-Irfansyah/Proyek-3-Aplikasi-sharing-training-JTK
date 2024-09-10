@@ -13,9 +13,9 @@ class LoginController extends Controller
         if (Auth::check()) {
             $role = Auth::user()->role;
             if ($role == 'admin')
-                return redirect('welcome');
+                return redirect('beranda');
             else if ($role == 'pemateri')
-                return redirect('a');
+                return redirect('auth.welcome');
             else if($role == 'peserta')
                 return redirect();
         }
@@ -26,16 +26,17 @@ class LoginController extends Controller
     public function loginaksi(Request $request)
     {
         $data = [
-            'username' => $request->input('username'),
+            'email' => $request->input('username'),
             'password' => $request->input('password'),
         ];
 
         if (Auth::Attempt($data)) { 
             $role = Auth::user()->role;
+            Session::flash('success', 'Login Success !!');
             if ($role == 'admin')
-                return redirect('welcome');
+                return redirect('beranda');
             else if ($role == 'pemateri')
-                return redirect('a');
+                return redirect('welcome');
             else if($role == 'peserta')
                 return redirect();
         }

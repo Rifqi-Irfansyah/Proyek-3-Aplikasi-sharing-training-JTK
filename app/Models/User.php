@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+     // Gunakan email sebagai kunci utama
+     protected $primaryKey = 'email';
+     public $incrementing = false;
+     protected $keyType = 'string';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +25,6 @@ class User extends Authenticatable
     protected $fillable = [
         'role',
         'name',
-        'username',
         'password',
     ];
 

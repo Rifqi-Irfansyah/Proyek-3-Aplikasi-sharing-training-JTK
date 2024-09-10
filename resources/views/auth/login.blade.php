@@ -55,11 +55,11 @@ Swal.fire({
                             class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Password" required="">
                     </div>
                     <div class="input-group mb-5 justify-content-center">
-                        <button class="btn btn-md btn-primary w-50 fs-6 rounded-5 bg-custom">Login</button>
+                        <button class="btn btn-md w-50 fs-6 rounded-5 btn-custom">Login</button>
                     </div>
                 </form>
-                <div class="row text-secondary">
-                    <small>Don't have account?<a href="#" class ="text-decoration-none">Sign Up</a></small>
+                <div class="text-center text-secondary">
+                    <small>Don't have account? <a href="#" class ="text-decoration-none">Sign Up</a></small>
                 </div>
             </div>
         </div>

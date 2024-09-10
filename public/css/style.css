@@ -7,6 +7,12 @@
 .popup-error{
     border-radius: 30px !important;
     max-width: 70vh !important;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(10px);
+    border-style: solid;
+    border-color: #E34343;
+    border-width: 3px;
     color: #E34343;
 }
 
@@ -14,7 +20,7 @@
     min-width: 100px !important;
     border-radius: 25px !important;
     font-size: 14px !important;
-    background-color: #9BB8F2 !important;
+    background-color: #6293f4 !important;
 }
 
 .btn-cancel{
@@ -63,4 +69,19 @@
 .input-text{
     border-radius: 20px !important;
     font-size: 14px !important;
+}
+
+/* Button */
+.btn:hover{
+    background-color: #3a79f8;
+    color: #fff;
+}
+
+.bg-custom {
+    background-color: #9BB8F2 ;
+}
+
+.btn-custom{
+    background-color: #6293f4 ;
+    color: #fff;
 }
