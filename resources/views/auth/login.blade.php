@@ -47,8 +47,8 @@ Swal.fire({
                 <form action="{{route('loginaksi')}}" method="post" autocomplete="off" class="w-100 form-floating">
                     @csrf
                     <div class="input-group mb-3 ">
-                        <input type="email" name="username" id="username"
-                            class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Username" required="">
+                        <input type="email" name="email" id="email"
+                            class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Email" required="">
                     </div>
                     <div class="input-group mb-4">
                         <input type="password" name="password"

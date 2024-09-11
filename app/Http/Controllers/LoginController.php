@@ -26,7 +26,7 @@ class LoginController extends Controller
     public function loginaksi(Request $request)
     {
         $data = [
-            'email' => $request->input('username'),
+            'email' => $request->input('email'),
             'password' => $request->input('password'),
         ];
 

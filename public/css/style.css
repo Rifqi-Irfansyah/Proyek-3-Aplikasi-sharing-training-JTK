@@ -97,3 +97,10 @@
     background-color: #6293f4 ;
     color: #fff;
 }
+
+.btn-custom:focus,
+.btn-custom:active {
+    background-color: #004085;
+    color: white;
+    outline: none; 
+}
