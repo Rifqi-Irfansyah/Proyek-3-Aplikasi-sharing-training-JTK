@@ -34,7 +34,7 @@ Swal.fire({
                     renderer: 'svg', 
                     loop: true,
                     autoplay: true,
-                    path: '{{ asset('asset/animatelogin.json') }}'
+                    path: "{{asset('asset/animatelogin.json')}}"
                 });
             </script>
         </div>
@@ -46,13 +46,18 @@ Swal.fire({
                 </div>
                 <form action="{{route('loginaksi')}}" method="post" autocomplete="off" class="w-100 form-floating">
                     @csrf
-                    <div class="input-group mb-3 ">
+                    <div class="input-group mb-3">
                         <input type="email" name="email" id="email"
                             class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Email" required="">
+                            
                     </div>
-                    <div class="input-group mb-4">
-                        <input type="password" name="password"
+                    <div class="input-group mb-4 align-items-center">
+                        <input type="password" name="password" id="passwordInput"
                             class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Password" required="">
+
+                            <div id="showPassword" style="cursor:pointer; transform: translateX(-40px); margin-right:-25px; z-index:100;" >
+                                <img id="icon" src="{{ asset('asset/eye.svg') }}" width="25" height="25" class =""/>
+                            </div>
                     </div>
                     <div class="input-group mb-5 justify-content-center">
                         <button class="btn btn-md w-50 fs-6 rounded-5 btn-custom">Login</button>
@@ -65,5 +70,21 @@ Swal.fire({
         </div>
     </div>
 </div>
+
+<script>
+    var eyeicon = document.getElementById("showPassword");
+    var passwordInput = document.getElementById('passwordInput');
+    var svgIcon = document.getElementById('icon');
+
+    eyeicon.onclick = function (){
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            svgIcon.src = '{{ asset('asset/eye-slash.svg') }}';
+        } else {
+            passwordInput.type = 'password';
+            svgIcon.src = '{{ asset('asset/eye.svg') }}';
+        }
+    }
+</script>
 
 @endsection
