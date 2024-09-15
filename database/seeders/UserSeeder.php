@@ -32,11 +32,12 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123')
         ]);
 
-        DB::table('materi')->insert([
-            'email_pemateri' => "pemateri@gmail.com",
-            'judul_materi' => "Belajar PHP",
-            'judul_materi' => "Belajar PHP",
-            'status' => "Terkirim"
+        DB::table('training')->insert([
+            // 'email_trainer' => "pemateri@gmail.com",
+            'judul_training' => "Belajar PHP",
+            'kuota' => 30,
+            'deskripsi' => "Belajar PHP dmdmdm amdamda",
+            'status' => "Pendaftaran"
         ]);
     }
 }

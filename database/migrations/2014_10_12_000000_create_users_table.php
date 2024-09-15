@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         Schema::create('tambahan_trainer', function (Blueprint $table) {
-            $table->string('email');
+            $table->string('email')->unique();
             $table->foreign('email')
               ->references('email')
               ->on('users');
