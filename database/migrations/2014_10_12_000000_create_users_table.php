@@ -22,13 +22,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('tambahan_pemateri', function (Blueprint $table) {
+        Schema::create('tambahan_trainer', function (Blueprint $table) {
             $table->string('email');
             $table->foreign('email')
               ->references('email')
               ->on('users');
             $table->string('no_wa');
-            $table->string('pengalaman');
+            $table->string('cv');
             $table->timestamps();
         });
     }

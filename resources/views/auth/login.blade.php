@@ -56,7 +56,7 @@ Swal.fire({
                             class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Password" required="">
 
                             <div id="showPassword" style="cursor:pointer; transform: translateX(-40px); margin-right:-25px; z-index:100;" >
-                                <img id="icon" src="{{ asset('asset/eye.svg') }}" width="25" height="25" class =""/>
+                                <img id="icon" src="{{ asset('asset/eye.svg') }}" width="23" height="23" class =""/>
                             </div>
                     </div>
                     <div class="input-group mb-5 justify-content-center">
