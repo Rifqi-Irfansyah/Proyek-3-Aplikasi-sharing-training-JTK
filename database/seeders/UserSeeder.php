@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // ADMIN
         DB::table('users')->insert([
             'email' => "admin@gmail.com",
             'role' => "admin",
@@ -25,11 +26,31 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123'),
         ]);
 
+        // TRAINER
         DB::table('users')->insert([
             'email' => "pemateri@gmail.com",
             'role' => "pemateri",
             'name' => "Pemateri 1",
             'password' => Hash::make('123')
+        ]);
+
+        DB::table('users')->insert([
+            'email' => "pemateri2@gmail.com",
+            'role' => "pemateri",
+            'name' => "Pemateri 1",
+            'password' => Hash::make('123')
+        ]);
+
+        DB::table('tambahan_trainer')->insert([
+            'email' => "pemateri@gmail.com",
+            'no_wa' => "08965698171",
+            'status_akun' => "Belum direview",
+        ]);
+
+        DB::table('tambahan_trainer')->insert([
+            'email' => "pemateri2@gmail.com",
+            'no_wa' => "08965698171",
+            'status_akun' => "Terkonfirmasi",
         ]);
 
         DB::table('training')->insert([

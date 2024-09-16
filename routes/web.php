@@ -28,3 +28,7 @@ Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('au
 Route::middleware(['admin'])->group(function () {
     Route::get('beranda', [LoginController::class, 'beranda'])->name('welcome');
 });
+
+Route::middleware(['pemateri'])->group(function () {
+    Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');
+});

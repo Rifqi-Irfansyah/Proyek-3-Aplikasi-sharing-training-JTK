@@ -17,7 +17,7 @@ class isUser
     public function handle(Request $request, Closure $next)
     {
         // logic Must be Admin
-        if(!auth()->check() || auth()->users()->role !== 'peserta'){
+        if(!auth()->check() || auth()->user()->role !== 'peserta'){
             abort (403);
         }
         return $next($request);

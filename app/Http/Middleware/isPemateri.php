@@ -17,7 +17,7 @@ class isPemateri
     public function handle(Request $request, Closure $next)
     {
         // logic Must be Admin
-        if(!auth()->check() || auth()->users()->role !== 'pemateri'){
+        if(!auth()->check() || auth()->user()->role !== 'pemateri'){
             abort (403);
         }
         return $next($request);

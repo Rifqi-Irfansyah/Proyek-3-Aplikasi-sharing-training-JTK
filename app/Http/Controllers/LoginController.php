@@ -15,7 +15,7 @@ class LoginController extends Controller
             if ($role == 'admin')
                 return redirect('beranda');
             else if ($role == 'pemateri')
-                return redirect('auth.welcome');
+                return redirect('pemateri');
             else if($role == 'peserta')
                 return redirect();
         }
@@ -36,7 +36,7 @@ class LoginController extends Controller
             if ($role == 'admin')
                 return redirect('beranda');
             else if ($role == 'pemateri')
-                return redirect('welcome');
+                return redirect('pemateri');
             else if($role == 'peserta')
                 return redirect();
         }

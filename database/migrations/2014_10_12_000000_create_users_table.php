@@ -29,6 +29,7 @@ return new class extends Migration
               ->on('users');
             $table->string('no_wa');
             $table->string('cv');
+            $table->enum('status_akun',['Terkonfirmasi','Belum direview','Ditolak']);
             $table->timestamps();
         });
     }
