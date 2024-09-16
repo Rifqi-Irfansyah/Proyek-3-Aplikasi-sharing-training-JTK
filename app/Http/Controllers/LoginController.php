@@ -14,8 +14,10 @@ class LoginController extends Controller
             $role = Auth::user()->role;
             if ($role == 'admin')
                 return redirect('beranda');
+
             else if ($role == 'pemateri')
                 return redirect('pemateri');
+
             else if($role == 'peserta')
                 return redirect();
         }
@@ -31,14 +33,26 @@ class LoginController extends Controller
         ];
 
         if (Auth::Attempt($data)) { 
-            $role = Auth::user()->role;
-            Session::flash('success', 'Login Success !!');
+            $user = Auth::user();
+            $role = $user->role;
+
             if ($role == 'admin')
                 return redirect('beranda');
-            else if ($role == 'pemateri')
-                return redirect('pemateri');
+
             else if($role == 'peserta')
                 return redirect();
+
+            else if($role == 'pemateri'){
+                $tambahanTrainer = $user->TambahanTrainer;
+                if ($tambahanTrainer->status_akun == 'Terkonfirmasi')
+                    return redirect('pemateri');
+                else{
+                    Session::flash('error', 'Your Account Havent Confirmed');
+                    Auth::logout();
+                    return redirect()->back();
+                }
+            }
+            Session::flash('success', 'Login Success !!');
         }
         else{
             Session::flash('error', 'Username or Password Wrong !!');

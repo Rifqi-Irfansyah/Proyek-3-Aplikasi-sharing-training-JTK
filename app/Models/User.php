@@ -46,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tambahanTrainer()
+    {
+        return $this->hasOne(TambahanTrainer::class, 'email', 'email'); // Sesuaikan field relasinya
+    }
 }

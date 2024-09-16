@@ -44,12 +44,14 @@ class UserSeeder extends Seeder
         DB::table('tambahan_trainer')->insert([
             'email' => "pemateri@gmail.com",
             'no_wa' => "08965698171",
+            'cv' => "dd",
             'status_akun' => "Belum direview",
         ]);
 
         DB::table('tambahan_trainer')->insert([
             'email' => "pemateri2@gmail.com",
             'no_wa' => "08965698171",
+            'cv' => "dd",
             'status_akun' => "Terkonfirmasi",
         ]);
 
