@@ -48,7 +48,7 @@ Swal.fire({
                     @csrf
                     <div class="input-group mb-3">
                         <input type="email" name="email" id="email"
-                            class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Email" required="">
+                            class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Email" required="" >
                             
                     </div>
                     <div class="input-group mb-4 align-items-center">

@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'role' => "admin",
             'name' => "Rifqi Irfansyah",
             'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
         ]);
 
         // TRAINER
@@ -31,14 +32,16 @@ class UserSeeder extends Seeder
             'email' => "pemateri@gmail.com",
             'role' => "pemateri",
             'name' => "Pemateri 1",
-            'password' => Hash::make('123')
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
         ]);
 
         DB::table('users')->insert([
             'email' => "pemateri2@gmail.com",
             'role' => "pemateri",
             'name' => "Pemateri 1",
-            'password' => Hash::make('123')
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
         ]);
 
         DB::table('tambahan_trainer')->insert([

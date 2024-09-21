@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->primary();
             $table->enum('role',['admin','pemateri','peserta']);
             $table->string('name');
+            $table->enum('gender',['laki-laki','perempuan']);
+            $table->date('tanggal_lahir');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
