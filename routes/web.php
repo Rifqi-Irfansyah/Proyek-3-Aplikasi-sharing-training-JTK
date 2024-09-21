@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DetailTraining;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,9 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
+
+Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
+
 
 
 Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
