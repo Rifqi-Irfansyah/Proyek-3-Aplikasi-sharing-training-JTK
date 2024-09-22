@@ -1,3 +1,14 @@
+:root {
+  --blue: #9BBBF2;
+  --blue-gray: #84A3E0;
+  --blue-white: #C7D9FD;
+  --white: #efefef;
+  --white-gray: #e7e6e6;
+  --gray: #514D4D;
+  --black1: #222;
+  --black2: #999;
+}
+
 .background{
     border-radius: 30px !important;
     max-width: 70vh !important;
@@ -93,6 +104,10 @@
     background-color: #9BB8F2 ;
 }
 
+.bg-background_putih {
+    background-color: #efefef ;
+}
+
 .btn-custom{
     background-color: #6293f4 ;
     color: #fff;
@@ -103,4 +118,161 @@
     background-color: #004085;
     color: white;
     outline: none; 
+}
+
+.btn-second{
+    background-color: #C7D9FD;
+    color: #262323;
+    outline: none; 
+}
+
+.btn-second:focus,
+.btn-second.active {
+    background-color: #efefef;
+    color: #262323;
+    outline: none; 
+    transform: translateX(+40%);
+}
+
+.btn-gray{
+  background-color: var(--gray);
+  outline: none; 
+}
+
+.btn-gray.btn:hover{
+  background-color: #9BB8F2;
+}
+
+.w-20{
+    width: 20%;
+}
+
+
+
+
+/* =============== Navigation ================ */
+.navigation {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background: var(--blue);
+  border-left: 10px solid var(--blue);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  transition: 0.5s;
+  overflow: hidden;
+}
+.navigation.active {
+  width: 80px;
+}
+
+.navigation ul {
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.navigation ul li {
+  position: relative;
+  width: 80%;
+  list-style: none;
+  border-radius: 30px;
+  background-color: var(--blue-white);
+}
+
+.navigation ul li:hover{
+  width: 80%;
+  background-color: var(--white-gray);
+}
+.navigation ul li.hovered {
+  width: 100%;
+  background-color: var(--white);
+  color: var(--black1);
+}
+
+.navigation ul li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: var(--black1);
+}
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+  color: var(--blue);
+}
+
+.navigation ul li a .icon {
+  position: relative;
+  display: block;
+  min-width: 60px;
+  height: 40px;
+  line-height: 75px;
+  text-align: center;
+}
+
+.navigation ul li:last-child {
+  background-color: var(--blue-gray);
+}
+
+.navigation ul li:last-child a {
+  color: var(--white-gray);
+}
+
+.navigation ul li:last-child:hover,
+.navigation ul li:last-child.hovered {
+  background-color: #bde244;
+}
+
+.navigation ul li:last-child:hover a{
+  color: var(--black1)
+}
+
+/* --------- curve outside ---------- */
+/* .navigation ul li:hover a::before, */
+.navigation ul li.hovered a::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -54px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 35px 35px 0 10px var(--white);
+  pointer-events: none;
+}
+/* .navigation ul li:hover a::after, */
+.navigation ul li.hovered a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -54px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 35px -35px 0 10px var(--white);
+  pointer-events: none;
+}
+
+
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.ms-300{
+  margin-left: 300px;
+}
+
+.min-vh-100 {
+  min-height: 100vh;
 }

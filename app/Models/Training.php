@@ -16,4 +16,9 @@ class Training extends Model
     {
         return $this->hasMany(JadwalTraining::class, 'id_training');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email_trainer', 'email');
+    }
 }
