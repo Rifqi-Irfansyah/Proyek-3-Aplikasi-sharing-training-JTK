@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(TambahanTrainer::class, 'email', 'email'); // Sesuaikan field relasinya
     }
+
+    public function trainings()
+    {
+        return $this->hasMany(Training::class, 'email', 'email_trainer');
+    }
 }

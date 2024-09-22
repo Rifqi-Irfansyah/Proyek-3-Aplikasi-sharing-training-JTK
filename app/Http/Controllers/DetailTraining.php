@@ -9,8 +9,7 @@ class DetailTraining extends Controller
 {
     public function detailTraining($id)
     {
-        $training = Training::with('jadwalTrainings')->find($id);
-
+        $training = Training::with(['jadwalTrainings', 'user'],)->find($id);
         return view('trainer.detail_training', ['training' => $training]);
     }
 }
