@@ -11,8 +11,8 @@
         <div class=" my-2">
             <span class="title text-white ps-0">Trainify</span>
         </div>
-        <button class="btn btn-gray btn-md fs-6 rounded-5 btn-custom py-2 w-50px h-50px">
-            <i class="fa-solid fa-angle-left text-white" aria-hidden="true"></i>
+        <button class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
+            <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
         </button>
 
         <ul class="list-unstyled mt-4 ps-1">
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Main content -->
-    <div class="content bg-background_putih ms-300 vh-auto">
+    <div class="content bg-background_putih ms-300 vh-auto w-100">
         <div class="p-2 d-md-none d-flex text-white bg-success">
             <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
                 <i class="fa-solid fa-bars"></i>
@@ -62,22 +62,22 @@
 
             <!-- Trainer information -->
             <div class="row mt-5">
-                <div class="col-3">Trainer</div>
+                <div class="col-3"><i class="fa-solid fa-user-tie me-3"></i>Trainer</div>
                 <div class="col">{{$training->user->name}}</div>
             </div>
 
             <div class="row mt-4">
-                <div class="col-3">Status</div>
+                <div class="col-3"><i class="fa-solid fa-bars-progress me-3"></i>Status</div>
                 <div class="col">{{$training->status}}</div>
             </div>
 
             <div class="row mt-4">
-                <div class="col-3">Kuota</div>
+                <div class="col-3"><i class="fa-solid fa-user-group me-3"></i>Kuota</div>
                 <div class="col">{{$training->kuota}}</div>
             </div>
 
             <div class="row mt-4">
-                <div class="col-3">Date Training</div>
+                <div class="col-3"><i class="fa-regular fa-calendar me-3"></i>Date Training</div>
                 <div class="col">
                     @foreach($training->jadwalTrainings as $jadwal)
                     <div>{{$jadwal->waktu_mulai}}</div>
@@ -87,7 +87,7 @@
             </div>
 
             <div class="row mt-4">
-                <div class="col-3">Description</div>
+                <div class="col-3"><i class="fa-solid fa-align-center me-3"></i>Description</div>
                 <div class="col">{{$training->deskripsi}}</div>
             </div>
         </div>

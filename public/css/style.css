@@ -6,7 +6,8 @@
   --white-gray: #e7e6e6;
   --gray: #514D4D;
   --black1: #222;
-  --black2: #999;
+  --black2: #999999;
+  --orange: #f5e506;
 }
 
 .background{
@@ -134,15 +135,23 @@
     transform: translateX(+40%);
 }
 
-.btn-gray{
+.btn-back{
   background-color: var(--gray);
   outline: none; 
 }
 
-.btn-gray.btn:hover{
-  background-color: #9BB8F2;
+.btn-back.btn i{
+  color: var(--white);
 }
 
+.btn-back.btn:hover{
+  background-color: var(--orange);
+}
+
+.btn-back.btn:hover i{
+  color: var(--black1);
+}
+  
 .w-20{
     width: 20%;
 }
@@ -207,6 +216,7 @@
   position: relative;
   display: block;
   min-width: 60px;
+  max-width: 80px;
   height: 40px;
   line-height: 75px;
   text-align: center;
@@ -223,6 +233,7 @@
 .navigation ul li:last-child:hover,
 .navigation ul li:last-child.hovered {
   background-color: #bde244;
+  width: 80%;
 }
 
 .navigation ul li:last-child:hover a{
@@ -231,7 +242,7 @@
 
 /* --------- curve outside ---------- */
 /* .navigation ul li:hover a::before, */
-.navigation ul li.hovered a::before {
+.navigation ul li:not(:last-child).hovered a::before {
   content: "";
   position: absolute;
   right: 0;
@@ -244,7 +255,7 @@
   pointer-events: none;
 }
 /* .navigation ul li:hover a::after, */
-.navigation ul li.hovered a::after {
+.navigation ul li:not(:last-child).hovered a::after {
   content: "";
   position: absolute;
   right: 0;
@@ -275,4 +286,10 @@ body {
 
 .min-vh-100 {
   min-height: 100vh;
+}
+
+.col-3 i {
+  min-width: 60px;
+  max-width: 80px;
+  text-align: center;
 }
