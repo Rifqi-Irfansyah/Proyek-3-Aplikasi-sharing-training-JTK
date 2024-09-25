@@ -61,6 +61,7 @@ class UserSeeder extends Seeder
         DB::table('training')->insert([
             // 'email_trainer' => "pemateri@gmail.com",
             'judul_training' => "Belajar PHP",
+            'email_trainer' => "admin@gmail.com",
             'kuota' => 30,
             'deskripsi' => "Belajar PHP dmdmdm amdamda",
             'status' => "Pendaftaran"

@@ -143,7 +143,12 @@ toggle.onclick = function() {
                     </div>
                 </div>
 
-                
+                <div class="row align-items-center mt-2">
+                    <div class ="col-4">Modul</div>
+                    <div class ="col-8 d-flex align-items-center">
+                        <input id="swal-input3" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                    </div>
+                </div>
             </div>
         `,
             focusConfirm: false,
