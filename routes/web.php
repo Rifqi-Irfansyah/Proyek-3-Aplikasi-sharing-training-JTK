@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DetailTraining;
+use App\Http\Controllers\RegistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,13 @@ use App\Http\Controllers\DetailTraining;
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
 
-Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
+Route::get('/register-peserta', [RegistController::class, 'showPesertaForm'])->name('register.peserta');
+Route::get('/register-trainer', [RegistController::class, 'showTrainerForm'])->name('register.trainer');
 
+Route::post('/register-peserta', [RegistController::class, 'registerPeserta'])->name('register.peserta.submit');
+Route::post('/register-trainer', [RegistController::class, 'registerTrainer'])->name('register.trainer.submit');
+
+Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 
 
 Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
