@@ -46,7 +46,9 @@ return new class extends Migration
         $table->foreign('id_training')
           ->references('id_training')
           ->on('training');
+        $table->string('tempat_pelaksana');
         $table->string('modul');
+        $table->enum('status', ['online', 'offline']);
         $table->DATETIME('waktu_mulai');
         $table->DATETIME('waktu_selesai');
         $table->timestamps();
