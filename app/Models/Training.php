@@ -21,4 +21,9 @@ class Training extends Model
     {
         return $this->belongsTo(User::class, 'email_trainer', 'email');
     }
+
+    public function modul()
+    {
+        return $this->hasMany(ModulTraining::class, 'id_training');
+    }
 }
