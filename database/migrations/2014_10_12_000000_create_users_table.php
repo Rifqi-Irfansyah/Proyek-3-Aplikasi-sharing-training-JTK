@@ -30,7 +30,8 @@ return new class extends Migration
               ->references('email')
               ->on('users');
             $table->char('no_wa',20);
-            $table->char('cv',20);
+            $table->string('kemampuan');
+            $table->enum('pengalaman',['belum ada','<1 tahun','1-3 tahun','3 tahun +']);
             $table->enum('status_akun',['Terkonfirmasi','Belum direview','Ditolak']);
             $table->timestamps();
         });
