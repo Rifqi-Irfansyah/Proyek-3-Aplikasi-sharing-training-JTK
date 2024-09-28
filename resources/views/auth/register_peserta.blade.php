@@ -4,15 +4,46 @@
 
 @section('content')
 
+
+@if ($errors->any())
+<script>
+    @if ($errors->any())
+        var errorMessages = @json($errors->all());
+        // Joining error messages into a single string for display
+        var errorMessage = errorMessages.join('\n');
+        Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: errorMessage,
+            confirmButtonText: 'OK',
+            customClass: {
+                popup: 'popup-error',
+                confirmButton: 'btn-confirm',
+                title: 'title',
+                color: '#DE2323',
+            }
+        });
+    @endif
+</script>
+
+@endif
+
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+
 <div class="container-fluid register-container">
-    <div class="row justify-content-center align-items-center vh-100"> <!-- Vertically and horizontally centered -->
+    <div class="row justify-content-center align-items-center vh-100">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
-            <div class="form-container popup-edit shadow-lg p-4"> <!-- Menggunakan shadow-lg dan padding tambahan -->
-                <div class="form-title title mb-4 text-center">Register</div> <!-- Menambahkan margin-bottom dan text-center -->
+            <div class="form-container popup-edit shadow-lg p-4">
+                <div class="form-title title mb-4 text-center">Register</div>
                 <form method="POST" action="{{ route('register.peserta.submit') }}">
                     @csrf
-                    <div class="mb-3"> <!-- Menambahkan margin-bottom untuk input form -->
-                        <input type="email" name="email" class="custom-input input-text form-control" placeholder="Email" required> <!-- Menambahkan form-control dari Bootstrap -->
+                    <div class="mb-3">
+                        <input type="email" name="email" class="custom-input input-text form-control" placeholder="Email" required>
                     </div>
                     <div class="mb-3">
                         <input type="text" name="full_name" class="custom-input input-text form-control" placeholder="Full Name" required>
@@ -21,7 +52,7 @@
                         <input type="date" name="date_of_birth" class="custom-input input-text form-control" placeholder="Date of Birth" required>
                     </div>
 
-                    <div class=""> <!-- Flexbox untuk merapikan pilihan gender -->
+                    <div class="">
                         <div class="form-check">
                             <input type="radio" name="gender" value="laki-laki" id="male" class="form-check-input" required>
                             <label class="form-check-label" for="male">Male</label>

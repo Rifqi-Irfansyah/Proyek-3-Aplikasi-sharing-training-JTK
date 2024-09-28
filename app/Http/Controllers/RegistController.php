@@ -23,32 +23,33 @@ class RegistController extends Controller
 
         public function registerPeserta(Request $request)
         {
-            // $request->validate([
-            //     'full_name' => 'required|string|max:255',
-            //     'email' => 'required|string|email|max:255|unique:users',
-            //     'date_of_birth' => 'required|date',
-            //     'gender' => 'required|string',
-            //     'password' => 'required|string|min:8|confirmed',
-            // ]);
+            // Validasi input
+            $validatedData = $request->validate([
+                'full_name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'date_of_birth' => 'required|date',
+                'gender' => 'required|string',
+                'password' => 'required|string|min:8|confirmed', // Memastikan password dan konfirmasi cocok
+            ]);
 
             // Buat user baru untuk peserta
             $user = User::create([
-                'email' => $request->email,
+                'email' => $validatedData['email'],
                 'role' => 'peserta', // Role peserta
-                'name' => $request->full_name,
-                'gender' => $request->gender,
-                'tanggal_lahir' => $request->date_of_birth,
-                'password' => Hash::make($request->password),
+                'name' => $validatedData['full_name'],
+                'gender' => $validatedData['gender'],
+                'tanggal_lahir' => $validatedData['date_of_birth'],
+                'password' => Hash::make($validatedData['password']),
             ]);
 
-            if($user){
-                return view('auth.login')->with('success', 'Registrasi peserta berhasil!');
+            // Cek apakah user berhasil disimpan
+            if ($user) {
+                return redirect()->route('login')->with('success', 'Registrasi peserta berhasil!');
+            } else {
+                return redirect()->back()->with('error', 'Registrasi gagal, silakan coba lagi.');
             }
-            else{
-
-            }
-
         }
+
 
 
 }
