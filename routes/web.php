@@ -26,6 +26,7 @@ Route::post('/register-peserta', [RegistController::class, 'registerPeserta'])->
 Route::post('/register-trainer', [RegistController::class, 'registerTrainer'])->name('register.trainer.submit');
 
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
+Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 
 
 Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');

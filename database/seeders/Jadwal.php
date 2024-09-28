@@ -22,6 +22,22 @@ class Jadwal extends Seeder
             'id_training' => 1,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
+            'waktu_mulai' => now()->subDays(2),
+            'waktu_selesai' => now()
+        ]);
+
+        DB::table('jadwal_training')->insert([
+            'id_training' => 1,
+            'tempat_pelaksana' => "R101",
+            'status' => "offline",
+            'waktu_mulai' => now(),
+            'waktu_selesai' => now()
+        ]);
+
+        DB::table('jadwal_training')->insert([
+            'id_training' => 1,
+            'tempat_pelaksana' => "R101",
+            'status' => "offline",
             'waktu_mulai' => now(),
             'waktu_selesai' => now()
         ]);
