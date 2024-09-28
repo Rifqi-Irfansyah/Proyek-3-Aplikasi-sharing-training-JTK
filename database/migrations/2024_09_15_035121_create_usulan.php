@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('usulan', function (Blueprint $table) {
             $table->id('id_usulan');
+            $table->char('judul_materi',50);
+            $table->string('bahasan');
             $table->string('email_pengusul');
             $table->foreign('email_pengusul')
             ->references('email')
