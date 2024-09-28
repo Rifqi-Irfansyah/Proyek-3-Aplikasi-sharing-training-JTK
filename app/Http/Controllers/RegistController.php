@@ -23,13 +23,13 @@ class RegistController extends Controller
 
         public function registerPeserta(Request $request)
         {
-            $request->validate([
-                'full_name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'date_of_birth' => 'required|date',
-                'gender' => 'required|string',
-                'password' => 'required|string|min:8|confirmed',
-            ]);
+            // $request->validate([
+            //     'full_name' => 'required|string|max:255',
+            //     'email' => 'required|string|email|max:255|unique:users',
+            //     'date_of_birth' => 'required|date',
+            //     'gender' => 'required|string',
+            //     'password' => 'required|string|min:8|confirmed',
+            // ]);
 
             // Buat user baru untuk peserta
             $user = User::create([
