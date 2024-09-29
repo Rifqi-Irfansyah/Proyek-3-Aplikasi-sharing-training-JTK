@@ -13,6 +13,7 @@ class JadwalTraining extends Model
     protected $primaryKey = 'id_jadwal';
 
     protected $fillable = [
+        'id_training',
         'waktu_mulai',
         'waktu_selesai',
         'status',

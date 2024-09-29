@@ -29,7 +29,6 @@ class DetailTraining extends Controller
 
     public function tambahMeet(Request $request)
     {
-            // Validate the incoming request data
         $request->validate([
             'startMeet' => 'required|date',
             'endMeet' => 'required|date|after:startMeet',
@@ -38,6 +37,7 @@ class DetailTraining extends Controller
         ]);
 
         JadwalTraining::create([
+            'id_training' => $request->id_training,
             'waktu_mulai' => $request->startMeet,
             'waktu_selesai' => $request->endMeet,
             'tempat_pelaksana' => $request->locationMeet,

@@ -61,7 +61,7 @@
 }
 
 .btn-cancel{
-    min-width: 70px !important;
+    min-width: 100px !important;
     border-radius: 25px !important;
     font-size: 14px !important;
     background-color: rgb(184, 31, 31) !important;
@@ -202,7 +202,7 @@
   background-color: var(--blue-white);
 }
 
-.navigation ul li:hover{
+.navigation ul li:hover{  
   width: 80%;
   background-color: var(--white-gray);
 }

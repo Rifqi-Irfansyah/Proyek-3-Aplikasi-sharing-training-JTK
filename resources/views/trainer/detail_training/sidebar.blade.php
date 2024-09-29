@@ -7,7 +7,7 @@
 
 <div class="container-fluid p-0 d-flex bg-background_putih min-vh-100">
     <!-- Sidebar navigation -->
-    <div class="navigation ps-4 bg-custom position-fixed h-100">
+    <div class="navigation ps-4 bg-custom position-fixed h-100 overflow-auto">
         <div class=" my-2">
             <span class="title text-white ps-0">Trainify </span>
         </div>
@@ -63,23 +63,30 @@ function buttonEdit() {
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <div class="row align-items-center">
-                    <div class ="col-4">Start Meet</div>
+                    <div class ="col-4">Date</div>
                     <div class ="col-7 d-flex align-items-center">
-                        <input id="swal-input1" name="startMeet" type="datetime-local" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                        <input id="input-date" name="startMeet" type="date" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
                     </div>
                 </div>
 
                 <div class="row align-items-center mt-2">
-                    <div class ="col-4">End Meet</div>
+                    <div class ="col-4">Start</div>
                     <div class ="col-7 d-flex align-items-center">
-                        <input id="swal-input2" name="endMeet" type="datetime-local" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                        <input id="input-start" name="startMeet" type="time" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
                     </div>
                 </div>
 
                 <div class="row align-items-center mt-2">
-                    <div class ="col-4">Location Meet</div>
+                    <div class ="col-4">End</div>
                     <div class ="col-7 d-flex align-items-center">
-                        <input id="swal-input3" name="locationMeet" type="text" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                        <input id="input-end" name="endMeet" type="time" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                    </div>
+                </div>
+
+                <div class="row align-items-center mt-2">
+                    <div class ="col-4">Location</div>
+                    <div class ="col-7 d-flex align-items-center">
+                        <input id="input-location" name="locationMeet" type="text" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
                     </div>
                 </div>
 
@@ -105,10 +112,14 @@ function buttonEdit() {
             focusConfirm: false,
 
             preConfirm: () => {
-                const startMeet = document.getElementById("swal-input1").value;
-                const endMeet = document.getElementById("swal-input2").value;
-                const locationMeet = document.getElementById("swal-input3").value;
-                const status = document.querySelector('input[name="status"]:checked') ? document.querySelector('input[name="status"]:checked').value : null;
+                const date = document.getElementById("input-date").value;
+                const start = document.getElementById("input-start").value;
+                const end  = document.getElementById("input-end").value;
+                const startMeet = `${date}T${start}`;
+                const endMeet = `${date}T${end}`; 
+                const locationMeet = document.getElementById("input-location").value;
+                const status = document.querySelector('input[name="status"]:checked') ? document
+                    .querySelector('input[name="status"]:checked').value : null;
 
                 // Validasi input
                 if (!startMeet || !endMeet || !locationMeet || !status) {
@@ -142,33 +153,79 @@ function buttonEdit() {
                 showCancelButton: true,
                 confirmButtonText: 'Yes',
                 cancelButtonText: 'No',
-                reverseButtons: true
+                reverseButtons: true,
+                customClass: {
+                    popup: 'popup-edit',
+                    confirmButton: 'btn-confirm',
+                    cancelButton: 'btn-cancel',
+                    title: 'title',
+                    color: '#DE2323',
+                }
             });
 
             if (confirmation.isConfirmed) {
                 // Kirim data ke server dengan AJAX
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     url: '/tambahMeet',
                     method: 'POST',
                     data: {
-                        _token: $('input[name="_token"]').val(),
+                        id_training: {{$training -> id_training}},
                         startMeet: formValues.startMeet,
                         endMeet: formValues.endMeet,
                         locationMeet: formValues.locationMeet,
                         status: formValues.status
                     },
                     success: function(response) {
-                        Swal.fire('Saved!', 'Your changes have been saved.', 'success');
+                        location.reload(); 
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success Saved!',
+                            text: 'Meet have been added',
+                            showConfirmButton: false,
+                            timer: 1000,
+                            customClass: {
+                                popup: 'popup-success',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        })
                     },
-                    error: function(error) {
-                        Swal.fire('Error!', 'There was a problem saving the data.', 'error');
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.responseJSON.message || 'There was problem while saved data';
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed Saved!',
+                            text: errorMessage,
+                            customClass: {
+                                popup: 'popup-error',
+                                confirmButton: 'btn-confirm',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        })
                     }
                 });
             } else {
                 Swal.fire('Cancelled', 'No changes were made.', 'error');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Cancelled',
+                    text: 'No changes were made',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    customClass: {
+                        popup: 'popup-edit',
+                        title: 'title',
+                    }
+                })
             }
         }
     })();
 }
-
 </script>
