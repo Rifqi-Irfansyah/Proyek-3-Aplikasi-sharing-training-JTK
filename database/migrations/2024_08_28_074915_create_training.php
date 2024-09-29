@@ -46,6 +46,7 @@ return new class extends Migration
         $table->foreign('id_training')
           ->references('id_training')
           ->on('training');
+        $table->string('topik_pertemuan');
         $table->string('tempat_pelaksana');
         $table->string('modul')->nullable();
         $table->enum('status', ['online', 'offline']);

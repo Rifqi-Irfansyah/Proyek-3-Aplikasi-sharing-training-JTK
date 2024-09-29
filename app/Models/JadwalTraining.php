@@ -17,6 +17,7 @@ class JadwalTraining extends Model
         'waktu_selesai',
         'status',
         'tempat_pelaksana',
+        'topik_pertemuan',
     ];
 
     public function training()
