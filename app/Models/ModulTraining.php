@@ -9,7 +9,11 @@ class ModulTraining extends Model
 {
     use HasFactory;
 
-    protected $table = 'modul';
+    protected $table = 'modul_training';
+    protected $fillable = [
+        'id_training',
+        'nama_file',
+    ];    
 
     public function training()
     {

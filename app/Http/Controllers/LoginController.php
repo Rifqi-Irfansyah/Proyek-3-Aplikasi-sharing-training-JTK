@@ -19,7 +19,7 @@ class LoginController extends Controller
                 return redirect('pemateri');
 
             else if($role == 'peserta')
-                return redirect();
+                return redirect('peserta');
         }
         else
             return view('auth.login');

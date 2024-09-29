@@ -42,7 +42,8 @@
                 <div class="text-primary">Haven't Create Meet</div>
                 @else
                 @foreach($training->jadwalTrainings as $jadwal)
-                <div>{{ $jadwal->waktu_mulai }}</div>
+                <div>{{ sprintf('%02d', \Carbon\Carbon::parse($jadwal->waktu_mulai)->day) }}
+                    {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->translatedFormat('F Y, H:i') }}</div>
                 @endforeach
                 @endif
             </div>

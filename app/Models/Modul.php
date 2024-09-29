@@ -10,6 +10,11 @@ class Modul extends Model
     use HasFactory;
 
     protected $table = 'modul';
+    protected $primaryKey = 'nama_file';
+    protected $fillable = [
+        'nama_file',
+        'judul',
+    ];
 
     public function training()
     {
