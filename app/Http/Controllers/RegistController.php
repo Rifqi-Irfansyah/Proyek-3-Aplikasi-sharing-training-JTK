@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\TambahanTrainer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,10 +17,10 @@ class RegistController extends Controller
         return view('auth.register_peserta'); // Form registrasi peserta
     }
 
-    // public function showTrainerForm()
-    //     {
-        //         return view('auth.register_trainer'); // Form registrasi trainer
-        //     }
+    public function showTrainerForm()
+    {
+        return view('auth.register_trainer'); // Form registrasi trainer
+    }
 
         public function registerPeserta(Request $request)
         {
@@ -50,6 +51,49 @@ class RegistController extends Controller
             }
         }
 
+        // Proses registrasi trainer
+        public function registerTrainer(Request $request)
+        {
+            // Validasi input trainer
+            $validatedData = $request->validate([
+                'full_name' => 'required|string|max:50',
+                'email' => 'required|string|email|max:50|unique:users,email',
+                'gender' => 'required|in:laki-laki,perempuan',
+                'date_of_birth' => 'required|date',
+                'password' => 'required|string|min:8|confirmed',
+                'no_wa' => 'required|string|max:20',
+                'kemampuan' => 'required|string|max:255',
+                'pengalaman' => 'required|in:belum ada,<1 tahun,1-3 tahun,3 tahun +',
+            ]);
+
+            // Buat user baru sebagai trainer
+            // Buat user baru untuk trainer
+    $user = User::create([
+        'email' => $validatedData['email'],
+        'role' => 'pemateri',
+        'name' => $validatedData['full_name'],
+        'gender' => $validatedData['gender'],
+        'tanggal_lahir' => $validatedData['date_of_birth'],
+        'password' => Hash::make($validatedData['password']),
+    ]);
+
+    // Setelah user berhasil disimpan, simpan data ke tabel trainer
+    if ($user) {
+        // Misalkan model Trainer memiliki relasi dengan User
+        $trainer = TambahanTrainer::create([
+            'email' => $user->email, // Ambil ID user yang baru dibuat
+            'no_wa' => $validatedData['no_wa'],
+            'kemampuan' => $validatedData['kemampuan'],
+            'pengalaman' => $validatedData['pengalaman'],
+            'status_akun' => 'Belum direview',
+
+        ]);
+
+        return redirect()->route('login')->with('success', 'Registrasi trainer berhasil!');
+    } else {
+        return redirect()->back()->with('error', 'Registrasi gagal, silakan coba lagi.');
+    }
+        }
 
 
 }

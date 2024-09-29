@@ -21,6 +21,10 @@ Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
 Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('auth')->name('logout');
 
+Route::get('/pra-register', function () {
+    return view('auth.pra_register');
+})->name('register.choice');
+
 Route::get('/register-peserta', [RegistController::class, 'showPesertaForm'])->name('register.peserta');
 Route::get('/register-trainer', [RegistController::class, 'showTrainerForm'])->name('register.trainer');
 
