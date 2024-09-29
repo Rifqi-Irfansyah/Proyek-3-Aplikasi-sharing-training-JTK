@@ -34,6 +34,7 @@ class DetailTraining extends Controller
             'endMeet' => 'required|date|after:startMeet',
             'locationMeet' => 'required|string|max:255',
             'status' => 'required|string|max:50',
+            'descMeet' => 'required|string',
         ]);
 
         JadwalTraining::create([
@@ -42,6 +43,7 @@ class DetailTraining extends Controller
             'waktu_selesai' => $request->endMeet,
             'tempat_pelaksana' => $request->locationMeet,
             'status' => $request->status,
+            'topik_pertemuan' => $request->descMeet
         ]);
 
         return response()->json(['success' => 'Meeting added successfully!'], 200);

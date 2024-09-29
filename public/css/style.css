@@ -19,8 +19,8 @@
 .popup-error{
     border-radius: 30px !important;
     max-width: 70vh !important;
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(6px);
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(10px);
     border-style: solid;
     border-color: #E34343;
@@ -42,15 +42,15 @@
 
 .popup-edit{
   border-radius: 30px !important;
-  min-width: 40%;
+  min-width: 50%;
   width: auto;
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(8px);
   border-style: solid;
   border-color: #6293f4;
   border-width: 3px;
-  color: var(--black1);
+  color: var(--white);
 }
 
 .btn-confirm{
@@ -178,7 +178,6 @@
   width: 300px;
   height: 100%;
   background: var(--blue);
-  border-left: 10px solid var(--blue);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   transition: 0.5s;
@@ -305,4 +304,27 @@ body {
   min-width: 60px;
   max-width: 80px;
   text-align: center;
+}
+
+.scrollbar-left {
+  overflow: auto;
+  direction: rtl;
+}
+
+.scrollbar-left::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-left::-webkit-scrollbar-track {
+  background: var(--blue-gray); 
+}
+
+.scrollbar-left::-webkit-scrollbar-thumb {
+  background: var(--black2);
+  border-radius: 10px; 
+}
+
+
+.scrollbar-left > * {
+  direction: ltr;
 }

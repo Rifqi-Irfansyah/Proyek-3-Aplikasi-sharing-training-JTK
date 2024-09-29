@@ -5,15 +5,17 @@
 @section('content')
 
 
-<div class="container-fluid p-0 d-flex bg-background_putih min-vh-100">
+<div class="container-fluid p-0 m-0 d-flex bg-background_putih min-vh-100">
     <!-- Sidebar navigation -->
-    <div class="navigation ps-4 bg-custom position-fixed h-100 overflow-auto">
+    <div class="navigation ps-4 bg-custom position-fixed h-100 scrollbar-left">
         <div class=" my-2">
             <span class="title text-white ps-0">Trainify </span>
         </div>
-        <button class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
-            <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
-        </button>
+        <div>
+            <button class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
+                <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
+            </button>
+        </div>
 
         <ul class="list-unstyled mt-4 ps-1">
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield('aboutSelect')">
@@ -58,56 +60,64 @@ function buttonEdit() {
             value: formValues
         } = await Swal.fire({
             title: title,
+            backdrop: 'rgba(0,0,0,0.8)',
+            confirmButtonText: 'Submit',
             html: `
-            <form action="{{route('tambahmeet')}}" method="post" id="meetForm" class="container-fluid">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                <div class="row align-items-center">
-                    <div class ="col-4">Date</div>
-                    <div class ="col-7 d-flex align-items-center">
-                        <input id="input-date" name="startMeet" type="date" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
-                    </div>
-                </div>
-
-                <div class="row align-items-center mt-2">
-                    <div class ="col-4">Start</div>
-                    <div class ="col-7 d-flex align-items-center">
-                        <input id="input-start" name="startMeet" type="time" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
-                    </div>
-                </div>
-
-                <div class="row align-items-center mt-2">
-                    <div class ="col-4">End</div>
-                    <div class ="col-7 d-flex align-items-center">
-                        <input id="input-end" name="endMeet" type="time" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
-                    </div>
-                </div>
-
-                <div class="row align-items-center mt-2">
-                    <div class ="col-4">Location</div>
-                    <div class ="col-7 d-flex align-items-center">
-                        <input id="input-location" name="locationMeet" type="text" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
-                    </div>
-                </div>
-
-                <div class="row align-items-center mt-2">
-                    <div class ="col-4">Status</div>
-                    <div class ="col-6 ms-3">
-                        <div class="d-flex align-items-center justify-content-around mt-3">
-                            <div class="form-check">    
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="status" value="online">Online
-                                </label>
+                <div class = "row">
+                    <div class="col-6 ">
+                        <div class="row align-items-center">
+                            <div class="col-5 d-flex align-self-left">Date</div>
+                            <div class="col-7 d-flex align-items-center">
+                                <input id="input-date" name="startMeet" type="date" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
                             </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="status" value="offline">Offline
-                                </label>
+                        </div>
+
+                        <div class="row align-items-center mt-2">
+                            <div class ="col-5 d-flex align-self-left">Start Meet</div>
+                            <div class ="col-7 d-flex align-items-center">
+                                <input id="input-start" name="startMeet" type="time" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center mt-2">
+                            <div class ="col-5 d-flex align-self-left">End Meet</div>
+                            <div class ="col-7 d-flex align-items-center">
+                                <input id="input-end" name="endMeet" type="time" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
                             </div>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="row align-items-center">
+                            <div class ="col-5 d-flex align-self-left">Room/Link</div>
+                            <div class ="col d-flex align-items-center">
+                                <input id="input-location" name="locationMeet" type="text" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                            </div>
+                        </div>
+                        <div class="row align-items-center mt-2">
+                            <div class ="col-3">Status</div>
+                            <div class ="col ms-3">
+                                <div class="d-flex align-items-center justify-content-around">
+                                    <div class="form-check">    
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input text-sm-left" name="status" value="online">Online
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input text-sm-left" name="status" value="offline">Offline
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
                 </div>
-            </form>
+                <div class ="d-flex justify-content-left mt-4 mb-2"><div>Meeting Discussion</div></div>
+                <div class ="d-flex align-items-center">
+                    <textarea class="form-control form-control-lg bg-light fs-6 rounded-4 ps-4" id="input-desc" rows="4"></textarea>
+                </div>
             `,
             focusConfirm: false,
 
@@ -120,9 +130,10 @@ function buttonEdit() {
                 const locationMeet = document.getElementById("input-location").value;
                 const status = document.querySelector('input[name="status"]:checked') ? document
                     .querySelector('input[name="status"]:checked').value : null;
+                const descMeet = document.getElementById("input-desc").value;
 
                 // Validasi input
-                if (!startMeet || !endMeet || !locationMeet || !status) {
+                if (!startMeet || !endMeet || !locationMeet || !status || !descMeet) {
                     Swal.showValidationMessage('Please complete all fields!');
                     setTimeout(() => {
                         Swal.close();
@@ -134,7 +145,8 @@ function buttonEdit() {
                     startMeet,
                     endMeet,
                     locationMeet,
-                    status
+                    status,
+                    descMeet
                 };
             },
             customClass: {
@@ -149,11 +161,12 @@ function buttonEdit() {
             const confirmation = await Swal.fire({
                 title: 'Are you sure?',
                 text: "Do you want to save these changes?",
-                icon: 'warning',
+                icon: 'info',
                 showCancelButton: true,
                 confirmButtonText: 'Yes',
                 cancelButtonText: 'No',
                 reverseButtons: true,
+                backdrop: 'rgba(0,0,0,0.8)',
                 customClass: {
                     popup: 'popup-edit',
                     confirmButton: 'btn-confirm',
@@ -178,7 +191,8 @@ function buttonEdit() {
                         startMeet: formValues.startMeet,
                         endMeet: formValues.endMeet,
                         locationMeet: formValues.locationMeet,
-                        status: formValues.status
+                        status: formValues.status,
+                        descMeet: formValues.descMeet
                     },
                     success: function(response) {
                         location.reload(); 
@@ -188,6 +202,7 @@ function buttonEdit() {
                             title: 'Success Saved!',
                             text: 'Meet have been added',
                             showConfirmButton: false,
+                            backdrop: 'rgba(0,0,0,0.8)',
                             timer: 1000,
                             customClass: {
                                 popup: 'popup-success',
@@ -202,6 +217,7 @@ function buttonEdit() {
                             icon: 'error',
                             title: 'Failed Saved!',
                             text: errorMessage,
+                            backdrop: 'rgba(0,0,0,0.8)',
                             customClass: {
                                 popup: 'popup-error',
                                 confirmButton: 'btn-confirm',
@@ -216,8 +232,9 @@ function buttonEdit() {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Cancelled',
-                    text: 'No changes were made',
+                    text: 'No changes were made',            
                     showConfirmButton: false,
+                    backdrop: 'rgba(0,0,0,0.8)',
                     timer: 1000,
                     customClass: {
                         popup: 'popup-edit',

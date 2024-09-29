@@ -14,7 +14,7 @@
             </div>
             <div class="col-2 d-flex justify-content-end align-items-center">
                 <button class="btn btn-md fs-6 rounded-5 btn-custom w-100 py-2" onClick="buttonEdit()">
-                    <i class="fa-regular fa-user"></i> Edit Training 
+                    <i class="fa-regular fa-user"></i> Edit Training
                 </button>
             </div>
         </div>
@@ -38,10 +38,13 @@
         <div class="row mt-4">
             <div class="col-3"><i class="fa-regular fa-calendar me-3"></i>Date Training</div>
             <div class="col">
+                @if($training->jadwalTrainings->isEmpty())
+                <div class="text-primary">Haven't Create Meet</div>
+                @else
                 @foreach($training->jadwalTrainings as $jadwal)
-                <div>{{$jadwal->waktu_mulai}}</div>
+                <div>{{ $jadwal->waktu_mulai }}</div>
                 @endforeach
-
+                @endif
             </div>
         </div>
 
