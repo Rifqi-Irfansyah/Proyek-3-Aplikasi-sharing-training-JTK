@@ -23,7 +23,8 @@ class Jadwal extends Seeder
             'tempat_pelaksana' => "R101",
             'status' => "offline",
             'waktu_mulai' => now()->subDays(2),
-            'waktu_selesai' => now()
+            'waktu_selesai' => now(),
+            'topik_pertemuan' => "lorem 25"
         ]);
 
         DB::table('jadwal_training')->insert([
@@ -31,7 +32,8 @@ class Jadwal extends Seeder
             'tempat_pelaksana' => "R101",
             'status' => "offline",
             'waktu_mulai' => now(),
-            'waktu_selesai' => now()
+            'waktu_selesai' => now(),
+            'topik_pertemuan' => "lorem 30"
         ]);
 
         DB::table('jadwal_training')->insert([
@@ -39,7 +41,8 @@ class Jadwal extends Seeder
             'tempat_pelaksana' => "R101",
             'status' => "offline",
             'waktu_mulai' => now(),
-            'waktu_selesai' => now()
+            'waktu_selesai' => now(),
+            'topik_pertemuan' => "lorem 10"
         ]);
     }
 }

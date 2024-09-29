@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CreateTrainingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
@@ -30,6 +31,11 @@ Route::get('/register-trainer', [RegistController::class, 'showTrainerForm'])->n
 
 Route::post('/register-peserta', [RegistController::class, 'registerPeserta'])->name('register.peserta.submit');
 Route::post('/register-trainer', [RegistController::class, 'registerTrainer'])->name('register.trainer.submit');
+
+Route::get('/training/create', [CreateTrainingController::class, 'create'])->name('training.create');
+Route::post('/training/store', [CreateTrainingController::class, 'store'])->name('training.store');
+Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainingController::class, 'createMeetings'])->name('create.meetings');
+Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
 
 Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 Route::post('/tambahModul', [DetailTraining::class, 'tambahModul']);
