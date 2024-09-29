@@ -14,7 +14,8 @@ class TambahanTrainer extends Model
     protected $fillable = [
         'email',
         'no_wa',
-        'cv',
+        'kemampuan',
+        'pengalaman',
         'status_akun',
     ];
 
