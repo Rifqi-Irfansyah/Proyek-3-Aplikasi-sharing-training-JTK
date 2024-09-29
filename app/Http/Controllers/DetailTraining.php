@@ -20,4 +20,30 @@ class DetailTraining extends Controller
         $training = Training::with(['jadwalTrainings', 'user'],)->find($detailMeet->id_training);
         return view('trainer.detail_training.detailmeet', ['meet' => $detailMeet, 'training' => $training]);
     }
+
+    public function modul($id)
+    {
+        $training = Training::with(['jadwalTrainings', 'user'],)->find($id);
+        return view('trainer.detail_training.modul', ['training' => $training]);
+    }
+
+    public function tambahMeet(Request $request)
+    {
+            // Validate the incoming request data
+        $request->validate([
+            'startMeet' => 'required|date',
+            'endMeet' => 'required|date|after:startMeet',
+            'locationMeet' => 'required|string|max:255',
+            'status' => 'required|string|max:50',
+        ]);
+
+        JadwalTraining::create([
+            'waktu_mulai' => $request->startMeet,
+            'waktu_selesai' => $request->endMeet,
+            'tempat_pelaksana' => $request->locationMeet,
+            'status' => $request->status,
+        ]);
+
+        return response()->json(['success' => 'Meeting added successfully!'], 200);
+    }
 }

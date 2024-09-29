@@ -18,6 +18,8 @@ use App\Http\Controllers\RegistController;
 */
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
+Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
+Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('auth')->name('logout');
 
 Route::get('/register-peserta', [RegistController::class, 'showPesertaForm'])->name('register.peserta');
 Route::get('/register-trainer', [RegistController::class, 'showTrainerForm'])->name('register.trainer');
@@ -25,15 +27,15 @@ Route::get('/register-trainer', [RegistController::class, 'showTrainerForm'])->n
 Route::post('/register-peserta', [RegistController::class, 'registerPeserta'])->name('register.peserta.submit');
 Route::post('/register-trainer', [RegistController::class, 'registerTrainer'])->name('register.trainer.submit');
 
+Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
+Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
 
-Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
 
 // Route::get('home', return)->middleware('pemateri');
 
-Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('auth')->name('logout');
 
 // User Access
 Route::middleware(['admin'])->group(function () {
