@@ -131,26 +131,26 @@
 .btn-custom:active {
     background-color: #004085;
     color: white;
-    outline: none; 
+    outline: none;
 }
 
 .btn-second{
     background-color: #C7D9FD;
     color: #262323;
-    outline: none; 
+    outline: none;
 }
 
 .btn-second:focus,
 .btn-second.active {
     background-color: #efefef;
     color: #262323;
-    outline: none; 
+    outline: none;
     transform: translateX(+40%);
 }
 
 .btn-back{
   background-color: var(--gray);
-  outline: none; 
+  outline: none;
 }
 
 .btn-back.btn i{
@@ -158,13 +158,13 @@
 }
 
 .btn-back.btn:hover{
-  background-color: var(--orange);
+  background-color: var(#84A3E0);
 }
 
 .btn-back.btn:hover i{
-  color: var(--black1);
+  color: var(--white);
 }
-  
+
 .w-20{
     width: 20%;
 }
@@ -201,7 +201,7 @@
   background-color: var(--blue-white);
 }
 
-.navigation ul li:hover{  
+.navigation ul li:hover{
   width: 80%;
   background-color: var(--white-gray);
 }
@@ -316,12 +316,12 @@ body {
 }
 
 .scrollbar-left::-webkit-scrollbar-track {
-  background: var(--blue-gray); 
+  background: var(--blue-gray);
 }
 
 .scrollbar-left::-webkit-scrollbar-thumb {
   background: var(--black2);
-  border-radius: 10px; 
+  border-radius: 10px;
 }
 
 
