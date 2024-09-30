@@ -3,11 +3,12 @@
 @section('title', 'Atur Pertemuan')
 
 @section('content')
-<div class="container d-flex justify-content-center align-items-center min-vh-100 mt-3 mb-3">
+@include('admin.topbar')
+<div class="container d-flex justify-content-center align-items-center min-vh-100 mt-3 mb-5">
     <div class="row justify-content-center w-100">
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="rounded-5 p-5 shadow box-area bg-white position-relative">
-                <a href="{{ route('login') }}" class="btn btn-back rounded-circle position-absolute"
+                <a href="{{ route('training.create') }}" class="btn btn-back rounded-circle position-absolute"
                    style="top: 20px; left: 20px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
                     <i class="fas fa-arrow-left"></i>
                 </a>
@@ -19,7 +20,7 @@
                         <h4>Meeting {{ $i }}</h4>
 
                         <div class="form-group mb-3">
-                            <label for="topik_pertemuan_{{ $i }}" class="form-label">Meeting Topic</label>
+                            <label for="topik_pertemuan_{{ $i }}" class="form-label">Meeting Discussion</label>
                             <input type="text" class="form-control rounded-5" id="topik_pertemuan_{{ $i }}" name="topik_pertemuan[]" required>
                         </div>
 

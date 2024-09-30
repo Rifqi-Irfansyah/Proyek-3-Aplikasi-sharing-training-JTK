@@ -279,8 +279,14 @@
   box-shadow: 35px -35px 0 10px var(--white);
   pointer-events: none;
 }
-
-
+/* navigation admin */
+.nav-link:hover {
+transition: color 0.3s;
+}
+.nav-link:hover i,
+.nav-link:hover {
+color: white !important;
+}
 
 body {
   min-height: 100vh;

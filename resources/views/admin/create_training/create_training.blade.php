@@ -1,9 +1,9 @@
 @extends('../layoutmaster')
-
 @section('title', 'Buat Training')
 
 @section('content')
-<div class="container d-flex justify-content-center align-items-center min-vh-100 mt-3 mb-3">
+@include('admin.topbar')
+<div class="container d-flex justify-content-center align-items-center min-vh-100 mt-3 mb-5">
     <div class="row justify-content-center w-100">
         <div class="col-md-8">
             <div class="rounded-5 p-5 shadow box-area bg-white text-center position-relative">
@@ -36,11 +36,12 @@
                     <button type="submit" class="btn btn-lg w-100 fs-6 rounded-5 mt-3" style="background-color: #6cace4; color: white; transition: background-color 0.3s, transform 0.2s;"
                         onmouseover="this.style.backgroundColor='#5aabbf'; this.style.transform='scale(1.05)';"
                         onmouseout="this.style.backgroundColor='#6cace4'; this.style.transform='scale(1)';">
-                        Create Now
+                        Create Training
                     </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+@include('footer')
 @endsection
