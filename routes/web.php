@@ -28,3 +28,8 @@ Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('au
 Route::middleware(['admin'])->group(function () {
     Route::get('beranda', [LoginController::class, 'beranda'])->name('welcome');
 });
+
+//Lina
+Route::get('listtraining', function () {
+    return view('admin.ListTraining');
+});
