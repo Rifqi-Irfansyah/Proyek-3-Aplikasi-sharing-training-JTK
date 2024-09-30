@@ -20,12 +20,17 @@
 
                     <div class="form-group mb-3 text-start">
                         <label for="jumlah_pertemuan" class="form-label">Number of Meetings</label>
-                        <input type="number" class="form-control rounded-5" id="jumlah_pertemuan" name="jumlah_pertemuan" min="1" required>
+                        <select class="form-control rounded-5" id="jumlah_pertemuan" name="jumlah_pertemuan" required>
+                            <option value="">Select Number of Meetings</option>
+                            @for ($i = 4; $i <= 7; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
                     </div>
 
                     <div class="form-group mb-3 text-start">
                         <label for="kuota" class="form-label">Quota of Trainee</label>
-                        <input type="number" class="form-control rounded-5" id="kuota" name="kuota" min="1" required>
+                        <input type="number" class="form-control rounded-5" id="kuota" name="kuota" min="10" max="30" required>
                     </div>
 
                     <div class="form-group mb-3 text-start">
