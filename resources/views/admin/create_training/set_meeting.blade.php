@@ -60,7 +60,7 @@
         </div>
     </div>
 </div>
-
+@include('footer')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById('meetingForm');
