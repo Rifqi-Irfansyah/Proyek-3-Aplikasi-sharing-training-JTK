@@ -48,8 +48,8 @@ class Jadwal extends Seeder
             'id_training' => 1,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
-            'waktu_mulai' => now(),
-            'waktu_selesai' => now(),
+            'waktu_mulai' => now()->addDays(3),
+            'waktu_selesai' => now()->addDays(3),
             'topik_pertemuan' => "lorem 10"
         ]);
 

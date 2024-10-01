@@ -7,13 +7,15 @@ use App\Models\Training;
 use App\Models\JadwalTraining;
 use App\Models\Modul;
 use App\Models\ModulTraining;
+use App\Models\PesertaTraining;
 
 class DetailTraining extends Controller
 {
     public function detailTraining($id)
     {
         $training = Training::with(['jadwalTrainings', 'user'],)->find($id);
-        return view('trainer.detail_training.about', ['training' => $training]);
+        $total_peserta = Training::withCount('peserta')->find($id);
+        return view('trainer.detail_training.about', ['training' => $training, 'total_peserta' => $total_peserta]);
     }
 
     public function detailMeet($id)

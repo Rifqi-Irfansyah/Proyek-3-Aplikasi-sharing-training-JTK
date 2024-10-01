@@ -32,7 +32,7 @@
 
         <div class="row mt-4">
             <div class="col-3"><i class="fa-solid fa-user-group me-3"></i>Kuota</div>
-            <div class="col">{{$training->kuota}}</div>
+            <div class="col">{{$total_peserta->peserta_count}}/{{$training->kuota}}</div>
         </div>
 
         <div class="row mt-4">
@@ -42,8 +42,15 @@
                 <div class="text-primary">Haven't Create Meet</div>
                 @else
                 @foreach($training->jadwalTrainings as $jadwal)
-                <div>{{ sprintf('%02d', \Carbon\Carbon::parse($jadwal->waktu_mulai)->day) }}
-                    {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->translatedFormat('F Y, H:i') }}</div>
+                @php
+                $jadwalMulai = \Carbon\Carbon::parse($jadwal->waktu_mulai);
+                $isPast = $jadwalMulai->isBefore(\Carbon\Carbon::now());
+                $isToday = $jadwalMulai->isToday();
+                @endphp
+                <div style="color: {{ $isToday ? 'green' : ($isPast ? 'gray                ' : 'black') }};">
+                    {{ sprintf('%02d', $jadwalMulai->day) }}
+                    {{ $jadwalMulai->translatedFormat('F Y, H:i') }}
+                </div>
                 @endforeach
                 @endif
             </div>

@@ -26,4 +26,10 @@ class Training extends Model
     {
         return $this->hasMany(ModulTraining::class, 'id_training');
     }
+
+    public function peserta()
+    {
+        return $this->hasMany(PesertaTraining::class, 'id_training');
+    }
+
 }
