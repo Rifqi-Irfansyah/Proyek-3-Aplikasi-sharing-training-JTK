@@ -42,7 +42,7 @@ class DetailTraining extends Controller
             'endMeet' => 'required|date|after:startMeet',
             'locationMeet' => 'required|string|max:255',
             'status' => 'required|string|max:50',
-            'descMeet' => 'required|string',
+            'descMeet' => 'required|string|max:500',
         ]);
 
         JadwalTraining::create([

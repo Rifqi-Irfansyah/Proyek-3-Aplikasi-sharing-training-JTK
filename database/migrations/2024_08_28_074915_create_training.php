@@ -20,7 +20,7 @@ return new class extends Migration
           ->references('email')
           ->on('users');
           $table->string('judul_training');
-          $table->string('deskripsi');
+          $table->string('deskripsi',500);
           $table->enum('status', ['Pendaftaran', 'Berlangsung','Selesai']);
           $table->string('kuota');
           $table->timestamps();
@@ -46,7 +46,7 @@ return new class extends Migration
         $table->foreign('id_training')
           ->references('id_training')
           ->on('training');
-        $table->string('topik_pertemuan');
+        $table->string('topik_pertemuan', 500);
         $table->string('tempat_pelaksana');
         $table->string('modul')->nullable();
         $table->enum('status', ['online', 'offline']);

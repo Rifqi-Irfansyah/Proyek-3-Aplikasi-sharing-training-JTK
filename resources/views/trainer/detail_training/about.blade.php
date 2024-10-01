@@ -20,24 +20,24 @@
         </div>
 
         <!-- Trainer information -->
-        <div class="row mt-5">
+        <div class="row mt-5 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-user-tie me-3"></i>Trainer</div>
-            <div class="col">{{$training->user->name}}</div>
+            <div class="col-7">{{$training->user->name}}</div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row mt-4 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-bars-progress me-3"></i>Status</div>
-            <div class="col">{{$training->status}}</div>
+            <div class="col-7">{{$training->status}}</div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row mt-4 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-user-group me-3"></i>Kuota</div>
-            <div class="col">{{$total_peserta->peserta_count}}/{{$training->kuota}}</div>
+            <div class="col-7">{{$total_peserta->peserta_count}} of {{$training->kuota}} Participants joined</div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row mt-4 justify-content-center">
             <div class="col-3"><i class="fa-regular fa-calendar me-3"></i>Date Training</div>
-            <div class="col">
+            <div class="col-7">
                 @if($training->jadwalTrainings->isEmpty())
                 <div class="text-primary">Haven't Create Meet</div>
                 @else
@@ -47,7 +47,7 @@
                 $isPast = $jadwalMulai->isBefore(\Carbon\Carbon::now());
                 $isToday = $jadwalMulai->isToday();
                 @endphp
-                <div style="color: {{ $isToday ? 'green' : ($isPast ? 'gray                ' : 'black') }};">
+                <div style="color: {{ $isToday ? 'green' : ($isPast ? 'gray' : 'black') }};">
                     {{ sprintf('%02d', $jadwalMulai->day) }}
                     {{ $jadwalMulai->translatedFormat('F Y, H:i') }}
                 </div>
@@ -56,9 +56,9 @@
             </div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row mt-4 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-align-center me-3"></i>Description</div>
-            <div class="col">{{$training->deskripsi}}</div>
+            <div class="col-7">{{$training->deskripsi}}</div>
         </div>
     </div>
 </div>

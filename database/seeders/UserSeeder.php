@@ -27,6 +27,15 @@ class UserSeeder extends Seeder
             'tanggal_lahir' => now(),
         ]);
 
+        // PESERTA
+        DB::table('users')->insert([
+            'email' => "user@gmail.com",
+            'role' => "peserta",
+            'name' => "Rifqi Irfansyah",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
         // TRAINER
         DB::table('users')->insert([
             'email' => "pemateri@gmail.com",

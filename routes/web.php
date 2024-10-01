@@ -50,9 +50,13 @@ Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
 // User Access
 Route::middleware(['admin'])->group(function () {
-    Route::get('beranda', [LoginController::class, 'beranda'])->name('welcome');
+    Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
 });
 
 Route::middleware(['pemateri'])->group(function () {
     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');
+});
+
+Route::middleware(['peserta'])->group(function () {
+    Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
 });

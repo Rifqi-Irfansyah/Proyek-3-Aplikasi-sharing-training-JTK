@@ -36,11 +36,12 @@ class LoginController extends Controller
             $user = Auth::user();
             $role = $user->role;
 
+            Session(['success' => 'Login Success !!']);
             if ($role == 'admin')
-                return redirect('beranda');
+                return redirect('admin');
 
             else if($role == 'peserta')
-                return redirect();
+                return redirect('peserta');
 
             else if($role == 'pemateri'){
                 $tambahanTrainer = $user->TambahanTrainer;
@@ -52,7 +53,6 @@ class LoginController extends Controller
                     return redirect()->back();
                 }
             }
-            Session::flash('success', 'Login Success !!');
         }
         else{
             Session::flash('error', 'Username or Password Wrong !!');

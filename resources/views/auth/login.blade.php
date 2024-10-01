@@ -13,6 +13,7 @@ Swal.fire({
     title: 'Login Failed',
     text: errorMessage,
     confirmButtonText: 'OK',
+    backdrop: 'rgba(0,0,0,0.8)',
     customClass: {
         popup: 'popup-error',
         confirmButton: 'btn-confirm',
