@@ -53,6 +53,27 @@
   color: var(--white);
 }
 
+.popup-modul{
+  border-radius: 30px !important;
+  min-width: 60%;
+  width: auto;
+  min-height: 90%;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(8px);
+  /* border-style: solid; */
+  /* border-color: #6293f4; */
+  border-width: 0px;
+  color: var(--white);
+}
+
+.full-size {
+  border-radius: 15px !important;
+  width: 100vh;  
+  height: 85vh; 
+  border: none; 
+}
+
 .btn-confirm{
     min-width: 100px !important;
     border-radius: 25px !important;

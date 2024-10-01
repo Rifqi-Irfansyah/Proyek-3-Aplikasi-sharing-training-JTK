@@ -25,8 +25,12 @@ class DetailTraining extends Controller
 
     public function modul($id)
     {
-        $training = Training::with(['jadwalTrainings', 'user'],)->find($id);
-        return view('trainer.detail_training.modul', ['training' => $training]);
+        $filenames = ModulTraining::where('id_training', $id)->get();
+
+        $namaFiles = $filenames->pluck('nama_file');
+        $modul = Modul::whereIn('nama_file', $namaFiles)->get();
+        $training = Training::with(['jadwalTrainings'])->find($id);
+        return view('trainer.detail_training.modul', ['modul' => $modul, 'training' => $training]);
     }
 
     public function tambahMeet(Request $request)
@@ -55,7 +59,7 @@ class DetailTraining extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:50',
-            'file' => 'required|file|mimes:pdf|max:2048'
+            'file' => 'required|file|mimes:pdf|max:10240'
         ]);
 
         $file = $request->file('file');

@@ -11,6 +11,8 @@ class Modul extends Model
 
     protected $table = 'modul';
     protected $primaryKey = 'nama_file';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'nama_file',
         'judul',

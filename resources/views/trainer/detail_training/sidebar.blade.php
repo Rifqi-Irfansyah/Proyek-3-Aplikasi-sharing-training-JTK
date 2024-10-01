@@ -26,7 +26,7 @@
 
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield('modulSelect')">
                 <a href="/modul/{{$training->id_training}}" class=" text-decoration-none">
-                    <span class="fs-6 fw-bold my-1 ">Modul</span>
+                    <span class="fs-6 fw-bold my-1 ">Module</span>
                 </a>
             </li>
 

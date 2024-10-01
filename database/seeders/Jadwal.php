@@ -17,7 +17,15 @@ class Jadwal extends Seeder
      */
     public function run()
     {
-        // ADMIN
+        DB::table('training')->insert([
+            // 'email_trainer' => "pemateri@gmail.com",
+            'judul_training' => "Belajar PHP",
+            'email_trainer' => "admin@gmail.com",
+            'kuota' => 30,
+            'deskripsi' => "Belajar PHP dmdmdm amdamda",
+            'status' => "Pendaftaran"
+        ]);
+
         DB::table('jadwal_training')->insert([
             'id_training' => 1,
             'tempat_pelaksana' => "R101",
@@ -43,6 +51,15 @@ class Jadwal extends Seeder
             'waktu_mulai' => now(),
             'waktu_selesai' => now(),
             'topik_pertemuan' => "lorem 10"
+        ]);
+
+        DB::table('training')->insert([
+            // 'email_trainer' => "pemateri@gmail.com",
+            'judul_training' => "Belajar Java",
+            'email_trainer' => "admin@gmail.com",
+            'kuota' => 30,
+            'deskripsi' => "Belajar Java dmdmdm amdamda",
+            'status' => "Pendaftaran"
         ]);
     }
 }

@@ -12,12 +12,12 @@
 
         <!-- Trainer information -->
         <div class="row mt-5">
-            <div class="col-3"><i class="fa-solid fa-user-tie me-3"></i>Start Meet</div>
+            <div class="col-3"><i class="fa-solid fa-clock me-3"></i>Start Meet</div>
             <div class="col">{{$meet->waktu_mulai}}</div>
         </div>
 
         <div class="row mt-4">
-            <div class="col-3"><i class="fa-solid fa-bars-progress me-3"></i>Finish Meet</div>
+            <div class="col-3"><i class="fa-solid fa-clock me-3"></i>Finish Meet</div>
             <div class="col">{{$meet->waktu_selesai}}</div>
         </div>
 
@@ -29,6 +29,11 @@
         <div class="row mt-4">
             <div class="col-3"><i class="fa-solid fa-user-group me-3"></i>Media</div>
             <div class="col">{{$meet->tempat_pelaksana}}</div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-3"><i class="fa-solid fa-user-group me-3"></i>Topic</div>
+            <div class="col">{{$meet->topik_pertemuan}}</div>
         </div>
 
         <div class="row mt-4">
