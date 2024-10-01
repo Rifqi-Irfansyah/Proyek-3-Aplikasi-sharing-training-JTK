@@ -66,7 +66,6 @@ class RegistController extends Controller
                 'pengalaman' => 'required|in:belum ada,<1 tahun,1-3 tahun,3 tahun +',
             ]);
 
-            // Buat user baru sebagai trainer
             // Buat user baru untuk trainer
     $user = User::create([
         'email' => $validatedData['email'],
@@ -79,9 +78,8 @@ class RegistController extends Controller
 
     // Setelah user berhasil disimpan, simpan data ke tabel trainer
     if ($user) {
-        // Misalkan model Trainer memiliki relasi dengan User
         $trainer = TambahanTrainer::create([
-            'email' => $user->email, // Ambil ID user yang baru dibuat
+            'email' => $user->email,
             'no_wa' => $validatedData['no_wa'],
             'kemampuan' => $validatedData['kemampuan'],
             'pengalaman' => $validatedData['pengalaman'],
