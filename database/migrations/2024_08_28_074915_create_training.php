@@ -28,16 +28,18 @@ return new class extends Migration
       });
 
       Schema::create('peserta_training', function (Blueprint $table) {
-          $table->id('id_peserta_training');
           $table->unsignedBigInteger('id_training');
           $table->foreign('id_training')
             ->references('id_training')
-            ->on('training');
+            ->on('training')
+            ->onDelete('cascade');
           $table->string('email_peserta');
           $table->foreign('email_peserta')
             ->references('email')
-            ->on('users');
+            ->on('users')
+            ->onDelete('cascade');
           $table->timestamps();
+          $table->primary(['id_training', 'email_peserta']);
       });
 
       Schema::create('jadwal_training', function (Blueprint $table) {

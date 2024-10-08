@@ -36,6 +36,86 @@ class UserSeeder extends Seeder
             'tanggal_lahir' => now(),
         ]);
 
+        DB::table('users')->insert([
+            'email' => "user1@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 1",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'email' => "user2@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 2",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+        
+        DB::table('users')->insert([
+            'email' => "user3@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 3",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+        
+        DB::table('users')->insert([
+            'email' => "user4@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 4",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'email' => "user5@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 5",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'email' => "user6@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 6",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'email' => "user7@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 7",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'email' => "user8@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 8",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'email' => "user9@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 9",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'email' => "user10@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 10",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
         // TRAINER
         DB::table('users')->insert([
             'email' => "pemateri@gmail.com",
