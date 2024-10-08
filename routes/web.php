@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DetailTraining;
 use App\Http\Controllers\RegistController;
+use App\Http\Controllers\EditTraining;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::post('/training/meetings/store', [CreateTrainingController::class, 'store
 
 Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 Route::post('/tambahModul', [DetailTraining::class, 'tambahModul']);
+Route::post('/editTraining', [EditTraining::class, 'editTraining']);
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
