@@ -68,7 +68,6 @@
             let valid = true;
             let errorMessage = '';
 
-            // Loop through all meetings
             for (let i = 1; i <= {{ $jumlah_pertemuan }}; i++) {
                 const startTimeInput = document.getElementById(`waktu_mulai_${i}`);
                 const endTimeInput = document.getElementById(`waktu_selesai_${i}`);
@@ -78,13 +77,13 @@
                 if (startTime >= endTime) {
                     valid = false;
                     errorMessage += `Please check the meeting time you set. The finish time for Meeting ${i} must be greater than the start time.\n`;
-                    startTimeInput.focus(); // Optional: focus pada input yang salah
+                    startTimeInput.focus();
                     break;
                 }
             }
 
             if (!valid) {
-                event.preventDefault(); // Mencegah form dari pengiriman
+                event.preventDefault(); 
 
                 // Menampilkan SweetAlert dengan pesan error
                 Swal.fire({
