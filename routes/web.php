@@ -40,7 +40,9 @@ Route::post('/training/meetings/store', [CreateTrainingController::class, 'store
 
 Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 Route::post('/tambahModul', [DetailTraining::class, 'tambahModul']);
-Route::post('/editTraining', [EditTraining::class, 'editTraining']);
+// Route::post('/editTraining/{id}', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
+
+Route::post('/editTraining', [EditTraining::class, 'editTraining'])->name('editTraining');
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);

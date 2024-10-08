@@ -136,17 +136,19 @@ function buttonEditTraining() {
             });
 
             if (confirmation.isConfirmed) {
-                // Kirim data ke server dengan AJAX
+                console.log(formValues.kuota);
+                console.log(formValues.descMeet);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
                 $.ajax({
-                    url: '/editTraining',
-                    method: 'POST',
+                    type: 'POST',
+                    url: "{{route('editTraining')}}",
+                    // method: 'POST',
                     data: {
-                        id_training: {{$training -> id_training}},
+                        id : {{$training->id_training}},
                         kuota: formValues.kuota,
                         descMeet: formValues.descMeet
                     },
@@ -168,6 +170,7 @@ function buttonEditTraining() {
                         })
                     },
                     error: function(xhr, status, error) {
+                        console.log('Error:', error);
                         var errorMessage = xhr.responseJSON.message || 'There was problem while updated data';
                         Swal.fire({
                             icon: 'error',
