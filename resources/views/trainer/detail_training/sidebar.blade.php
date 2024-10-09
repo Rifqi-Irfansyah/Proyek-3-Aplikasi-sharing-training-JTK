@@ -124,9 +124,9 @@ function buttonEdit() {
             preConfirm: () => {
                 const date = document.getElementById("input-date").value;
                 const start = document.getElementById("input-start").value;
-                const end  = document.getElementById("input-end").value;
+                const end = document.getElementById("input-end").value;
                 const startMeet = `${date}T${start}`;
-                const endMeet = `${date}T${end}`; 
+                const endMeet = `${date}T${end}`;
                 const locationMeet = document.getElementById("input-location").value;
                 const status = document.querySelector('input[name="status"]:checked') ? document
                     .querySelector('input[name="status"]:checked').value : null;
@@ -187,7 +187,11 @@ function buttonEdit() {
                     url: '/tambahMeet',
                     method: 'POST',
                     data: {
-                        id_training: {{$training -> id_training}},
+                        id_training: {
+                            {
+                                $training - > id_training
+                            }
+                        },
                         startMeet: formValues.startMeet,
                         endMeet: formValues.endMeet,
                         locationMeet: formValues.locationMeet,
@@ -195,7 +199,7 @@ function buttonEdit() {
                         descMeet: formValues.descMeet
                     },
                     success: function(response) {
-                        location.reload(); 
+                        location.reload();
 
                         Swal.fire({
                             icon: 'success',
@@ -212,7 +216,8 @@ function buttonEdit() {
                         })
                     },
                     error: function(xhr, status, error) {
-                        var errorMessage = xhr.responseJSON.message || 'There was problem while saved data';
+                        var errorMessage = xhr.responseJSON.message ||
+                            'There was problem while saved data';
                         Swal.fire({
                             icon: 'error',
                             title: 'Failed Saved!',
@@ -232,7 +237,7 @@ function buttonEdit() {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Cancelled',
-                    text: 'No changes were made',            
+                    text: 'No changes were made',
                     showConfirmButton: false,
                     backdrop: 'rgba(0,0,0,0.8)',
                     timer: 1000,

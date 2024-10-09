@@ -4,7 +4,7 @@
 @section($meet->id_jadwal, 'hovered')
 @section('isi')
 <!-- Main content -->
-<div class="content bg-background_putih ms-300 vh-auto w-100">
+<div class="content bg-custom-pattern ms-300 vh-auto w-100">
     <div class="p-5">
         <div class="row">
             <div class="col-8 offset-2 text-center">

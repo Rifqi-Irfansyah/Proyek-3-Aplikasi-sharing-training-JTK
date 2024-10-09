@@ -2,7 +2,7 @@
   --blue: #9BBBF2;
   --blue-gray: #84A3E0;
   --blue-white: #C7D9FD;
-  --white: #efefef;
+  --white: #f7f7f7;
   --white-gray: #e7e6e6;
   --gray: #514D4D;
   --black1: #222;
@@ -152,7 +152,15 @@
 }
 
 .bg-background_putih {
-    background-color: #efefef ;
+    background-color: var(--white) ;
+}
+
+.bg-custom-pattern{
+  background-image: url("../asset/wp-blur.png");
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-color: var(--white);
 }
 
 .btn-custom{
@@ -175,7 +183,7 @@
 
 .btn-second:focus,
 .btn-second.active {
-    background-color: #efefef;
+    background-color: var(--white);
     color: #262323;
     outline: none;
     transform: translateX(+40%);

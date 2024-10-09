@@ -4,7 +4,7 @@
 @section('modulSelect', 'hovered')
 @section('isi')
 <!-- Main content -->
-<div class="content bg-background_putih ms-300 w-100 d-flex flex-column">
+<div class="content bg-custom-pattern ms-300 w-100 d-flex flex-column">
     @if($modul->isEmpty())
     <div class="d-flex flex-column align-items-center justify-content-center h-100 mb-5">
         <div class="div ">
