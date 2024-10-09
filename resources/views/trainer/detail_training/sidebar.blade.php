@@ -207,7 +207,7 @@ function buttonEdit() {
                             text: 'Meet have been added',
                             showConfirmButton: false,
                             backdrop: 'rgba(0,0,0,0.8)',
-                            timer: 1000,
+                            timer: 2000,
                             customClass: {
                                 popup: 'popup-success',
                                 title: 'title',
