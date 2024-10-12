@@ -187,11 +187,7 @@ function buttonEdit() {
                     url: '/tambahMeet',
                     method: 'POST',
                     data: {
-                        id_training: {
-                            {
-                                $training - > id_training
-                            }
-                        },
+                        id_training: {{$training -> id_training}},
                         startMeet: formValues.startMeet,
                         endMeet: formValues.endMeet,
                         locationMeet: formValues.locationMeet,
