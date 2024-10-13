@@ -267,116 +267,122 @@ function buttonEditMeet() {
 }
 
 function buttonAttendance(){
-    (async () => {
-        const confirmation = await Swal.fire({
-            icon: 'info',
+    if({!! json_encode($meet->absen->isEmpty()) !!}){
+        (async () => {
+            const confirmation = await Swal.fire({
+                icon: 'info',
+                title: 'Attendance',
+                showCloseButton: true,
+                showConfirmButton: true,
+                confirmButtonText: "Present",
+                backdrop: 'rgba(0,0,0,0.8)',
+                customClass: {
+                    popup: 'popup-edit',
+                    confirmButton: 'btn-confirm',
+                    title: 'title',
+                    color: '#DE2323',
+                }
+            });
+
+            if (confirmation.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{route('absen')}}",
+                    method: 'POST',
+                    data: {
+                        id_jadwal: {{$meet->id_jadwal}},
+                        email: "{{ auth()->user()->email }}"
+                    },
+                    success: function(response) {
+                        (async()=>{
+                            await Swal.fire({
+                                icon: 'success',
+                                title: 'Success Saved!',
+                                text: 'Meet have been added',
+                                showConfirmButton: false,
+                                backdrop: 'rgba(0,0,0,0.8)',
+                                timer: 1000,
+                                customClass: {
+                                    popup: 'popup-success',
+                                    title: 'title',
+                                    color: '#DE2323',
+                                }
+                            })
+                            localStorage.setItem('runButtonAttendance', 'true');
+                            location.reload();
+                        })();
+
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.responseJSON.message ||
+                            'There was problem while saved data';
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed Saved!',
+                            text: errorMessage,
+                            backdrop: 'rgba(0,0,0,0.8)',
+                            customClass: {
+                                popup: 'popup-error',
+                                confirmButton: 'btn-confirm',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        })
+                    }
+                });
+            }
+        })();
+    }
+    else{
+        Swal.fire({
             title: 'Attendance',
             showCloseButton: true,
-            showConfirmButton: true,
-            confirmButtonText: "Present",
+            showConfirmButton: false,
             backdrop: 'rgba(0,0,0,0.8)',
+            html: `
+                    <table class="table table-striped" style="border-radius: 0.5rem; overflow: hidden; background-color: transparent;">
+                        <thead>
+                            <tr>
+                            <th scope="col" class="text-center">No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php $i = 1; @endphp
+                            @foreach($meet->absen as $absen)
+                                <tr>
+                                    <th scope="row" class="text-center">{{$i}}</th>
+                                    <td>{{$absen->user->name}}</td>
+                                    <td>{{$absen->updated_at}}</td>
+                                    <td>{{$absen->status}}</td>
+                                </tr>
+                                @php $i++ @endphp
+                            @endforeach 
+                        </tbody>
+                    </table>
+                `,
             customClass: {
-                popup: 'popup-edit',
-                confirmButton: 'btn-confirm',
+                popup: 'popup-modul',
                 title: 'title',
                 color: '#DE2323',
             }
         });
-
-        if (confirmation.isConfirmed) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{route('absen')}}",
-                method: 'POST',
-                data: {
-                    id_jadwal: {{$meet->id_jadwal}},
-                    email: "{{ auth()->user()->email }}"
-                },
-                success: function(response) {
-                    location.reload();
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success Saved!',
-                        text: 'Meet have been added',
-                        showConfirmButton: false,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        timer: 2000,
-                        customClass: {
-                            popup: 'popup-success',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    })
-                },
-                error: function(xhr, status, error) {
-                    var errorMessage = xhr.responseJSON.message ||
-                        'There was problem while saved data';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Failed Saved!',
-                        text: errorMessage,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        customClass: {
-                            popup: 'popup-error',
-                            confirmButton: 'btn-confirm',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    })
-                }
-            });
-        }
-    })();
+    }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('runButtonAttendance')) {
+        buttonAttendance();
+        localStorage.removeItem('runButtonAttendance');
+    }
+});
 
-function buttonAttendancee(){
-    (async () => {
-        const confirmation = await Swal.fire({
-            icon: 'info',
-            title: 'Attendance',
-            showCloseButton: true,
-            showConfirmButton: true,
-            confirmButtonText: "Present",
-            backdrop: 'rgba(0,0,0,0.8)',
-            customClass: {
-                popup: 'popup-edit',
-                confirmButton: 'btn-confirm',
-                title: 'title',
-                color: '#DE2323',
-            }
-        });
-
-        if (confirmation.isConfirmed) {
-            // AJAX request setup
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            // Proceed with your AJAX call or other logic here
-            $.ajax({
-                url: "{{route('absen')}}",
-                method: 'POST',
-                data: {
-                    // your data
-                },
-                success: function(response) {
-                    console.log('Success', response);
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error', error);
-                }
-            });
-        }
-    })();
-}
 </script>
 
 @endsection

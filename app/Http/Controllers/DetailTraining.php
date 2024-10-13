@@ -8,6 +8,7 @@ use App\Models\JadwalTraining;
 use App\Models\Modul;
 use App\Models\ModulTraining;
 use App\Models\PesertaTraining;
+use App\Models\Absen;
 
 class DetailTraining extends Controller
 {
@@ -20,7 +21,7 @@ class DetailTraining extends Controller
 
     public function detailMeet($id)
     {
-        $detailMeet = JadwalTraining::find($id);
+        $detailMeet = JadwalTraining::with(['training', 'absen.user'])->find($id);
         $training = Training::with(['jadwalTrainings', 'user'],)->find($detailMeet->id_training);
         return view('trainer.detail_training.detailmeet', ['meet' => $detailMeet, 'training' => $training]);
     }
