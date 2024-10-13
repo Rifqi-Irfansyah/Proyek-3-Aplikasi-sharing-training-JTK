@@ -40,11 +40,13 @@
             <?php $i++; ?>
             @endforeach
 
-            <li class="d-flex align-items-center ps-4 py-1 mb-3" onClick="buttonEdit()">
+            @if( $i < 7)
+            <li class="d-flex align-items-center ps-4 py-1 mb-3 last-sidebar" onClick="buttonEdit()">
                 <a href="#" class=" text-decoration-none">
                     <span class="fs-6 fw-bold my-1">Add Meet {{$i}}st</span>
                 </a>
             </li>
+            @endif
         </ul>
     </div>
 

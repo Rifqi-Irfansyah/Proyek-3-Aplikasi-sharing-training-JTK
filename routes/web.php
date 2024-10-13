@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DetailTraining;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\EditTraining;
+use App\Http\Controllers\Attendance;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::post('/training/meetings/store', [CreateTrainingController::class, 'store
 
 Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 Route::post('/tambahModul', [DetailTraining::class, 'tambahModul']);
+Route::post('/attendance', [Attendance::class, 'attendanceTrainer'])->name('absen');
 // Route::post('/editTraining/{id}', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 
 Route::post('/editTraining', [EditTraining::class, 'editTraining'])->name('editTraining');

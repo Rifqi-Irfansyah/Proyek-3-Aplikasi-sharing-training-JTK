@@ -275,22 +275,22 @@
   text-align: center;
 }
 
-.navigation ul li:last-child {
-  background-color: var(--blue-gray);
+.last-sidebar{
+  background-color: var(--blue-gray) !important;
 }
 
-.navigation ul li:last-child a {
-  color: var(--white-gray);
+.last-sidebar a {
+  color: var(--white-gray) !important;
 }
 
-.navigation ul li:last-child:hover,
-.navigation ul li:last-child.hovered {
-  background-color: #bde244;
-  width: 80%;
+.last-sidebar:hover,
+.last-sidebar.hovered {
+  background-color: #bde244 !important;
+  width: 80% !important;
 }
 
-.navigation ul li:last-child:hover a{
-  color: var(--black1)
+.last-sidebar:hover a{
+  color: var(--black1) !important;
 }
 
 /* --------- curve outside ---------- */

@@ -37,6 +37,10 @@ class DetailTraining extends Controller
 
     public function tambahMeet(Request $request)
     {
+        $total_meet = JadwalTraining::where('id_training', $request->id_training)->count();
+        if($total_meet >= 7){
+            return response()->json(['error' => 'The Training cannot add meet anymore'], 403);
+        }
         $request->validate([
             'startMeet' => 'required|date',
             'endMeet' => 'required|date|after:startMeet',
