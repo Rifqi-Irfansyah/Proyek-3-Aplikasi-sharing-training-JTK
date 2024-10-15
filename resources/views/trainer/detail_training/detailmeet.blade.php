@@ -267,7 +267,25 @@ function buttonEditMeet() {
 }
 
 function buttonAttendance(){
-    if({!! json_encode($meet->absen->isEmpty()) !!}){
+    var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
+    var meetEnd = new Date("{{ \Carbon\Carbon::parse($meet->waktu_selesai) }}");
+    var now = new Date("{{ \Carbon\Carbon::now() }}");
+
+    if(now < meetStart || now > meetEnd){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cannot Absence!',
+            text: 'Outside of attendance time',
+            backdrop: 'rgba(0,0,0,0.8)',
+            customClass: {
+                popup: 'popup-warning',
+                confirmButton: 'btn-confirm',
+                title: 'title',
+                color: '#DE2323',
+            }
+        })
+    }
+    else if((now >= meetStart && now <= meetEnd) && ({!! json_encode($meet->absen->isEmpty()) !!})){
         (async () => {
             const confirmation = await Swal.fire({
                 icon: 'info',
@@ -344,7 +362,7 @@ function buttonAttendance(){
             showConfirmButton: false,
             backdrop: 'rgba(0,0,0,0.8)',
             html: `
-                    <table class="table table-striped" style="border-radius: 0.5rem; overflow: hidden; background-color: transparent;">
+                    <table class="table table-striped" style="border-radius: 1rem; overflow: hidden; background-color: transparent;">
                         <thead>
                             <tr>
                             <th scope="col" class="text-center">No</th>

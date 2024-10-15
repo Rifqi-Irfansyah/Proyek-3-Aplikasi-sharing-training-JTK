@@ -52,6 +52,18 @@
     color: #12ca08;
 }
 
+.popup-warning{
+  border-radius: 30px !important;
+  max-width: 70vh !important;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(10px);
+  border-style: solid;
+  border-color: #f9ac06;
+  border-width: 3px;
+  color: #f9ac06;
+}
+
 .popup-edit{
   border-radius: 30px !important;
   min-width: 40%;
