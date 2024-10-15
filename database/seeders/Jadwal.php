@@ -41,7 +41,7 @@ class Jadwal extends Seeder
             'tempat_pelaksana' => "R101",
             'status' => "offline",
             'waktu_mulai' => now(),
-            'waktu_selesai' => now(),
+            'waktu_selesai' => now()->addHours(3),
             'topik_pertemuan' => 
             "Penggunaan if-else, looping (for, while), dan pengenalan fungsi untuk mengorganisir kode."
         ]);

@@ -36,12 +36,15 @@ class LoginController extends Controller
             $user = Auth::user();
             $role = $user->role;
 
-            Session(['success' => 'Login Success !!']);
-            if ($role == 'admin')
+            if ($role == 'admin'){
+                Session(['success' => 'Login Success !!']);
                 return redirect('admin');
+            }
 
-            else if($role == 'peserta')
+            else if($role == 'peserta'){
+                Session(['success' => 'Login Success !!']);
                 return redirect('peserta');
+            }
 
             else if($role == 'pemateri'){
                 $tambahanTrainer = $user->TambahanTrainer;

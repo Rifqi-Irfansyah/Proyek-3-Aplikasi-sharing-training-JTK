@@ -21,10 +21,8 @@ Swal.fire({
         color: '#DE2323',
     }
 })
-@endif
 
-// SUCCESS REGISTER POP UP 
-@if(session('success'))
+@elseif(session('success'))
 Swal.fire({
     icon: 'success',
     title: 'Regsiter Success!',
