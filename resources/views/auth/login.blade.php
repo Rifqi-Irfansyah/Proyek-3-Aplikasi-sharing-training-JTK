@@ -26,7 +26,7 @@ Swal.fire({
 var successMessage = "{{ Session::get('success') }}";
 Swal.fire({
     icon: 'success',
-    title: 'Regsiter Success!',
+    title: 'Register Success!',
     text: successMessage,
     showConfirmButton: false,
     backdrop: 'rgba(0,0,0,0.8)',
@@ -39,15 +39,15 @@ Swal.fire({
 })
 @endif
 </script>
-     
+
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="row justify-content-center w-100">
         <div class="col-md-6 m-5rounded-4 d-flex flex-column left-box">
-            <div id="lottie-container" ></div>      
+            <div id="lottie-container" ></div>
             <script>
                 var animation = lottie.loadAnimation({
                     container: document.getElementById('lottie-container'),
-                    renderer: 'svg', 
+                    renderer: 'svg',
                     loop: true,
                     autoplay: true,
                     path: "{{asset('asset/animatelogin.json')}}"
@@ -65,7 +65,7 @@ Swal.fire({
                     <div class="input-group mb-3">
                         <input type="email" name="email" id="email"
                             class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" placeholder="Email" required="" >
-                            
+
                     </div>
                     <div class="input-group mb-4 align-items-center">
                         <input type="password" name="password" id="passwordInput"
