@@ -43,7 +43,6 @@ Route::post('/training/meetings/store', [CreateTrainingController::class, 'store
 
 Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 Route::post('/tambahModulTraining', [DetailTraining::class, 'tambahModul'])->name('tambahModulTraining');
-Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
 Route::post('/attendance', [Attendance::class, 'attendanceTrainer'])->name('absen');
 // Route::post('/editTraining/{id}', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 
@@ -53,8 +52,9 @@ Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
 Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
+Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
 
-Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin']);
+Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
 
 // Route::get('home', return)->middleware('pemateri');
 

@@ -71,6 +71,6 @@ class CreateTrainingController extends Controller
             $jadwal->save();
         }
 
-        return redirect()->route('login')->with('success', 'Each training meetings has been successfully created');
+        return redirect()->route('beranda.admin')->with('success', 'Each training meetings has been successfully created');
     }
 }
