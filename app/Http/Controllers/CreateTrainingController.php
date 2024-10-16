@@ -33,8 +33,7 @@ class CreateTrainingController extends Controller
         $training->deskripsi = $request->deskripsi;
         $training->status = 'Pendaftaran'; // Status awal
         $training->save();
-
-        return redirect()->route('create.meetings', ['jumlah_pertemuan' => $request->jumlah_pertemuan, 'id_training' => $training->id_training]);
+        return redirect()->route('create.meetings', ['jumlah_pertemuan' => $request->jumlah_pertemuan, 'id_training' => $training->id_training])->with('success', 'Training has been successfully created. Please set the meetings.');
     }
 
     // Menampilkan halaman untuk mengatur pertemuan
@@ -72,6 +71,6 @@ class CreateTrainingController extends Controller
             $jadwal->save();
         }
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success', 'Each training meetings has been successfully created');
     }
 }

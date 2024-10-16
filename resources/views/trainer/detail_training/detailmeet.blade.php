@@ -269,9 +269,8 @@ function buttonEditMeet() {
 function buttonAttendance(){
     var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
     var meetEnd = new Date("{{ \Carbon\Carbon::parse($meet->waktu_selesai) }}");
-    var now = new Date("{{ \Carbon\Carbon::now() }}");
-
-    if(now < meetStart || now > meetEnd){
+    var now = new Date("{{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta') }}");
+    if(now < meetStart){
         Swal.fire({
             icon: 'warning',
             title: 'Cannot Absence!',
@@ -285,7 +284,7 @@ function buttonAttendance(){
             }
         })
     }
-    else if((now >= meetStart && now <= meetEnd) && ({!! json_encode($meet->absen->isEmpty()) !!})){
+    else if(now >= meetStart && now <= meetEnd && ("{{ auth()->user()->email }}") == ("{{ $trainerAbsent->email}}") && ("{{ $trainerAbsent->status}}") == "Tidak Hadir"){
         (async () => {
             const confirmation = await Swal.fire({
                 icon: 'info',
@@ -319,8 +318,7 @@ function buttonAttendance(){
                         (async()=>{
                             await Swal.fire({
                                 icon: 'success',
-                                title: 'Success Saved!',
-                                text: 'Meet have been added',
+                                title: 'Success Absence!',
                                 showConfirmButton: false,
                                 backdrop: 'rgba(0,0,0,0.8)',
                                 timer: 1000,
@@ -340,7 +338,7 @@ function buttonAttendance(){
                             'There was problem while saved data';
                         Swal.fire({
                             icon: 'error',
-                            title: 'Failed Saved!',
+                            title: 'Failed Absence!',
                             text: errorMessage,
                             backdrop: 'rgba(0,0,0,0.8)',
                             customClass: {
@@ -357,28 +355,30 @@ function buttonAttendance(){
     }
     else{
         Swal.fire({
-            title: 'Attendance',
+            title: 'Attendance Recap',
             showCloseButton: true,
             showConfirmButton: false,
             backdrop: 'rgba(0,0,0,0.8)',
             html: `
                     <table class="table table-striped" style="border-radius: 1rem; overflow: hidden; background-color: transparent;">
                         <thead>
-                            <tr>
-                            <th scope="col" class="text-center">No</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Time</th>
-                            <th scope="col">Status</th>
+                            <tr class="text-center">
+                                <th scope="col">No</th>
+                                <th scope="col-6">Name</th>
+                                <th scope="col-3">Time</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php $i = 1; @endphp
                             @foreach($meet->absen as $absen)
-                                <tr>
-                                    <th scope="row" class="text-center">{{$i}}</th>
+                                <tr class="text-center">
+                                    <th scope="row">{{$i}}</th>
                                     <td>{{$absen->user->name}}</td>
                                     <td>{{$absen->updated_at}}</td>
-                                    <td>{{$absen->status}}</td>
+                                    <td class="{{ $absen->status === 'Hadir' ? 'text-success' : ($absen->status === 'Tidak Hadir' ? 'text-danger' : 'text-warning') }}">
+                                        {{ $absen->status }}
+                                    </td>
                                 </tr>
                                 @php $i++ @endphp
                             @endforeach 

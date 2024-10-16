@@ -9,6 +9,7 @@ use App\Http\Controllers\RegistController;
 use App\Http\Controllers\ListTrainer;
 use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
+use App\Http\Controllers\BerandaAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,8 +51,12 @@ Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
+<<<<<<< HEAD
 //listtrainer
 Route::get('/listtrainer', [ListTrainer::class, 'index']);
+=======
+Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin']);
+>>>>>>> 3e8cd47b71b48a31fa3376e362e3f73a7569c212
 
 // Route::get('home', return)->middleware('pemateri');
 

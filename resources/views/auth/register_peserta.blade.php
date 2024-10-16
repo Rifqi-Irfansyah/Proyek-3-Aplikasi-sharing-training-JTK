@@ -28,12 +28,6 @@
 
 @endif
 
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
 
 <div class="container-fluid register-container">
     <div class="row justify-content-center align-items-center vh-100">

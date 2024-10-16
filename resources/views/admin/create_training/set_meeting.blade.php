@@ -3,6 +3,25 @@
 @section('title', 'Atur Pertemuan')
 
 @section('content')
+<script>
+    @if(session('success'))
+    Swal.fire({
+        icon: 'success',
+        var message = "{{ Session::get('success') }}";
+        title: 'Training Created!',
+        text: messagge,
+        showConfirmButton: false,
+        backdrop: 'rgba(0,0,0,0.8)',
+        timer: 2000,
+        customClass: {
+            popup: 'popup-success',
+            title: 'title',
+            color: '#DE2323',
+        }
+    })
+    @endif
+</script>
+
 @include('admin.topbar')
 <div class="container d-flex justify-content-center align-items-center min-vh-100 mt-3 mb-5">
     <div class="row justify-content-center w-100">
@@ -83,7 +102,7 @@
             }
 
             if (!valid) {
-                event.preventDefault(); 
+                event.preventDefault();
 
                 // Menampilkan SweetAlert dengan pesan error
                 Swal.fire({
@@ -99,22 +118,6 @@
             }
         });
 
-        // Menampilkan pesan error dari session jika ada
-        @if(session('error'))
-            var errorMessage = "{{ Session::get('error') }}";
-            Swal.fire({
-                icon: 'error',
-                title: 'Create Failed',
-                text: errorMessage,
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'popup-error',
-                    confirmButton: 'btn-confirm',
-                    title: 'title',
-                    color: '#DE2323',
-                }
-            });
-        @endif
     });
 </script>
 @endsection

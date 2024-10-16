@@ -45,9 +45,9 @@ class RegistController extends Controller
 
             // Cek apakah user berhasil disimpan
             if ($user) {
-                return redirect()->route('login')->with('success', 'Registrasi peserta berhasil!');
+                return redirect()->route('login')->with('success', 'Your Account Success Registered');
             } else {
-                return redirect()->back()->with('error', 'Registrasi gagal, silakan coba lagi.');
+                return redirect()->back()->with('error', 'Register failed. Please Try again.');
             }
         }
 
@@ -87,9 +87,9 @@ class RegistController extends Controller
 
         ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi trainer berhasil!');
+        return redirect()->route('login')->with('success', 'Your Account Success Registered');
     } else {
-        return redirect()->back()->with('error', 'Registrasi gagal, silakan coba lagi.');
+        return redirect()->back()->with('error', 'Register failed. Please Try again.');
     }
         }
 
