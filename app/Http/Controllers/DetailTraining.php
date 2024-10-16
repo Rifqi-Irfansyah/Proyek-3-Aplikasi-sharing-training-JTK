@@ -16,6 +16,19 @@ class DetailTraining extends Controller
     {
         $training = Training::with(['jadwalTrainings', 'user'],)->find($id);
         $total_peserta = Training::withCount('peserta')->find($id);
+
+        $meetStart = $training->jadwalTrainings->first()->waktu_mulai;
+        $meetEnd = $training->jadwalTrainings->last()->waktu_mulai;
+        $now = now()->setTimezone('Asia/Jakarta');
+        if ($now >= $meetStart){
+            $training->status = 'Berlangsung';
+            $training->save();
+        }
+        if ($now >= $meetEnd){
+            $training->status = 'Selesai';
+            $training->save();
+        }
+
         return view('trainer.detail_training.about', ['training' => $training, 'total_peserta' => $total_peserta]);
     }
 
