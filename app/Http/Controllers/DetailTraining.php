@@ -23,7 +23,8 @@ class DetailTraining extends Controller
     {
         $detailMeet = JadwalTraining::with(['training', 'absen.user'])->find($id);
         $training = Training::with(['jadwalTrainings', 'user'],)->find($detailMeet->id_training);
-        return view('trainer.detail_training.detailmeet', ['meet' => $detailMeet, 'training' => $training]);
+        $trainerAbsent = Absen::where('id_jadwal', $id)->where('email', $training->email_trainer)->first();
+        return view('trainer.detail_training.detailmeet', ['meet' => $detailMeet, 'training' => $training, 'trainerAbsent' => $trainerAbsent]);
     }
 
     public function modul($id)
@@ -50,7 +51,7 @@ class DetailTraining extends Controller
             'descMeet' => 'required|string|max:500',
         ]);
 
-        JadwalTraining::create([
+        $addMeet = JadwalTraining::create([
             'id_training' => $request->id_training,
             'waktu_mulai' => $request->startMeet,
             'waktu_selesai' => $request->endMeet,
@@ -59,6 +60,15 @@ class DetailTraining extends Controller
             'topik_pertemuan' => $request->descMeet
         ]);
 
+        $peserta = PesertaTraining::where('id_training', $request->id_training)->get();
+        foreach ($peserta as $data) {
+            Absen::create([
+                'email' => $data->email_peserta,
+                'status' => 'Tidak Hadir',
+                'id_jadwal' => $addMeet->id_jadwal
+            ]);
+        }
+        
         return response()->json(['success' => 'Meeting added successfully!'], 200);
     }
 

@@ -50,8 +50,8 @@ class Jadwal extends Seeder
             'id_training' => 1,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
-            'waktu_mulai' => now()->addDays(3),
-            'waktu_selesai' => now()->addDays(3),
+            'waktu_mulai' => now()->addDays(4),
+            'waktu_selesai' => now()->addDays(4),
             'topik_pertemuan' => 
             "Pengenalan list, tuple, set, dan dictionary untuk menyimpan dan memanipulasi data."
         ]);

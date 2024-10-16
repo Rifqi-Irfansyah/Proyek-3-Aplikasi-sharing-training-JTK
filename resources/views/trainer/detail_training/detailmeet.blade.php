@@ -270,8 +270,7 @@ function buttonAttendance(){
     var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
     var meetEnd = new Date("{{ \Carbon\Carbon::parse($meet->waktu_selesai) }}");
     var now = new Date("{{ \Carbon\Carbon::now() }}");
-
-    if(now < meetStart || now > meetEnd){
+    if(now < meetStart){
         Swal.fire({
             icon: 'warning',
             title: 'Cannot Absence!',
@@ -285,7 +284,7 @@ function buttonAttendance(){
             }
         })
     }
-    else if((now >= meetStart && now <= meetEnd) && ({!! json_encode($meet->absen->isEmpty()) !!})){
+    else if(now >= meetStart && now <= meetEnd && ("{{ auth()->user()->email }}") == ("{{ $trainerAbsent->email}}") && ("{{ $trainerAbsent->status}}") == "Tidak Hadir"){
         (async () => {
             const confirmation = await Swal.fire({
                 icon: 'info',
@@ -319,8 +318,7 @@ function buttonAttendance(){
                         (async()=>{
                             await Swal.fire({
                                 icon: 'success',
-                                title: 'Success Saved!',
-                                text: 'Meet have been added',
+                                title: 'Success Absence!',
                                 showConfirmButton: false,
                                 backdrop: 'rgba(0,0,0,0.8)',
                                 timer: 1000,
@@ -340,7 +338,7 @@ function buttonAttendance(){
                             'There was problem while saved data';
                         Swal.fire({
                             icon: 'error',
-                            title: 'Failed Saved!',
+                            title: 'Failed Absence!',
                             text: errorMessage,
                             backdrop: 'rgba(0,0,0,0.8)',
                             customClass: {
@@ -357,7 +355,7 @@ function buttonAttendance(){
     }
     else{
         Swal.fire({
-            title: 'Attendance',
+            title: 'Attendance Recap',
             showCloseButton: true,
             showConfirmButton: false,
             backdrop: 'rgba(0,0,0,0.8)',
