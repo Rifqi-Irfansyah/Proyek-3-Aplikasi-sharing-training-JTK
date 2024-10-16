@@ -22,7 +22,13 @@
         <!-- Trainer information -->
         <div class="row mt-5 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-user-tie me-3"></i>Trainer</div>
-            <div class="col-7">{{$training->user->name}}</div>
+            <div class="col-7">
+            @if($training->user)
+                {{ $training->user->name }}
+            @else
+                <span class="text-muted">No Trainer Yet</span>
+            @endif
+            </div>
         </div>
 
         <div class="row mt-4 justify-content-center">

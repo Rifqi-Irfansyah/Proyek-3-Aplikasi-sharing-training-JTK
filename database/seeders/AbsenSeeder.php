@@ -32,5 +32,10 @@ class AbsenSeeder extends Seeder
                 ]);
             }
         }
+        DB::table('absen')->insert([
+            'id_jadwal' => 4,
+            'email' => "admin@gmail.com",
+            'status' => "Hadir"
+        ]);
     }
 }

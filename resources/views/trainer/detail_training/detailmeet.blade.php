@@ -284,7 +284,7 @@ function buttonAttendance(){
             }
         })
     }
-    else if(now >= meetStart && now <= meetEnd && ("{{ auth()->user()->email }}") == ("{{ $trainerAbsent->email}}") && ("{{ $trainerAbsent->status}}") == "Tidak Hadir"){
+    else if(now >= meetStart && now <= meetEnd && ("{{auth()->user()->email ?? 'null'}}") == ("{{$trainerAbsent->email ?? 'null'}}" ) && ("{{$trainerAbsent->status ?? 'null'}}") == "Tidak Hadir"){
         (async () => {
             const confirmation = await Swal.fire({
                 icon: 'info',
@@ -300,7 +300,7 @@ function buttonAttendance(){
                     color: '#DE2323',
                 }
             });
-
+            
             if (confirmation.isConfirmed) {
                 $.ajaxSetup({
                     headers: {
@@ -327,31 +327,30 @@ function buttonAttendance(){
                                     title: 'title',
                                     color: '#DE2323',
                                 }
-                            })
-                            localStorage.setItem('runButtonAttendance', 'true');
-                            location.reload();
-                        })();
-
-                    },
-                    error: function(xhr, status, error) {
-                        var errorMessage = xhr.responseJSON.message ||
-                            'There was problem while saved data';
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Failed Absence!',
-                            text: errorMessage,
-                            backdrop: 'rgba(0,0,0,0.8)',
-                            customClass: {
-                                popup: 'popup-error',
-                                confirmButton: 'btn-confirm',
-                                title: 'title',
-                                color: '#DE2323',
-                            }
                         })
-                    }
-                });
-            }
-        })();
+                        localStorage.setItem('runButtonAttendance', 'true');
+                        location.reload();
+                    })();
+                    
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.responseJSON.message ||
+                    'There was problem while saved data';
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed Absence!',
+                        text: errorMessage,
+                        backdrop: 'rgba(0,0,0,0.8)',
+                        customClass: {
+                            popup: 'popup-error',
+                            confirmButton: 'btn-confirm',
+                            title: 'title',
+                            color: '#DE2323',
+                        }
+                    })
+                }
+            });
+        }})();
     }
     else{
         Swal.fire({
