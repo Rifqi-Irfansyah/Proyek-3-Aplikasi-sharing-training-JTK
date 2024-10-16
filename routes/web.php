@@ -57,6 +57,11 @@ Route::middleware(['admin'])->group(function () {
 Route::get('listtraining', function () {
     return view('admin.ListTraining');
 });
+
+Route::get('approvetrainer', function () {
+    return view('admin.ApproveTrainer');
+});
+
 Route::middleware(['pemateri'])->group(function () {
     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');
 });
