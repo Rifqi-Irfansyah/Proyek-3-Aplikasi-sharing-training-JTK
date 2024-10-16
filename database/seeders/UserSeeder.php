@@ -18,25 +18,55 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // ADMIN
         DB::table('users')->insert([
             'email' => "admin@gmail.com",
             'role' => "admin",
             'name' => "Rifqi Irfansyah",
             'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
         ]);
 
+        // TRAINER
         DB::table('users')->insert([
             'email' => "pemateri@gmail.com",
             'role' => "pemateri",
             'name' => "Pemateri 1",
-            'password' => Hash::make('123')
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
         ]);
 
-        DB::table('materi')->insert([
-            'email_pemateri' => "pemateri@gmail.com",
-            'judul_materi' => "Belajar PHP",
-            'judul_materi' => "Belajar PHP",
-            'status' => "Terkirim"
+        DB::table('users')->insert([
+            'email' => "pemateri2@gmail.com",
+            'role' => "pemateri",
+            'name' => "Pemateri 1",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
+        DB::table('tambahan_trainer')->insert([
+            'email' => "pemateri@gmail.com",
+            'no_wa' => "08965698171",
+            'kemampuan' => "bisa bahasa java",
+            'pengalaman' => "1-3 tahun",
+            'status_akun' => "Belum direview",
+        ]);
+
+        DB::table('tambahan_trainer')->insert([
+            'email' => "pemateri2@gmail.com",
+            'no_wa' => "08965698171",
+            'kemampuan' => "bisa bahasa java",
+            'pengalaman' => "belum ada",
+            'status_akun' => "Terkonfirmasi",
+        ]);
+
+        DB::table('training')->insert([
+            // 'email_trainer' => "pemateri@gmail.com",
+            'judul_training' => "Belajar PHP",
+            'email_trainer' => "admin@gmail.com",
+            'kuota' => 30,
+            'deskripsi' => "Belajar PHP dmdmdm amdamda",
+            'status' => "Pendaftaran"
         ]);
     }
 }

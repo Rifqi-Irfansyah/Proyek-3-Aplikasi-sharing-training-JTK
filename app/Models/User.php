@@ -23,8 +23,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'email',
         'role',
         'name',
+        'gender',
+        'tanggal_lahir',
         'password',
     ];
 
@@ -46,4 +49,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tambahanTrainer()
+    {
+        return $this->hasOne(TambahanTrainer::class, 'email', 'email'); 
+    }
+
+    public function trainings()
+    {
+        return $this->hasMany(Training::class, 'email', 'email_trainer');
+    }
 }
