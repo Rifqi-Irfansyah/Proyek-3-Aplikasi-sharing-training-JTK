@@ -26,7 +26,7 @@
 
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield('modulSelect')">
                 <a href="/modul/{{$training->id_training}}" class=" text-decoration-none">
-                    <span class="fs-6 fw-bold my-1 ">Modul</span>
+                    <span class="fs-6 fw-bold my-1 ">Module</span>
                 </a>
             </li>
 
@@ -40,11 +40,13 @@
             <?php $i++; ?>
             @endforeach
 
-            <li class="d-flex align-items-center ps-4 py-1 mb-3" onClick="buttonEdit()">
+            @if( $i < 7)
+            <li class="d-flex align-items-center ps-4 py-1 mb-3 last-sidebar" onClick="buttonEdit()">
                 <a href="#" class=" text-decoration-none">
                     <span class="fs-6 fw-bold my-1">Add Meet {{$i}}st</span>
                 </a>
             </li>
+            @endif
         </ul>
     </div>
 
@@ -124,9 +126,9 @@ function buttonEdit() {
             preConfirm: () => {
                 const date = document.getElementById("input-date").value;
                 const start = document.getElementById("input-start").value;
-                const end  = document.getElementById("input-end").value;
+                const end = document.getElementById("input-end").value;
                 const startMeet = `${date}T${start}`;
-                const endMeet = `${date}T${end}`; 
+                const endMeet = `${date}T${end}`;
                 const locationMeet = document.getElementById("input-location").value;
                 const status = document.querySelector('input[name="status"]:checked') ? document
                     .querySelector('input[name="status"]:checked').value : null;
@@ -195,7 +197,7 @@ function buttonEdit() {
                         descMeet: formValues.descMeet
                     },
                     success: function(response) {
-                        location.reload(); 
+                        location.reload();
 
                         Swal.fire({
                             icon: 'success',
@@ -203,7 +205,7 @@ function buttonEdit() {
                             text: 'Meet have been added',
                             showConfirmButton: false,
                             backdrop: 'rgba(0,0,0,0.8)',
-                            timer: 1000,
+                            timer: 2000,
                             customClass: {
                                 popup: 'popup-success',
                                 title: 'title',
@@ -212,7 +214,8 @@ function buttonEdit() {
                         })
                     },
                     error: function(xhr, status, error) {
-                        var errorMessage = xhr.responseJSON.message || 'There was problem while saved data';
+                        var errorMessage = xhr.responseJSON.message ||
+                            'There was problem while saved data';
                         Swal.fire({
                             icon: 'error',
                             title: 'Failed Saved!',
@@ -232,7 +235,7 @@ function buttonEdit() {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Cancelled',
-                    text: 'No changes were made',            
+                    text: 'No changes were made',
                     showConfirmButton: false,
                     backdrop: 'rgba(0,0,0,0.8)',
                     timer: 1000,

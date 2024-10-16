@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DetailTraining;
 use App\Http\Controllers\RegistController;
+use App\Http\Controllers\EditTraining;
+use App\Http\Controllers\Attendance;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,10 @@ Route::post('/training/meetings/store', [CreateTrainingController::class, 'store
 
 Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 Route::post('/tambahModul', [DetailTraining::class, 'tambahModul']);
+Route::post('/attendance', [Attendance::class, 'attendanceTrainer'])->name('absen');
+// Route::post('/editTraining/{id}', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
+
+Route::post('/editTraining', [EditTraining::class, 'editTraining'])->name('editTraining');
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
@@ -50,7 +56,7 @@ Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
 // User Access
 Route::middleware(['admin'])->group(function () {
-    Route::get('beranda', [LoginController::class, 'beranda'])->name('welcome');
+    Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
 });
 
 //Lina
@@ -64,4 +70,8 @@ Route::get('approvetrainer', function () {
 
 Route::middleware(['pemateri'])->group(function () {
     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');
+});
+
+Route::middleware(['peserta'])->group(function () {
+    Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
 });

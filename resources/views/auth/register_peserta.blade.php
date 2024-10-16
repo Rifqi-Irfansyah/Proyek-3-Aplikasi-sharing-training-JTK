@@ -39,10 +39,10 @@
     <div class="row justify-content-center align-items-center vh-100">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
             <div class="form-container popup-edit shadow-lg p-4 rounded-4 bg-white" style="width: 80%; max-width: 600px; border: none;">
-                <a href="{{ route('register.choice') }}" class="btn btn-primary rounded-circle position-absolute" style="background-color: #6cace4; top: 20px; left: 20px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
+                <a href="{{ route('register.choice') }}" class="btn btn-back rounded-circle position-absolute" style="top: 20px; left: 20px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
                     <i class="fas fa-arrow-left"></i>
                 </a>
-                <div class="form-title title mb-4 text-center">Register</div>
+                <div class="form-title title mb-4 text-center" style="color: black">Register</div>
                 <form method="POST" action="{{ route('register.peserta.submit') }}">
                     @csrf
                     <div class="mb-4">
@@ -58,11 +58,11 @@
                     <div class="mb-4">
                         <div class="form-check">
                             <input type="radio" name="gender" value="laki-laki" id="male" class="form-check-input" required>
-                            <label class="form-check-label" for="male">Male</label>
+                            <label class="form-check-label" style="color: black" for="male">Male</label>
                         </div>
                         <div class="form-check">
                             <input type="radio" name="gender" value="perempuan" id="female" class="form-check-input" required>
-                            <label class="form-check-label" for="female">Female</label>
+                            <label class="form-check-label" style="color: black" for="female">Female</label>
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                         <input type="password" name="password_confirmation" class="custom-input input-text form-control" placeholder="Confirm Password" required>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-lg w-100 fs-6 rounded-5" style="background-color: #6cace4; color: white;">
+                        <button type="submit" class="btn btn-md w-100 fs-6 rounded-5 btn-custom" style="background-color: #6cace4; color: white;">
                             Register as Participant
                         </button>
                     </div>

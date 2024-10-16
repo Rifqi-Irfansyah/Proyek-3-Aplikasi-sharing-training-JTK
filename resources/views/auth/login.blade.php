@@ -4,7 +4,7 @@
 
 @section('content')
 
-<!-- FAILED LOGIN POP UP MODAL -->
+<!-- FAILED LOGIN -->
 <script>
 @if(session('error'))
 var errorMessage = "{{ Session::get('error') }}";
@@ -13,6 +13,7 @@ Swal.fire({
     title: 'Login Failed',
     text: errorMessage,
     confirmButtonText: 'OK',
+    backdrop: 'rgba(0,0,0,0.8)',
     customClass: {
         popup: 'popup-error',
         confirmButton: 'btn-confirm',
@@ -20,9 +21,23 @@ Swal.fire({
         color: '#DE2323',
     }
 })
+
+@elseif(session('success'))
+Swal.fire({
+    icon: 'success',
+    title: 'Regsiter Success!',
+    text: 'Your Account Success Registered',
+    showConfirmButton: false,
+    backdrop: 'rgba(0,0,0,0.8)',
+    timer: 2000,
+    customClass: {
+        popup: 'popup-success',
+        title: 'title',
+        color: '#DE2323',
+    }
+})
 @endif
 </script>
-<!-- END FAILED LOGIN POP UP MODAL -->
      
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="row justify-content-center w-100">
@@ -64,7 +79,7 @@ Swal.fire({
                     </div>
                 </form>
                 <div class="text-center text-secondary">
-                    <small>Don't have account? <a href="#" class ="text-decoration-none">Sign Up</a></small>
+                    <small>Don't have account? <a href="{{route('register.choice')}}" class ="text-decoration-none">Sign Up</a></small>
                 </div>
             </div>
         </div>

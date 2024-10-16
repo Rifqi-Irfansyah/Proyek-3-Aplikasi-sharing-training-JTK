@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('absen', function (Blueprint $table) {
-            $table->id('id_absen');
             $table->unsignedBigInteger('id_jadwal');
             $table->foreign('id_jadwal')
                 ->references('id_jadwal')
@@ -25,6 +24,8 @@ return new class extends Migration
                 ->on('users');
             $table->enum('status', ['Hadir', 'Tidak Hadir']);
             $table->timestamps();
+
+            $table->unique(['id_jadwal', 'email']); 
         });
     }
 

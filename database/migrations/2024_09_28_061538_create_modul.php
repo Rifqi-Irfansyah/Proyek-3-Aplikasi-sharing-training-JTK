@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modul', function (Blueprint $table) {
-            $table->char('nama_file',50)->primary();
+            $table->string('nama_file')->primary();
             $table->char('judul',50);
             $table->timestamps();
         });
