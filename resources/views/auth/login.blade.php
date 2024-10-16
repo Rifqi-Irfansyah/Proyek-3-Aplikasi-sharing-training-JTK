@@ -23,10 +23,11 @@ Swal.fire({
 })
 
 @elseif(session('success'))
+var successMessage = "{{ Session::get('success') }}";
 Swal.fire({
     icon: 'success',
     title: 'Regsiter Success!',
-    text: 'Your Account Success Registered',
+    text: successMessage,
     showConfirmButton: false,
     backdrop: 'rgba(0,0,0,0.8)',
     timer: 2000,

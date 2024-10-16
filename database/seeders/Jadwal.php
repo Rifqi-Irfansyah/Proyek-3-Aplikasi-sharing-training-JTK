@@ -30,8 +30,8 @@ class Jadwal extends Seeder
             'id_training' => 1,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
-            'waktu_mulai' => now()->subDays(2),
-            'waktu_selesai' => now(),
+            'waktu_mulai' => now()->subDays(2)->setTimezone('Asia/Jakarta'),
+            'waktu_selesai' => now()->setTimezone('Asia/Jakarta'),
             'topik_pertemuan' => 
             "Pengenalan Python, sintaks dasar, tipe data, variabel, dan operasi sederhana."
         ]);
@@ -40,8 +40,8 @@ class Jadwal extends Seeder
             'id_training' => 1,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
-            'waktu_mulai' => now(),
-            'waktu_selesai' => now()->addHours(3),
+            'waktu_mulai' => now()->setTimezone('Asia/Jakarta'),
+            'waktu_selesai' => now()->addHours(3)->setTimezone('Asia/Jakarta'),
             'topik_pertemuan' => 
             "Penggunaan if-else, looping (for, while), dan pengenalan fungsi untuk mengorganisir kode."
         ]);
@@ -50,8 +50,8 @@ class Jadwal extends Seeder
             'id_training' => 1,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
-            'waktu_mulai' => now()->addDays(4),
-            'waktu_selesai' => now()->addDays(4),
+            'waktu_mulai' => now()->addDays(4)->setTimezone('Asia/Jakarta'),
+            'waktu_selesai' => now()->addDays(4)->setTimezone('Asia/Jakarta'),
             'topik_pertemuan' => 
             "Pengenalan list, tuple, set, dan dictionary untuk menyimpan dan memanipulasi data."
         ]);

@@ -269,7 +269,7 @@ function buttonEditMeet() {
 function buttonAttendance(){
     var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
     var meetEnd = new Date("{{ \Carbon\Carbon::parse($meet->waktu_selesai) }}");
-    var now = new Date("{{ \Carbon\Carbon::now() }}");
+    var now = new Date("{{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta') }}");
     if(now < meetStart){
         Swal.fire({
             icon: 'warning',
@@ -362,21 +362,23 @@ function buttonAttendance(){
             html: `
                     <table class="table table-striped" style="border-radius: 1rem; overflow: hidden; background-color: transparent;">
                         <thead>
-                            <tr>
-                            <th scope="col" class="text-center">No</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Time</th>
-                            <th scope="col">Status</th>
+                            <tr class="text-center">
+                                <th scope="col">No</th>
+                                <th scope="col-6">Name</th>
+                                <th scope="col-3">Time</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php $i = 1; @endphp
                             @foreach($meet->absen as $absen)
-                                <tr>
-                                    <th scope="row" class="text-center">{{$i}}</th>
+                                <tr class="text-center">
+                                    <th scope="row">{{$i}}</th>
                                     <td>{{$absen->user->name}}</td>
                                     <td>{{$absen->updated_at}}</td>
-                                    <td>{{$absen->status}}</td>
+                                    <td class="{{ $absen->status === 'Hadir' ? 'text-success' : ($absen->status === 'Tidak Hadir' ? 'text-danger' : 'text-warning') }}">
+                                        {{ $absen->status }}
+                                    </td>
                                 </tr>
                                 @php $i++ @endphp
                             @endforeach 

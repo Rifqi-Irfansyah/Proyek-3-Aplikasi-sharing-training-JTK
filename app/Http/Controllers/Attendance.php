@@ -14,7 +14,7 @@ class Attendance extends Controller
         DB::table('absen')
         ->where('id_jadwal', $request->id_jadwal)
         ->where('email', $request->email)
-        ->update(['status' => 'Hadir', 'updated_at' => now()]);    
+        ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);    
         return response()->json(['success' => 'Meeting added successfully!'], 200);
     }
 }

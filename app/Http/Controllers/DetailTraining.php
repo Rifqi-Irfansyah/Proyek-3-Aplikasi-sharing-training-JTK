@@ -65,7 +65,8 @@ class DetailTraining extends Controller
             Absen::create([
                 'email' => $data->email_peserta,
                 'status' => 'Tidak Hadir',
-                'id_jadwal' => $addMeet->id_jadwal
+                'id_jadwal' => $addMeet->id_jadwal,
+                'updated_at' => NULL
             ]);
         }
         
