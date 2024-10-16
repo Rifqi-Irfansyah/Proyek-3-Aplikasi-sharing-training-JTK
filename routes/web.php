@@ -9,6 +9,7 @@ use App\Http\Controllers\RegistController;
 use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
+use App\Http\Controllers\ModulController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,8 @@ Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainin
 Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
 
 Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
-Route::post('/tambahModul', [DetailTraining::class, 'tambahModul']);
+Route::post('/tambahModulTraining', [DetailTraining::class, 'tambahModul'])->name('tambahModulTraining');
+Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
 Route::post('/attendance', [Attendance::class, 'attendanceTrainer'])->name('absen');
 // Route::post('/editTraining/{id}', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 
@@ -49,6 +51,8 @@ Route::post('/editTraining', [EditTraining::class, 'editTraining'])->name('editT
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
+
+Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
 
 Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin']);
 

@@ -36,6 +36,11 @@
                     </a>
                 </li>
                 <li class="nav-link nav-item">
+                    <a class="nav-link" style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;" href="{{ route('listModul') }}">
+                        <i class="fas fa-book"></i> Module
+                    </a>
+                </li>
+                <li class="nav-link nav-item">
                     <a class="nav-link" style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;" href="{{ route('login') }}">
                         <i class="fas fa-user"></i> Profile
                     </a>
