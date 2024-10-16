@@ -50,7 +50,7 @@ Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
-Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin']);
+Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
 
 // Route::get('home', return)->middleware('pemateri');
 
