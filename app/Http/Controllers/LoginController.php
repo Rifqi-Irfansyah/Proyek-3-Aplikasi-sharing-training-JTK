@@ -38,7 +38,7 @@ class LoginController extends Controller
 
             if ($role == 'admin'){
                 Session(['success' => 'Login Success !!']);
-                return redirect('admin');
+                return redirect('BerandaAdmin');
             }
 
             else if($role == 'peserta'){

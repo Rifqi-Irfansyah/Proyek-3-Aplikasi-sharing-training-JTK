@@ -67,11 +67,11 @@ Route::middleware(['admin'])->group(function () {
 //Lina
 Route::get('listtraining', function () {
     return view('admin.ListTraining');
-});
+})->name('listtrainer');
 
 Route::get('approvetrainer', function () {
     return view('admin.ApproveTrainer');
-});
+})->name('approvetrainer');
 
 Route::middleware(['pemateri'])->group(function () {
     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');

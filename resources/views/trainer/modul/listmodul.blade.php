@@ -6,7 +6,7 @@
 
 
 <div class="d-flex align-items-center align-content-between flex-wrap h-100 w-100">
-    <div class="w-100 shadow">
+    <div class="w-100">
         @include('admin.topbar')
     </div>
 
