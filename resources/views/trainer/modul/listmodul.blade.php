@@ -5,13 +5,13 @@
 @section('content')
 
 
-<div class="d-flex align-items-center align-content-between flex-wrap h-100 w-100">
+<div class="d-flex flex-column h-100 w-100">
     <div class="w-100">
         @include('admin.topbar')
     </div>
 
-    <div class="container d-flex">
-        <div class="content w-100 d-flex flex-column">
+    <div class="container align-self-start">
+        <div class="content w-100 mt-5">
             @if($modul->isEmpty())
             <div class="d-flex flex-column align-items-center justify-content-center h-100 mb-5">
                 <div class="div ">
@@ -25,26 +25,27 @@
                 </div>
             </div>
             @else
-            <div class="text-center justify-content-start">
+            <div class="align-self-start">
                 <h1>Module</h1>
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-md rounded-5 btn-custom py-2 me-5" onClick="buttonAddModul()">
+                <button class="btn rounded-5 btn-dark py-2 me-5" onClick="buttonAddModul()">
                     <i class="fa fa-plus me-1"></i>Upload Module
                 </button>
             </div>
 
 
-            <div class="row mt-2 px-5">
+            <div class="row mt-2 px-5 justify-content-center">
                 @foreach($modul as $file)
-                <div class="col-4 mt-2">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-10 mt-2">
                     <div class="card mb-4 rounded-4">
                         <div class="card-body d-flex justify-content-center flex-column align-items-between">
-                            <div class="row align-items-center px-2">
+                            <div class="row d-flex align-items-center px-2">
                                 <div class="col-2">
                                     <i class="fas fa-file-pdf fa-3x me-3 text-danger"></i>
                                 </div>
-                                <div class="col-10 d-flex flex-column">
+                                <div class="col-1"></div>
+                                <div class="col d-flex flex-column">
                                     <h6 class="mb-3">{{ $file->judul }}</h6>
                                     <div class="div d-flex justify-content-end ">
                                         <a href="#" class="text-custom" id="btn-{{$file->nama_file}}"
@@ -327,7 +328,7 @@
                                 })
                             },
                             error: function(xhr, status, error) {
-                                var errorMessage = xhr.responseJSON.message ||
+                                var errorMessage = xhr.responseJSON.error || xhr.responseJSON.message ||
                                     'There was problem while deleted data';
                                 Swal.fire({
                                     icon: 'error',
@@ -358,7 +359,7 @@
         </script>
     </div>
 
-    <div class="w-100">
+    <div class="w-100 mt-auto">
         @include('footer')
     </div>
     @endsection

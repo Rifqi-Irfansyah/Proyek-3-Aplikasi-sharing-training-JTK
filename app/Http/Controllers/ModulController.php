@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\Modul;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Modul;
+use PDOException;
+
 
 class ModulController extends Controller
 {
@@ -58,16 +62,26 @@ class ModulController extends Controller
 
     public function deleteModul(Request $request)
     {
-        Log::info($request->all());
-        $modul = Modul::find($request->nameFile);
-
-        if (!$modul) {
-            return response()->json(['error' => 'Modul not found'], 404);
+        try {
+            $modul = Modul::find($request->nameFile);
+            if (!$modul)
+                return response()->json(['error' => 'Modul not found'], 404);
+            
+            $filePath = 'public/uploads/'.$modul->nama_file;
+            if (Storage::exists($filePath))
+                Storage::delete($filePath);
+            
+            $modul->delete();
+            return response()->json(['success' => 'Modul deleted successfully'], 200);
+            
+        } catch (QueryException $e) {
+            if ($e->getCode() == '23000' && strpos($e->getMessage(), '1451') !== false) {
+                return response()->json([
+                    'error' => 'This file is used in training'
+                ], 400);
+            }
+            return response()->json(['error' => 'Terjadi kesalahan saat menghapus file'], 500);
         }
-
-        $modul->delete();
-
-        return response()->json(['success' => 'Modul deleted successfully'], 200);
     }
 
 }
