@@ -53,7 +53,7 @@
                                         <a href="#" class="text-custom" id="btn-edit-{{$file->nama_file}}"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit File"><i
                                                 class="fa fa-pencil me-3 text-warning"></i></a>
-                                        <a href="#" class="text-custom" id="btn-{{$file->nama_file}}"
+                                        <a href="#" class="text-custom" id="btn-delete-{{$file->nama_file}}"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove File"><i
                                                 class="fa fa-trash me-3 text-danger"></i></a>
                                     </div>
@@ -225,7 +225,7 @@
 
                     if (formValues) {
                         const formData = new FormData();
-                        formData.append('name_file', "{{$file->nama_file}}"); // Adjust to your context
+                        formData.append('name_file', "{{$file->nama_file}}"); 
                         formData.append('title', formValues.titleInput);
                         formData.append('file', formValues.fileInput);
 
@@ -272,6 +272,75 @@
                                         color: '#DE2323',
                                     }
                                 });
+                            }
+                        });
+                    }
+                })();
+            });
+            document.getElementById('btn-delete-{{ $file->nama_file }}').addEventListener('click', function(e) {
+                e.preventDefault();
+                (async () => {
+                    const confirmation = await Swal.fire({
+                        icon: "warning",
+                        title: "Are You Sure Want Delete",
+                        text: " {{ $file->judul }} ?",
+                        focusConfirm: false,
+                        backdrop: 'rgba(0,0,0,0.9)',
+                        showConfirmButton: true,
+                        showCancelButton:true,
+                        customClass: {
+                            popup: 'popup-warning',
+                            confirmButton: 'btn-cancel',
+                            cancelButton: 'btn-confirm',
+                            title: 'title',
+                            color: '#DE2323',
+                        }
+                    });
+
+                    if (confirmation.isConfirmed) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: "{{route('deleteModul')}}",
+                            method: 'DELETE',
+                            data: {
+                                nameFile: "{{$file -> nama_file}}",
+                            },
+                            success: function(response) {
+                                location.reload();
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success Deleted!',
+                                    text: 'Modul have been deleted',
+                                    showConfirmButton: false,
+                                    backdrop: 'rgba(0,0,0,0.8)',
+                                    timer: 2000,
+                                    customClass: {
+                                        popup: 'popup-success',
+                                        title: 'title',
+                                        color: '#DE2323',
+                                    }
+                                })
+                            },
+                            error: function(xhr, status, error) {
+                                var errorMessage = xhr.responseJSON.message ||
+                                    'There was problem while deleted data';
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Failed Deleted!',
+                                    text: errorMessage,
+                                    backdrop: 'rgba(0,0,0,0.8)',
+                                    customClass: {
+                                        popup: 'popup-error',
+                                        confirmButton: 'btn-confirm',
+                                        title: 'title',
+                                        color: '#DE2323',
+                                    }
+                                })
                             }
                         });
                     }

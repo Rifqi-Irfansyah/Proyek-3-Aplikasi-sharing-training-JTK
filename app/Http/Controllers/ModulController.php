@@ -55,4 +55,19 @@ class ModulController extends Controller
 
         return response()->json(['success' => 'File upload successfully!'], 200);
     }
+
+    public function deleteModul(Request $request)
+    {
+        Log::info($request->all());
+        $modul = Modul::find($request->nameFile);
+
+        if (!$modul) {
+            return response()->json(['error' => 'Modul not found'], 404);
+        }
+
+        $modul->delete();
+
+        return response()->json(['success' => 'Modul deleted successfully'], 200);
+    }
+
 }
