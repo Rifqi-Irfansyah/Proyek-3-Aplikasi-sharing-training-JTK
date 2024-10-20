@@ -39,9 +39,26 @@
                 @foreach($modul as $file)
                 <div class="col-4 mt-2">
                     <div class="card mb-4 rounded-4">
-                        <div class="card-body d-flex justify-content-center flex-column align-items-center">
-                            <h5 class="card-title">{{ $file->judul }}</h5>
-                            <a href="#" class="btn btn-confirm" id="btn-{{$file->nama_file}}">Open File</a>
+                        <div class="card-body d-flex justify-content-center flex-column align-items-between">
+                            <div class="row align-items-center px-2">
+                                <div class="col-2">
+                                    <i class="fas fa-file-pdf fa-3x me-3 text-danger"></i>
+                                </div>
+                                <div class="col-10 d-flex flex-column">
+                                    <h6 class="mb-3">{{ $file->judul }}</h6>
+                                    <div class="div d-flex justify-content-end ">
+                                        <a href="#" class="text-custom" id="btn-{{$file->nama_file}}"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Open File"><i
+                                                class="fa fa-folder-open me-3 text-custom"></i></a>
+                                        <a href="#" class="text-custom" id="btn-edit-{{$file->nama_file}}"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit File"><i
+                                                class="fa fa-pencil me-3 text-warning"></i></a>
+                                        <a href="#" class="text-custom" id="btn-{{$file->nama_file}}"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove File"><i
+                                                class="fa fa-trash me-3 text-danger"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -168,8 +185,107 @@
                     }
                 });
             });
+            document.getElementById('btn-edit-{{ $file->nama_file }}').addEventListener('click', function(e) {
+                e.preventDefault();
+                var title = "Add Modul\n" + "\n\n";
+                (async () => {
+                    const {
+                        value: formValues
+                    } = await Swal.fire({
+                        title: title,
+                        backdrop: 'rgba(0,0,0,0.8)',
+                        confirmButtonText: 'Submit',
+                        html: `
+                        <div class="row">
+                            <div class="col-3 d-flex align-self-center">
+                                Title File
+                            </div>
+                            <div class="col">
+                                <input id="input-title" name="title" value="{{ $file->judul }}" type="text" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                            </div>
+                        </div>
+                        <input id="input-file" name="file" type="file" value="{{ $file->nama_file }}.pdf" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4 mt-4">
+                    `,
+                        focusConfirm: false,
+                        preConfirm: () => {
+                            const titleInput = document.getElementById("input-title").value;
+                            const fileInput = document.getElementById("input-file").files[0];
+                            return {
+                                titleInput,
+                                fileInput,
+                            };
+                        },
+                        customClass: {
+                            popup: 'popup-edit',
+                            confirmButton: 'btn-confirm',
+                            title: 'title',
+                            color: '#DE2323',
+                        }
+                    });
+
+                    if (formValues) {
+                        const formData = new FormData();
+                        formData.append('name_file', "{{$file->nama_file}}"); // Adjust to your context
+                        formData.append('title', formValues.titleInput);
+                        formData.append('file', formValues.fileInput);
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                    'content')
+                            }
+                        });
+                        $.ajax({
+                            url: "{{route('editModul')}}",
+                            method: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(response) {
+                                location.reload();
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success Saved!',
+                                    text: 'Meet has been added',
+                                    showConfirmButton: false,
+                                    backdrop: 'rgba(0,0,0,0.8)',
+                                    timer: 1000,
+                                    customClass: {
+                                        popup: 'popup-success',
+                                        title: 'title',
+                                        color: '#DE2323',
+                                    }
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                var errorMessage = xhr.responseJSON.message ||
+                                    'There was a problem while saving data';
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Failed Upload!',
+                                    text: errorMessage,
+                                    backdrop: 'rgba(0,0,0,0.8)',
+                                    customClass: {
+                                        popup: 'popup-error',
+                                        confirmButton: 'btn-confirm',
+                                        title: 'title',
+                                        color: '#DE2323',
+                                    }
+                                });
+                            }
+                        });
+                    }
+                })();
+            });
             @endforeach
         });
+        </script>
+
+        <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
         </script>
     </div>
 
