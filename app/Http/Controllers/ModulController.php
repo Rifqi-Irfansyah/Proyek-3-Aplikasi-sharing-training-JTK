@@ -88,14 +88,8 @@ class ModulController extends Controller
     {
         $query = $request->get('q');
 
-        if (!$query) {
-            return response()->json([
-                'message' => 'No query provided'
-            ], 400);
-        }
-
-        $modul = Modul::where('judul', 'like', '%' . $query . '%')->get();        
-        return response()->json($modul);
+        $modul = Modul::where('judul', 'like', '%' . $query . '%')->get();  
+        return view('trainer.modul.listmodul', (['modul' => $modul]));
     }
 
 }
