@@ -28,14 +28,21 @@
             <div class="align-self-start">
                 <h1>Module</h1>
             </div>
-            <div class="d-flex justify-content-end">
-                <button class="btn rounded-5 btn-dark py-2 me-5" onClick="buttonAddModul()">
+            <div class="row d-flex justify-content-center">
+                <div class="col-9 d-flex justify-content-between align-items-center">
+                    <div class="input-group align-items-center">
+                        <i class="fa fa-search" style="cursor:pointer; transform: translateX(30px); z-index:100;"></i>
+                        <input type="search" class="form-control ps-5 rounded-5" placeholder="Search..." aria-label="Search" id="searchInput">
+                    </div>
+                </div>
+                <button class="col-2 btn rounded-5 btn-dark py-2 me-3" onClick="buttonAddModul()">
                     <i class="fa fa-plus me-1"></i>Upload Module
                 </button>
             </div>
 
 
-            <div class="row mt-2 px-5 justify-content-center">
+
+            <div class="row mt-2 px-5 justify-content-center" id="modulContainer">
                 @foreach($modul as $file)
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-10 mt-2">
                     <div class="card mb-4 rounded-4">
@@ -69,6 +76,60 @@
 
         </div>
 
+        <script>
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                const query = this.value;
+                console.log(query);
+                
+                if (query.length > 2 || query.length == 0) {
+                    if(query.length == 0)
+                        fetch(`/search`)
+                    else
+                        fetch(`/search?q=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        const modulContainer = document.getElementById('modulContainer');
+                        modulContainer.innerHTML = ` `; // Clear previous results
+                        data.forEach(file => {
+                            const modulItem = 
+                            `<div class="col-xl-3 col-lg-4 col-md-6 col-sm-10 mt-2">
+                                <div class="card mb-4 rounded-4">
+                                    <div class="card-body d-flex justify-content-center flex-column align-items-between">
+                                        <div class="row d-flex align-items-center px-2">
+                                            <div class="col-2">
+                                                <i class="fas fa-file-pdf fa-3x me-3 text-danger"></i>
+                                            </div>
+                                            <div class="col-1"></div>
+                                            <div class="col d-flex flex-column">
+                                                <h6 class="mb-3">${file.judul}</h6>
+                                                <div class="div d-flex justify-content-end ">
+                                                    <a href="#" class="text-custom" id="btn-{{$file->nama_file}}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Open File">
+                                                        <i class="fa fa-folder-open me-3 text-custom"></i>
+                                                    </a>
+                                                    <a href="#" class="text-custom" id="btn-edit-${file.nama_file}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit File">
+                                                        <i class="fa fa-pencil me-3 text-warning"></i>
+                                                    </a>
+                                                    <a href="#" class="text-custom" id="btn-delete-${file.nama_file}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove File">
+                                                        <i class="fa fa-trash me-3 text-danger"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                            modulContainer.insertAdjacentHTML('beforeend', modulItem);
+                        });
+                    })
+                }
+            });
+        </script>
+        
         <script>
         function buttonAddModul() {
             var title = "Add Modul\n" + "\n\n";
@@ -357,6 +418,8 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
         </script>
+
+        
     </div>
 
     <div class="w-100 mt-auto">

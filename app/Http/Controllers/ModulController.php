@@ -84,4 +84,18 @@ class ModulController extends Controller
         }
     }
 
+    public function searchModul(Request $request)
+    {
+        $query = $request->get('q');
+
+        if (!$query) {
+            return response()->json([
+                'message' => 'No query provided'
+            ], 400);
+        }
+
+        $modul = Modul::where('judul', 'like', '%' . $query . '%')->get();        
+        return response()->json($modul);
+    }
+
 }
