@@ -62,7 +62,6 @@
                             <button type="button" class="btn btn-info">
                                 <a href="/detailTraining/{{ $training->id_training }}" class="text-decoration-none text-white">View</a>
                             </button>
-                            <button type="button" class="btn btn-success">Edit</button>
                             @method('DELETE')
                             <button type="button" class="btn btn-danger">Delete</button>
                         </div>
