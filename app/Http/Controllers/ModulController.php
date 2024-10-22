@@ -89,7 +89,7 @@ class ModulController extends Controller
         $query = $request->get('q');
 
         $modul = Modul::where('judul', 'like', '%' . $query . '%')->get();  
-        return view('trainer.modul.listmodul', (['modul' => $modul]));
+        return response()->json($modul, 200);
     }
 
 }
