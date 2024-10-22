@@ -55,6 +55,7 @@ Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul
 Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
 Route::post('/editModul', [ModulController::class, 'editModul'])->name('editModul');
 Route::delete('/deleteModul', [ModulController::class, 'deleteModul'])->name('deleteModul');
+Route::get('/search', [ModulController::class, 'searchModul'])->name('searchModul');
 
 Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
 

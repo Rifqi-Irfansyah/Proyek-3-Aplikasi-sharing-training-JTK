@@ -84,4 +84,12 @@ class ModulController extends Controller
         }
     }
 
+    public function searchModul(Request $request)
+    {
+        $query = $request->get('q');
+
+        $modul = Modul::where('judul', 'like', '%' . $query . '%')->get();  
+        return response()->json($modul, 200);
+    }
+
 }
