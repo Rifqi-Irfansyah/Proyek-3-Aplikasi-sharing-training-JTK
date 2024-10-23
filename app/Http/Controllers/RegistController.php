@@ -30,7 +30,7 @@ class RegistController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'date_of_birth' => 'required|date',
                 'gender' => 'required|string',
-                'password' => 'required|string|min:8|confirmed', // Memastikan password dan konfirmasi cocok
+                'password' => 'required|string|min:8|confirmed',
             ]);
 
             // Buat user baru untuk peserta
@@ -45,9 +45,13 @@ class RegistController extends Controller
 
             // Cek apakah user berhasil disimpan
             if ($user) {
-                return redirect()->route('login')->with('success', 'Your Account Success Registered');
+                Session::flash('success', 'Your Account Success Registered');
+                return view('auth.login');
+                // return redirect()->route('login')->with('success', 'Your Account Success Registered');
             } else {
-                return redirect()->back()->with('error', 'Register failed. Please Try again.');
+                Session::flash('error', 'Register failed. Please Try again.');
+                return redirect()->back();
+                //return redirect()->back()->with('error', 'Register failed. Please Try again.');
             }
         }
 
@@ -87,9 +91,13 @@ class RegistController extends Controller
 
         ]);
 
-        return redirect()->route('login')->with('success', 'Your Account Success Registered');
+        Session::flash('success', 'Your Account Success Registered');
+        return view('auth.login');
+        // return redirect()->route('login')->with('success', 'Your Account Success Registered');
     } else {
-        return redirect()->back()->with('error', 'Register failed. Please Try again.');
+        Session::flash('error', 'Register failed. Please Try again.');
+        return redirect()->back();
+        // return redirect()->back()->with('error', 'Register failed. Please Try again.');
     }
         }
 
