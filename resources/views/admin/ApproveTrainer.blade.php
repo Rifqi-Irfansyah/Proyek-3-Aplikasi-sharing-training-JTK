@@ -65,7 +65,6 @@
         <tbody>
         @foreach ($trainers as $tr)
                     <tr>
-                        <td>{{ $tr-> }}</td>
                         <td>{{ $tr->user->name }}</td> <!-- Nama diambil dari relasi user -->
                         <td>{{ $tr->user->gender }}</td> <!-- Gender diambil dari relasi user -->
                         <td>{{ $tr->user->tanggal_lahir }}</td> <!-- Tanggal lahir diambil dari relasi user -->
