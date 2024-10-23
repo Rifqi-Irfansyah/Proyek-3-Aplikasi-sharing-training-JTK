@@ -9,6 +9,7 @@ use App\Models\Modul;
 use App\Models\ModulTraining;
 use App\Models\PesertaTraining;
 use App\Models\Absen;
+use Session;
 
 class DetailTraining extends Controller
 {
@@ -112,8 +113,16 @@ class DetailTraining extends Controller
         return response()->json(['success' => 'File upload successfully!'], 200);
     }
 
-    public function addModulFromList(Request $request)
+    public function addModulFromList(Request $request, $id)
     {
-        dd($request);
+        $name_file = $request->selected_files;
+        foreach ($name_file as $file) {
+            ModulTraining::create([
+                'id_training' => $id,
+                'nama_file' => $file
+            ]);
+        }
+        Session::flash('success', 'File added successfully!');
+        return redirect('/modul/'.$id);
     }
 }

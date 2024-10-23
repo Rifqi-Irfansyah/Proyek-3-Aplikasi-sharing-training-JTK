@@ -3,6 +3,26 @@
 @section('title', 'Modul Page')
 @section('modulSelect', 'hovered')
 @section('isi')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+@if(session('success'))
+const successMessage = @json(Session::get('success'));
+Swal.fire({
+    icon: 'success',
+    title: 'Module Added Success!',
+    text: successMessage,
+    showConfirmButton: false,
+    backdrop: 'rgba(0,0,0,0.8)',
+    timer: 2000,
+    customClass: {
+        popup: 'popup-success',
+        title: 'title',
+        color: '#DE2323'
+    }
+})
+@endif
+</script>
+
 <!-- Main content -->
 <div class="content bg-custom-pattern ms-300 w-100 d-flex flex-column">
     @if($modul->isEmpty())
@@ -191,60 +211,7 @@ function buttonAddFromList() {
                 color: '#DE2323',
             }
         });
-
-        if (formValues) {
-            const formData = new FormData();
-            formData.append('id_training', {{$training -> id_training}});
-            formData.append('title', formValues.title);
-            formData.append('file', formValues.file);
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{route('tambahModulTraining')}}",
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    location.reload();
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success Saved!',
-                        text: 'Meet has been added',
-                        showConfirmButton: false,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        timer: 1000,
-                        customClass: {
-                            popup: 'popup-success',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    });
-                },
-                error: function(xhr, status, error) {
-                    var errorMessage = xhr.responseJSON.message ||
-                        'There was a problem while saving data';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Failed Upload!',
-                        text: errorMessage,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        customClass: {
-                            popup: 'popup-error',
-                            confirmButton: 'btn-confirm',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    });
-                }
-            });
-        }
     })();
-
 }
 
 document.addEventListener('DOMContentLoaded', function() {
