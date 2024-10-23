@@ -53,7 +53,7 @@ class User extends Authenticatable
     public function tambahanTrainer()
     {
         return $this->hasOne(TambahanTrainer::class, 'email', 'email'); 
-    }
+    }   
 
     public function trainings()
     {

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DetailTraining;
 use App\Http\Controllers\RegistController;
+use App\Http\Controllers\ListTrainerController;
+use App\Http\Controllers\VerifTrainerController;
+use App\Http\Controllers\ApproveTrainerController;
 use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
@@ -51,6 +54,13 @@ Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
+//listtrainer
+Route::get('listtrainer', [ListTrainerController::class, 'index']);
+//verif
+Route::get('verif-trainer', [VerifTrainerController::class, 'verifAdmin']);
+//Approve
+Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer']);
+
 Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
 Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
 Route::post('/editModul', [ModulController::class, 'editModul'])->name('editModul');
@@ -70,7 +80,7 @@ Route::middleware(['admin'])->group(function () {
 //Lina
 Route::get('listtraining', function () {
     return view('admin.ListTraining');
-})->name('listtrainer');
+});
 
 Route::get('approvetrainer', function () {
     return view('admin.ApproveTrainer');
