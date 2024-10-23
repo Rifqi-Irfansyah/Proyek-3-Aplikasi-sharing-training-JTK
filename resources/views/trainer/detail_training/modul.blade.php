@@ -99,7 +99,7 @@ function buttonAddModul() {
                 }
             });
             $.ajax({
-                url: '/tambahModul',
+                url: "{{route('tambahModulTraining')}}",
                 method: 'POST',
                 data: formData,
                 processData: false,

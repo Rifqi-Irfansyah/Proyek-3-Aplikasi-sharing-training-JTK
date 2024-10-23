@@ -12,6 +12,7 @@ use App\Http\Controllers\ApproveTrainerController;
 use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
+use App\Http\Controllers\ModulController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainin
 Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
 
 Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
-Route::post('/tambahModul', [DetailTraining::class, 'tambahModul']);
+Route::post('/tambahModulTraining', [DetailTraining::class, 'tambahModul'])->name('tambahModulTraining');
 Route::post('/attendance', [Attendance::class, 'attendanceTrainer'])->name('absen');
 // Route::post('/editTraining/{id}', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
 
@@ -60,7 +61,13 @@ Route::get('verif-trainer', [VerifTrainerController::class, 'verifAdmin']);
 //Approve
 Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer']);
 
-Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin']);
+Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
+Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
+Route::post('/editModul', [ModulController::class, 'editModul'])->name('editModul');
+Route::delete('/deleteModul', [ModulController::class, 'deleteModul'])->name('deleteModul');
+Route::get('/search', [ModulController::class, 'searchModul'])->name('searchModul');
+
+Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
 
 // Route::get('home', return)->middleware('pemateri');
 
@@ -70,9 +77,14 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
 });
 
+//Lina
+Route::get('listtraining', function () {
+    return view('admin.ListTraining');
+});
+
 Route::get('approvetrainer', function () {
     return view('admin.ApproveTrainer');
-});
+})->name('approvetrainer');
 
 Route::middleware(['pemateri'])->group(function () {
     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');

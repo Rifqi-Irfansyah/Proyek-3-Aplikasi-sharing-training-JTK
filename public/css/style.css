@@ -387,3 +387,17 @@ body {
 .scrollbar-left > * {
   direction: ltr;
 }
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+  transform: translateX(-40px);
+  margin-right: 5px;
+}
+
+.dropdown>.dropdown-toggle:active {
+  pointer-events: none;
+}
+
+.dropdown ul li a:hover{
+  background-color: var(--blue);
+}

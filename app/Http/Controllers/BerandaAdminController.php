@@ -14,4 +14,18 @@ class BerandaAdminController extends Controller
         return view('admin.BerandaAdmin',compact('info'));
     }
 
+    public function destroy($id)
+    {
+        // Cari data training berdasarkan id
+        $training = Training::find($id);
+
+        // Cek jika data ditemukan, lalu hapus
+        if ($training) {
+            $training->delete();
+            return redirect()->back()->with('success', 'Training successfully deleted.');
+        }
+
+        return redirect()->back()->with('error', 'Training not found');
+    }
+
 }
