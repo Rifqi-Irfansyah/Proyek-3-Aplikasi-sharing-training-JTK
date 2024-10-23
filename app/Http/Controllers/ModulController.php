@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Modul;
+use App\Models\ModulTraining;
 use PDOException;
 
 
@@ -13,7 +14,7 @@ class ModulController extends Controller
 {
     public function showModul()
     {
-        $modul = Modul::get();
+        $modul = Modul::orderBy('judul', 'asc')->get();
         return view('trainer.modul.listmodul', (['modul' => $modul]));
     }
 
@@ -21,7 +22,7 @@ class ModulController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:50',
-            'file' => 'required|file|mimes:pdf|max:10240'
+            'file' => 'required|file|mimes:pdf|max:5120'
         ]);
 
         $file = $request->file('file');
@@ -42,18 +43,26 @@ class ModulController extends Controller
             'title' => 'required|string|max:50',
         ]);
 
+        $isUsed = ModulTraining::where('nama_file', $request->name_file)->exists();
+        if($isUsed && ($request->file != "undefined"))
+            return response()->json(['error' => 'File used in Training'], 400);
+
         $modul = Modul::find($request->name_file);
         $modul->judul = $request->title;
         if($request->file != "undefined"){
             $request->validate([
-                'file' => 'nullable|required|file|mimes:pdf|max:10240'
+                'file' => 'nullable|required|file|mimes:pdf|max:5120'
             ]);
+
             $file = $request->file('file');
             $namaFile = $file->getClientOriginalName();
             $path = $file->storeAs('uploads', $namaFile, 'public');
 
             $modul->nama_file = $namaFile;
 
+            $filePath = 'public/uploads/'.$request->name_file;
+            if (Storage::exists($filePath))
+                Storage::delete($filePath);
         }
         $modul->save();
 
@@ -88,7 +97,7 @@ class ModulController extends Controller
     {
         $query = $request->get('q');
 
-        $modul = Modul::where('judul', 'like', '%' . $query . '%')->get();  
+        $modul = Modul::where('judul', 'like', '%' . $query . '%')->orderBy('judul', 'asc')->get();  
         return response()->json($modul, 200);
     }
 

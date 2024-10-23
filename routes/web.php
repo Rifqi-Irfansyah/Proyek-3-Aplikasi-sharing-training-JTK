@@ -56,11 +56,11 @@ Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
 //listtrainer
-Route::get('listtrainer', [ListTrainerController::class, 'index']);
+Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');
 //verif
-Route::get('verif-trainer', [VerifTrainerController::class, 'verifAdmin']);
+Route::get('verif-trainer', [VerifTrainerController::class, 'verifAdmin'])->name('verifTrainer');
 //Approve
-Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer']);
+Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
 
 Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
 Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
@@ -70,7 +70,6 @@ Route::get('/search', [ModulController::class, 'searchModul'])->name('searchModu
 
 Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
 
-// Route::get('home', return)->middleware('pemateri');
 
 // User Access
 Route::middleware(['admin'])->group(function () {
@@ -78,13 +77,13 @@ Route::middleware(['admin'])->group(function () {
 });
 
 //Lina
-Route::get('listtraining', function () {
-    return view('admin.ListTraining');
-});
+// Route::get('listtraining', function () {
+//     return view('admin.ListTraining');
+// });
 
-Route::get('approvetrainer', function () {
-    return view('admin.ApproveTrainer');
-})->name('approvetrainer');
+// Route::get('approvetrainer', function () {
+//     return view('admin.ApproveTrainer');
+// })->name('approvetrainer');
 
 Route::middleware(['pemateri'])->group(function () {
     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');

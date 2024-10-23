@@ -332,7 +332,7 @@
                                     });
                                 },
                                 error: function(xhr, status, error) {
-                                    var errorMessage = xhr.responseJSON.message ||
+                                    var errorMessage = xhr.responseJSON.message || xhr.responseJSON.error ||
                                         'There was a problem while saving data';
                                     Swal.fire({
                                         icon: 'error',
