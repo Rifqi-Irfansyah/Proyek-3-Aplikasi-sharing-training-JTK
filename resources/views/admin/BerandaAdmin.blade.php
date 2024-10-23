@@ -5,22 +5,21 @@
 @section('content')
 
 <script>
-@if(session('success'))
-    var successMessage = "{{ session('success') }}";
-    Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: successMessage,
-        showConfirmButton: false,
-        timer: 2000,
-        backdrop: 'rgba(0,0,0,0.8)',
-        customClass: {
-            popup: 'popup-success',
-            title: 'title',
-            color: '#DE2323',
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: "{{ session('success') }}", // Menampilkan pesan dari session
+            timer: 2000,
+            showConfirmButton: false,
+            customClass: {
+                popup: 'popup-success',
+                title: 'title',
+            }
+        });
     });
-@endif
+    @endif
 </script>
     
 
@@ -70,8 +69,8 @@
         @endforeach
         </tbody>
     </table>
-    <button type="button" class="btn btn-light position-absolute top-100 start-50 translate-middle mt-4 ">Add New Course
-        {{-- <a href="{{ route('admin.training.create') }}">Create Training</a> --}}
+    <button type="button" class="btn btn-light position-absolute top-100 start-50 translate-middle mt-4 ">
+        <a href="/training/create">Add New Course</a>
     </button>
 </div>
 
