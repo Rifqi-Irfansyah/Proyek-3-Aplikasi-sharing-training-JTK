@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Training;
 use App\Models\JadwalTraining;
 use Illuminate\Http\Request;
+use Session;
 
 class CreateTrainingController extends Controller
 {
@@ -70,7 +71,8 @@ class CreateTrainingController extends Controller
             $jadwal->tempat_pelaksana = $request->tempat_pelaksana[$key];
             $jadwal->save();
         }
-
-        return redirect()->route('beranda.admin')->with('success', 'Each training meetings has been successfully created');
+        Session::flash('success', 'Each training meetings has been successfully created');
+        return redirect('BerandaAdmin');
+        // return redirect()->route('beranda.admin')->with('success', 'Each training meetings has been successfully created');
     }
 }
