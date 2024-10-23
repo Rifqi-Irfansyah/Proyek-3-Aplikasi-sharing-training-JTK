@@ -76,74 +76,23 @@
                         <th>Email</th>
                         <th>Name</th>
                         <th>Gender</th>
-                        <th>Age</th>
+                        <th>Tanggal Lahir</th>
                     </tr>
                 </thead>
                 <tbody>
+                @foreach ($trainers as $tr)
                     <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Matt Dickerson</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">30</span></td>
+                        <td>{{ $tr->email }}</td>
+                        <td>{{ $tr->user->name }}</td> <!-- Nama diambil dari relasi user -->
+                        <td>{{ $tr->user->gender }}</td> <!-- Gender diambil dari relasi user -->
+                        <td>{{ $tr->user->tanggal_lahir }}</td> <!-- Tanggal lahir diambil dari relasi user -->
                     </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Wiktoria</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">35</span></td>
-                    </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Trixie Byrd</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">43</span></td>
-                    </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Brad Mason</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">39</span></td>
-                    </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Sanderson</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">41</span></td>
-                    </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Jun Redfern</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">33</span></td>
-                    </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Miriam Kidd</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">42</span></td>
-                    </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Dominic</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">41</span></td>
-                    </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Shanice</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">54</span></td>
-                    </tr>
-                    <tr>
-                        <td>nabila@gmail.com</td>
-                        <td>Poppy-Rose</td>
-                        <td>Male</td>
-                        <td><span class="age-badge">51</span></td>
-                    </tr>
+                @endforeach
+                    
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>  
 </div>
 
 @endsection

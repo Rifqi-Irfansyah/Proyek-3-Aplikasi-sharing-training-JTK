@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DetailTraining;
 use App\Http\Controllers\RegistController;
-use App\Http\Controllers\ListTrainer;
+use App\Http\Controllers\ListTrainerController;
+use App\Http\Controllers\VerifTrainerController;
+use App\Http\Controllers\ApproveTrainerController;
 use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
@@ -51,12 +53,14 @@ Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 
-<<<<<<< HEAD
 //listtrainer
-Route::get('/listtrainer', [ListTrainer::class, 'index']);
-=======
+Route::get('listtrainer', [ListTrainerController::class, 'index']);
+//verif
+Route::get('verif-trainer', [VerifTrainerController::class, 'verifAdmin']);
+//Approve
+Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer']);
+
 Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin']);
->>>>>>> 3e8cd47b71b48a31fa3376e362e3f73a7569c212
 
 // Route::get('home', return)->middleware('pemateri');
 
@@ -65,13 +69,6 @@ Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin']);
 Route::middleware(['admin'])->group(function () {
     Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
 });
-
-//Lina
-Route::get('listtrainer', function () {
-    return view('admin.ListTrainer');
-});
-
-Route::get('/trainers', [ListTrainer::class, 'index'])->name('list.trainer');
 
 Route::get('approvetrainer', function () {
     return view('admin.ApproveTrainer');

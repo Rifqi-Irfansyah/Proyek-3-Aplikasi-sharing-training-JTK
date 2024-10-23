@@ -55,29 +55,26 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Training Name</th>
+                <th>Trainer Email</th>
                 <th>Trainer Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>See Detail</th>
+                <th>No Telfon</th>
+                <th>Pengalaman</th>
+                <th>Status</th>
             </tr>
         </thead>
+             @foreach ($trainers as $tr)
+                <tr>
+                    <td>{{ $tr->email }}</td>
+                    <td>{{ $tr->user->name }}</td> <!-- Nama diambil dari relasi user -->
+                    <td>{{ $tr->no_wa }}</td> <!-- No Telfon -->
+                    <td>{{ $tr->pengalaman }}</td> <!-- Pengalaman dari model TambahanTrainer -->
+                    <td>{{ $tr->status_akun }}</td> <!-- Status dari model TambahanTrainer -->
+                </tr>
+            @endforeach
+        
+
         <tbody>
-        @foreach ($trainers as $tr)
-                    <tr>
-                        <td>{{ $tr-> }}</td>
-                        <td>{{ $tr->user->name }}</td> <!-- Nama diambil dari relasi user -->
-                        <td>{{ $tr->user->gender }}</td> <!-- Gender diambil dari relasi user -->
-                        <td>{{ $tr->user->tanggal_lahir }}</td> <!-- Tanggal lahir diambil dari relasi user -->
-                    </tr>
-                @endforeach
-            <tr>
-                <td>Training Name</td>
-                <td>Trainer Name</td>
-                <td>DD/MM/YYYY</td>
-                <td>DD/MM/YYYY</td>
-                <td><span class="see-detail" onclick="location.href='detail-page-url-1'">👁️</span></td>
-            </tr>
+            
         </tbody>
     </table>
 </div>
