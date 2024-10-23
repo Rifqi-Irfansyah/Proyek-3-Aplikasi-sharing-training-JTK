@@ -13,6 +13,7 @@ use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
 use App\Http\Controllers\ModulController;
+use App\Http\Controllers\PreviewTrainingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,3 +93,6 @@ Route::middleware(['pemateri'])->group(function () {
 Route::middleware(['peserta'])->group(function () {
     Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
 });
+
+
+Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
