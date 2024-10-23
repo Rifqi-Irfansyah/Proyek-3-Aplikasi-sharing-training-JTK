@@ -87,8 +87,7 @@
                         <td>{{ $tr->user->gender }}</td> <!-- Gender diambil dari relasi user -->
                         <td>{{ $tr->user->tanggal_lahir }}</td> <!-- Tanggal lahir diambil dari relasi user -->
                     </tr>
-                @endforeach
-                    
+                @endforeach  
                 </tbody>
             </table>
         </div>

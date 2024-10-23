@@ -71,7 +71,6 @@ Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->na
 
 // Route::get('home', return)->middleware('pemateri');
 
-
 // User Access
 Route::middleware(['admin'])->group(function () {
     Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
