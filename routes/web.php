@@ -56,6 +56,7 @@ Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul'])->name('showModulTraining');
 Route::post('/modul/{id}', [DetailTraining::class, 'addModulFromList'])->name('addModulFromList');
+Route::delete('/modul/{id}', [DetailTraining::class, 'deleteModulTraining'])->name('deleteModulTraining');
 
 //listtrainer
 Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');

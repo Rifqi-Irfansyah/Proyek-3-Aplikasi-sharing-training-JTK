@@ -125,4 +125,10 @@ class DetailTraining extends Controller
         Session::flash('success', 'File added successfully!');
         return redirect('/modul/'.$id);
     }
+
+    public function deleteModulTraining(Request $request, $id)
+    {
+        $modul = ModulTraining::where('nama_file', $request->nameFile)->where('id_training', $id)->delete();
+        return response()->json(['success' => 'Modul deleted successfully'], 200);
+    }
 }
