@@ -55,6 +55,7 @@ Route::post('/editTraining', [EditTraining::class, 'editTraining'])->name('editT
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
 Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
+Route::post('/modul/{id}', [DetailTraining::class, 'addModulFromList'])->name('addModulFromList');
 
 //listtrainer
 Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');

@@ -47,7 +47,9 @@ class DetailTraining extends Controller
         $namaFiles = $filenames->pluck('nama_file');
         $modul = Modul::whereIn('nama_file', $namaFiles)->get();
         $training = Training::with(['jadwalTrainings'])->find($id);
-        return view('trainer.detail_training.modul', ['modul' => $modul, 'training' => $training]);
+        $modulGlobal = Modul::whereNotIn('nama_file', $namaFiles)->orderBy('judul', 'asc')->get();
+
+        return view('trainer.detail_training.modul', ['modul' => $modul,'modulGlobal' => $modulGlobal, 'training' => $training]);
     }
 
     public function tambahMeet(Request $request)
@@ -108,5 +110,10 @@ class DetailTraining extends Controller
         ]);
 
         return response()->json(['success' => 'File upload successfully!'], 200);
+    }
+
+    public function addModulFromList(Request $request)
+    {
+        dd($request);
     }
 }
