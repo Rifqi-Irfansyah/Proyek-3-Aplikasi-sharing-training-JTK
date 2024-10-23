@@ -37,12 +37,12 @@ class LoginController extends Controller
             $role = $user->role;
 
             if ($role == 'admin'){
-                Session(['success' => 'Login Success !!']);
+                Session::flash('success','Login Success !!');
                 return redirect('BerandaAdmin');
             }
 
             else if($role == 'peserta'){
-                Session(['success' => 'Login Success !!']);
+                Session::flash('success','Login Success !!');
                 return redirect('peserta');
             }
 
