@@ -14,6 +14,7 @@ use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\PreviewTrainingController;
+use App\Http\Controllers\BerandaPesertaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +70,13 @@ Route::delete('/deleteModul', [ModulController::class, 'deleteModul'])->name('de
 Route::get('/search', [ModulController::class, 'searchModul'])->name('searchModul');
 
 Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
+Route::get('/Beranda', [BerandaPesertaController::class, 'CardTraining'])->name('beranda_peserta');
+Route::get('/Usulan' , function () {
+    return view('admin.Usulan');
+});
+Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name('training.delete');
 
+//Route::get('/delete/{id}',[BerandaAdminController::class, 'delete'])->name('delete');
 
 // User Access
 Route::middleware(['admin'])->group(function () {
