@@ -4,6 +4,8 @@
 
 @section('content')
 
+@include('admin.topbar')
+
 <!-- Custom Styling -->
 <style>
     body {
@@ -23,7 +25,7 @@
         border-spacing: 0 10px;
     }
     .table th {
-        background-color: #004080;
+        background-color: #004080; /* Warna background header tabel */
         color: white;
         border: none;
         font-size: 1.1rem;
@@ -58,9 +60,9 @@
     <div class="form-group">
         <label for="sortBy" class="me-2">Sort By</label>
         <select class="form-select" id="sortBy">
-            <option selected>Name</option>
-            <option value="age">Age</option>
-            <option value="email">Email</option>
+            <option selected>Nama</option>
+            <option value="Status Akun">Status Akun</option>
+            <option value="Email">Email</option>
         </select>
     </div>
 </div>
@@ -71,12 +73,13 @@
         <!-- Table -->
         <div class="col-md-10">
             <table class="table table-borderless text-center">
-                <thead>
+                <thead class="table-primary"> <!-- Tambahkan kelas table-primary di sini -->
                     <tr>
                         <th>Email</th>
                         <th>Name</th>
                         <th>Gender</th>
                         <th>Tanggal Lahir</th>
+                        <th>Status Akun</th> <!-- Tambahkan kolom Status Akun -->
                     </tr>
                 </thead>
                 <tbody>
@@ -86,6 +89,7 @@
                         <td>{{ $tr->user->name }}</td> <!-- Nama diambil dari relasi user -->
                         <td>{{ $tr->user->gender }}</td> <!-- Gender diambil dari relasi user -->
                         <td>{{ $tr->user->tanggal_lahir }}</td> <!-- Tanggal lahir diambil dari relasi user -->
+                        <td>{{ $tr->status_akun }}</td> <!-- Status Akun diambil dari model tambahan_trainer -->
                     </tr>
                 @endforeach  
                 </tbody>
@@ -93,5 +97,7 @@
         </div>
     </div>  
 </div>
+
+@include('footer')
 
 @endsection

@@ -11,6 +11,7 @@ class TambahanTrainer extends Model
 
     // Name table in database
     protected $table = 'tambahan_trainer';
+    protected $nonPrimaryKey = 'email';
     protected $fillable = [
         'email',
         'no_wa',

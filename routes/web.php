@@ -57,9 +57,14 @@ Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
 //listtrainer
 Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');
 //verif
-Route::get('verif-trainer', [VerifTrainerController::class, 'verifAdmin'])->name('verifTrainer');
+Route::get('verif-trainer', [VerifTrainerController::class, 'verifTrainer'])->name('verifTrainer');
+Route::post('/verif-trainer/update-status', [VerifTrainerController::class, 'updateStatus'])->name('verif-trainer');
+Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
+
+
 //Approve
 Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
+
 
 Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
 Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
