@@ -15,7 +15,7 @@
                     <i class="fa-regular fa-user"></i> Edit Meet
                 </button>
             </div>
-        </div>
+        </div> 
 
         <div class="row mt-5 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-clock me-3"></i>Start Meet</div>

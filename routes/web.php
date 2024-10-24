@@ -13,6 +13,9 @@ use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
 use App\Http\Controllers\ModulController;
+use App\Http\Controllers\PreviewTrainingController;
+use App\Http\Controllers\BerandaPesertaController;
+use App\Http\Controllers\DetailTrainingPeserta;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +55,13 @@ Route::post('/attendance', [Attendance::class, 'attendanceTrainer'])->name('abse
 Route::post('/editTraining', [EditTraining::class, 'editTraining'])->name('editTraining');
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
 Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
-Route::get('/modul/{id}', [DetailTraining::class, 'modul']);
+Route::get('/modul/{id}', [DetailTraining::class, 'modul'])->name('showModulTraining');
+Route::post('/modul/{id}', [DetailTraining::class, 'addModulFromList'])->name('addModulFromList');
+Route::delete('/modul/{id}', [DetailTraining::class, 'deleteModulTraining'])->name('deleteModulTraining');
+
+Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
+Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
+Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
 
 //listtrainer
 Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');
@@ -73,7 +82,13 @@ Route::delete('/deleteModul', [ModulController::class, 'deleteModul'])->name('de
 Route::get('/search', [ModulController::class, 'searchModul'])->name('searchModul');
 
 Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
+Route::get('/Beranda', [BerandaPesertaController::class, 'CardTraining'])->name('beranda_peserta');
+Route::get('/Usulan' , function () {
+    return view('admin.Usulan');
+});
+Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name('training.delete');
 
+//Route::get('/delete/{id}',[BerandaAdminController::class, 'delete'])->name('delete');
 
 // User Access
 Route::middleware(['admin'])->group(function () {
@@ -96,3 +111,6 @@ Route::middleware(['pemateri'])->group(function () {
 Route::middleware(['peserta'])->group(function () {
     Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
 });
+
+
+Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');

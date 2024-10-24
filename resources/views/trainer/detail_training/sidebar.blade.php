@@ -12,9 +12,11 @@
             <span class="title text-white ps-0">Trainify </span>
         </div>
         <div>
-            <button class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
-                <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
-            </button>
+            <a href="{{route('beranda.admin')}}">
+                <button class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
+                    <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
+                </button>
+            </a>
         </div>
 
         <ul class="list-unstyled mt-4 ps-1">

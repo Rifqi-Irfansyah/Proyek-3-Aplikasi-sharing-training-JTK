@@ -9,6 +9,7 @@ use App\Models\Modul;
 use App\Models\ModulTraining;
 use App\Models\PesertaTraining;
 use App\Models\Absen;
+use Session;
 
 class DetailTraining extends Controller
 {
@@ -47,7 +48,9 @@ class DetailTraining extends Controller
         $namaFiles = $filenames->pluck('nama_file');
         $modul = Modul::whereIn('nama_file', $namaFiles)->get();
         $training = Training::with(['jadwalTrainings'])->find($id);
-        return view('trainer.detail_training.modul', ['modul' => $modul, 'training' => $training]);
+        $modulGlobal = Modul::whereNotIn('nama_file', $namaFiles)->orderBy('judul', 'asc')->get();
+
+        return view('trainer.detail_training.modul', ['modul' => $modul,'modulGlobal' => $modulGlobal, 'training' => $training]);
     }
 
     public function tambahMeet(Request $request)
@@ -108,5 +111,24 @@ class DetailTraining extends Controller
         ]);
 
         return response()->json(['success' => 'File upload successfully!'], 200);
+    }
+
+    public function addModulFromList(Request $request, $id)
+    {
+        $name_file = $request->selected_files;
+        foreach ($name_file as $file) {
+            ModulTraining::create([
+                'id_training' => $id,
+                'nama_file' => $file
+            ]);
+        }
+        Session::flash('success', 'File added successfully!');
+        return redirect('/modul/'.$id);
+    }
+
+    public function deleteModulTraining(Request $request, $id)
+    {
+        $modul = ModulTraining::where('nama_file', $request->nameFile)->where('id_training', $id)->delete();
+        return response()->json(['success' => 'Modul deleted successfully'], 200);
     }
 }
