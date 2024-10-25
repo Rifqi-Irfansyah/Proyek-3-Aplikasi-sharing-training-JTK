@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Training;
+use App\Models\JadwalTraining;
+use App\Models\Absen;
+use App\Models\Modul;
 use Illuminate\Http\Request;
 
 class BerandaAdminController extends Controller
@@ -14,18 +17,31 @@ class BerandaAdminController extends Controller
         return view('admin.BerandaAdmin',compact('info'));
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        // Cari data training berdasarkan id
-        $training = Training::find($id);
+        $training = Training::with(['Modul', 'JadwalTrainings'])->find($id);
+    
 
-        // Cek jika data ditemukan, lalu hapus
-        if ($training) {
-            $training->delete();
-            return redirect()->back()->with('success', 'Training successfully deleted.');
+        if (!$training) {
+            return redirect()->back()->with('error', 'Training not found');
         }
 
-        return redirect()->back()->with('error', 'Training not found');
+        if($training->status === 'Pendaftaran')
+        {
+            $training->Modul()->delete();
+        
+            foreach ($training->jadwalTrainings as $jadwal) {
+                $jadwal->absen()->delete();
+            }
+            $training->jadwalTrainings()->delete();
+            $training->delete();
+            return redirect()->route('beranda.admin')->with('success', 'Training successfully deleted.');
+        }
+        else {
+            return redirect()->back()->with('error', 'Data tidak dapat dihapus karena status training bukan pendaftaran.');
+        }
     }
 
+        
+    
 }
