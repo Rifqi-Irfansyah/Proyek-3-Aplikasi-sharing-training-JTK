@@ -79,6 +79,7 @@
                         <th>Name</th>
                         <th>Gender</th>
                         <th>Tanggal Lahir</th>
+                        <th>No Telepon</th> <!-- Tambahkan kolom No Telepon -->
                         <th>Status Akun</th> <!-- Tambahkan kolom Status Akun -->
                     </tr>
                 </thead>
@@ -89,6 +90,7 @@
                         <td>{{ $tr->user->name }}</td> <!-- Nama diambil dari relasi user -->
                         <td>{{ $tr->user->gender }}</td> <!-- Gender diambil dari relasi user -->
                         <td>{{ $tr->user->tanggal_lahir }}</td> <!-- Tanggal lahir diambil dari relasi user -->
+                        <td>{{ $tr->no_wa }}</td> <!-- No Telepon diambil dari model tambahan_trainer -->
                         <td>{{ $tr->status_akun }}</td> <!-- Status Akun diambil dari model tambahan_trainer -->
                     </tr>
                 @endforeach  

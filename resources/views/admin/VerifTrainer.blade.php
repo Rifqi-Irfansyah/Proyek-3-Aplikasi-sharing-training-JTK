@@ -82,7 +82,7 @@
         </thead>
         <tbody>
             @foreach ($trainers as $tr)
-                @if($tr->status_akun != 'terkonfirmasi') 
+                @if($tr->status_akun === 'Belum direview') <!-- Memastikan hanya menampilkan trainer dengan status 'Belum direview' -->
                 <tr>
                     <td>{{ $tr->email }}</td>
                     <td>{{ $tr->user->name }}</td> 
@@ -183,7 +183,5 @@
         }
     }
 </script>
-
-   
 
 @endsection
