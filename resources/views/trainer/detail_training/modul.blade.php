@@ -62,7 +62,7 @@ Swal.fire({
                     <i class="fas fa-file-pdf fa-3x me-3 text-danger"></i>
                     <h5 class="card-title my-2">{{ $file->judul }}</h5>
                     <div class="d-flex">
-                        <a href="#" type="button" class="btn btn-outline-confirm bordered-2 rounded-5 mx-1" id="btn-{{$file->nama_file}}">
+                        <a href="#" type="button" class="btn btn-outline-primary bordered-2 rounded-5 mx-1" id="btn-{{$file->nama_file}}">
                             <i class="fa fa-folder-open me-2 text-warning"></i>Open
                         </a>
                         <a href="#" type="button" class="btn btn-outline-danger rounded-5 mx-1 btn-delete" data-file="{{$file}}">

@@ -16,6 +16,8 @@ class DetailTraining extends Controller
     public function detailTraining($id)
     {
         $training = Training::with(['jadwalTrainings', 'user'],)->find($id);
+        if(!$training)
+            abort(404, "Training didn't exist");
         $total_peserta = Training::withCount('peserta')->find($id);
 
         $meetStart = $training->jadwalTrainings->first()->waktu_mulai;

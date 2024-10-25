@@ -10,6 +10,20 @@ class BerandaAdminController extends Controller
 {
     public function beranda_admin()
     {
+        $trainings = Training::with(['jadwalTrainings', 'user'])->withCount('peserta')->get();
+        $now = now()->setTimezone('Asia/Jakarta');
+
+        foreach ($trainings as $training) {
+            $meetStart = $training->jadwalTrainings->first()->waktu_mulai;
+            $meetEnd = $training->jadwalTrainings->last()->waktu_mulai;
+            if ($now >= $meetStart)
+                $training->status = 'Berlangsung';
+            if ($now >= $meetEnd) 
+                $training->status = 'Selesai';
+
+            $training->save();
+        }
+
         $info = Training::with('JadwalTrainings','user')->get();
         return view('admin.BerandaAdmin',compact('info'));
     }

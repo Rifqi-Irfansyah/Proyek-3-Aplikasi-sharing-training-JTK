@@ -47,4 +47,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    //CUSTOM ERROR 404 VIEW
+    public function render($request, Throwable $exception)
+    {
+        if ($this->isHttpException($exception)) {
+            if ($exception->getStatusCode() == 404) {
+                return response()->view('errors.404', ['exception' => $exception], 404);
+            }
+        }
+
+        return parent::render($request, $exception);
+    }
 }
