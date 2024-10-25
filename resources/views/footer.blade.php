@@ -3,7 +3,7 @@
 @section('title', 'Footer')
 
 @section('content')
-  
+
 <footer class="bg-light py-4 mt-auto">
     <div class="container">
         <div class="row">
