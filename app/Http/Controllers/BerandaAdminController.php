@@ -40,6 +40,15 @@ class BerandaAdminController extends Controller
             return redirect()->back()->with('error', 'Training not found');
         }
 
+        if($training->status === 'Berlangsung') 
+        {
+            return redirect()->back()->with('error', 'Training  is currently running and cannot be deleted.');
+
+        }
+        if($training->status === 'Selesai') 
+        {
+            return redirect()->back()->with('error', 'Training is done and cannot be deleted.');
+        }
         if($training->status === 'Pendaftaran')
         {
             $training->Modul()->delete();
@@ -51,9 +60,7 @@ class BerandaAdminController extends Controller
             $training->delete();
             return redirect()->route('beranda.admin')->with('success', 'Training successfully deleted.');
         }
-        else {
-            return redirect()->back()->with('error', 'Data tidak dapat dihapus karena status training bukan pendaftaran.');
-        }
+
     }
 
         

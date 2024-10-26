@@ -6,20 +6,55 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: "{{ session('success') }}", // Menampilkan pesan dari session
-            timer: 2000,
-            showConfirmButton: false,
-            customClass: {
-                popup: 'popup-success',
-                title: 'title',
-            }
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-success',
+                    title: 'title',
+                }
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "{{ session('error') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-error',
+                    title: 'title',
+                }
+            });
+        @endif
+
+
+        document.querySelectorAll('.deleteButton').forEach(function(button) {
+            button.addEventListener('click', function (event) {
+                const formId = this.getAttribute('data-form-id');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This action cannot be undone.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById(formId).submit();
+                    }
+                });
+            });
         });
     });
-    @endif
 </script>
 
 <div class="d-flex flex-column min-vh-100">
@@ -54,14 +89,15 @@
                     </td>
                     <td class="text-center">{{ $training->jadwalTrainings->first()->waktu_mulai }}</td>
                     <td class="text-center">{{ $training->jadwalTrainings->last()->waktu_selesai }}</td>
-                    <td class="text-center">{{ $training->status }}</td>
+                    <td class="text-center">{{ $training->status}}</td>
                     <td class="text-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-info">
-                                <a href="/detailTraining/{{ $training->id_training }}" class="text-decoration-none text-white">View</a>
-                            </button>
-                            @method('DELETE')
-                            <button type="button" class="btn btn-danger">Delete</button>
+                        <div class="d-flex justify-content-center gap-3 ">
+                                <a href="/detailTraining/{{ $training->id_training }}" class="text-decoration-none text-white"><button class="btn btn-info ">View</button></a>
+                                <form id="deleteForm-{{ $training->id_training }}" action="{{ route('training.delete', $training->id_training) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-danger deleteButton" data-form-id="deleteForm-{{ $training->id_training}}">Delete</button>
+                                </form>                                                              
                         </div>
                     </td>
                 </tr>
