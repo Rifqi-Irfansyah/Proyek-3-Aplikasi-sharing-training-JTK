@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class isPemateri
+class checkRole
 {
     /**
      * Handle an incoming request.
@@ -14,12 +15,14 @@ class isPemateri
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, ...$role)
     {
-        // logic Must be Pemateri
-        if(!auth()->check() || auth()->user()->role !== 'pemateri'){
-            abort (403);
+        foreach($role as $role){
+            if (auth()->user()->role == $role) {
+                return $next($request);
+            }
         }
-        return $next($request);
+        abort (403);
     }
+
 }

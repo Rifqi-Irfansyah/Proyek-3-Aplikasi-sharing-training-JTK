@@ -88,7 +88,7 @@
                 if (query.length > 0 || hasPreviousInput) {
 
                     debounceTimeout = setTimeout(function() {
-                        fetch(`/search?q=${query}`)
+                        fetch(`/listModul/search?q=${query}`)
                             .then(response => response.json())
                             .then(data => {
                                 console.log(data);

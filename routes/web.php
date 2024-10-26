@@ -13,7 +13,7 @@ use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
 use App\Http\Controllers\ModulController;
-// use App\Http\Controllers\PreviewTrainingController;
+use App\Http\Controllers\PreviewTrainingController;
 use App\Http\Controllers\BerandaPesertaController;
 use App\Http\Controllers\DetailTrainingPeserta;
 
@@ -47,23 +47,6 @@ Route::post('/training/store', [CreateTrainingController::class, 'store'])->name
 Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainingController::class, 'createMeetings'])->name('create.meetings');
 Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
 
-Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
-Route::patch('/detailTraining/{id}', [EditTraining::class, 'editTraining'])->name('editTraining');
-
-Route::get('/detailTraining/modul/{id}', [DetailTraining::class, 'modul'])->name('showModulTraining');
-Route::post('/detailTraining/modul/{id}', [DetailTraining::class, 'addModulFromList'])->name('addModulFromList');
-Route::post('/detailTraining/modul/list/{id}', [DetailTraining::class, 'tambahModul'])->name('addModulTraining');
-Route::delete('/detailTraining/modul/{id}', [DetailTraining::class, 'deleteModulTraining'])->name('deleteModulTraining');
-
-Route::get('/detailTraining/meet/MT{id}', [DetailTraining::class, 'detailMeet'])->name('detailMeet');
-Route::post('/detailTraining/meet', [DetailTraining::class, 'tambahMeet'])->name('addMeet');
-Route::patch('/detailTraining/meet/{id}', [DetailTraining::class, 'editMeet'])->name('editMeet');
-Route::post('/detailTraining/meet/attendance/{id}', [Attendance::class, 'attendanceTrainer'])->name('absen');
-
-Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
-Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
-Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
-
 //listtrainer
 Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');
 //verif
@@ -72,12 +55,6 @@ Route::post('/verif-trainer/update-status', [VerifTrainerController::class, 'upd
 Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
 //Approve
 Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
-
-Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
-Route::post('/tambahModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
-Route::post('/editModul', [ModulController::class, 'editModul'])->name('editModul');
-Route::delete('/deleteModul', [ModulController::class, 'deleteModul'])->name('deleteModul');
-Route::get('/search', [ModulController::class, 'searchModul'])->name('searchModul');
 
 Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
 Route::get('/Beranda', [BerandaPesertaController::class, 'CardTraining'])->name('beranda_peserta');
@@ -89,17 +66,46 @@ Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name
 //Route::get('/delete/{id}',[BerandaAdminController::class, 'delete'])->name('delete');
 
 // User Access
-Route::middleware(['admin'])->group(function () {
+Route::middleware(['checkRole:admin'])->group(function () {
     Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
 });
 
-Route::middleware(['pemateri'])->group(function () {
+Route::middleware(['checkRole:pemateri'])->group(function () {
     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');
 });
 
-Route::middleware(['peserta'])->group(function () {
+Route::middleware(['checkRole:admin,pemateri'])->group(function () {
+    // Detail Training PAGE
+    Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
+    Route::patch('/detailTraining/{id}', [EditTraining::class, 'editTraining'])->name('editTraining');
+
+    Route::get('/detailTraining/modul/{id}', [DetailTraining::class, 'modul'])->name('showModulTraining');
+    Route::post('/detailTraining/modul/{id}', [DetailTraining::class, 'addModulFromList'])->name('addModulFromList');
+    Route::post('/detailTraining/modul/list/{id}', [DetailTraining::class, 'tambahModul'])->name('addModulTraining');
+    Route::delete('/detailTraining/modul/{id}', [DetailTraining::class, 'deleteModulTraining'])->name('deleteModulTraining');
+
+    Route::get('/detailTraining/meet/MT{id}', [DetailTraining::class, 'detailMeet'])->name('detailMeet');
+    Route::post('/detailTraining/meet', [DetailTraining::class, 'tambahMeet'])->name('addMeet');
+    Route::patch('/detailTraining/meet/{id}', [DetailTraining::class, 'editMeet'])->name('editMeet');
+    Route::post('/detailTraining/meet/attendance/{id}', [Attendance::class, 'attendanceTrainer'])->name('absen');
+
+    Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
+    Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
+    Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
+
+
+    // Modul Global PAGE
+    Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
+    Route::post('/listModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
+    Route::post('/listModul/edit', [ModulController::class, 'editModul'])->name('editModul');
+    Route::delete('/listModul', [ModulController::class, 'deleteModul'])->name('deleteModul');
+    Route::get('/listModul/search', [ModulController::class, 'searchModul'])->name('searchModul');
+
+});
+
+Route::middleware(['checkRole:peserta'])->group(function () {
     Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
 });
 
 
-// Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
+Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
