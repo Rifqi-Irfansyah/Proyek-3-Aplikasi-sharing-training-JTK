@@ -76,7 +76,7 @@ Route::middleware(['checkRole:pemateri'])->group(function () {
 
 Route::middleware(['checkRole:admin,pemateri'])->group(function () {
     // Detail Training PAGE
-    Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
+    Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining'])->name('detailTraining');
     Route::patch('/detailTraining/{id}', [EditTraining::class, 'editTraining'])->name('editTraining');
 
     Route::get('/detailTraining/modul/{id}', [DetailTraining::class, 'modul'])->name('showModulTraining');
@@ -87,6 +87,7 @@ Route::middleware(['checkRole:admin,pemateri'])->group(function () {
     Route::get('/detailTraining/meet/MT{id}', [DetailTraining::class, 'detailMeet'])->name('detailMeet');
     Route::post('/detailTraining/meet', [DetailTraining::class, 'tambahMeet'])->name('addMeet');
     Route::patch('/detailTraining/meet/{id}', [DetailTraining::class, 'editMeet'])->name('editMeet');
+    Route::delete('/detailTraining/meet/{id}', [DetailTraining::class, 'deleteMeet'])->name('deleteMeet');
     Route::post('/detailTraining/meet/attendance/{id}', [Attendance::class, 'attendanceTrainer'])->name('absen');
 
     Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);

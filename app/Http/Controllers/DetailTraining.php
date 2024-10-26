@@ -11,6 +11,7 @@ use App\Models\PesertaTraining;
 use App\Models\Absen;
 use Session;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class DetailTraining extends Controller
 {
@@ -111,6 +112,23 @@ class DetailTraining extends Controller
         $meet->save();
         
         return response()->json(['success' => 'Meeting added successfully!'], 200);
+    }
+
+    public function deleteMeet(Request $request, $id)
+    {
+        $meet = JadwalTraining::find($id);
+        $now = Carbon::now()->setTimezone('Asia/Jakarta');
+        
+        if($meet->waktu_selesai < $now)
+            return response()->json(['error' => 'Can`t delete meet that has already been done!'], 400);
+        if($meet->waktu_mulai <= $now->addDay(3))
+            return response()->json(['error' => 'Can`t delete a meet scheduled to take place in less than 3 days!'], 400);
+
+        $absenPeserta = Absen::where('id_jadwal', $id)->delete();
+        $id_training = $meet->id_training;
+        $meet->delete();
+
+        return response()->json(['success' => 'Meeting deleted successfully!'], 200);
     }
 
     public function tambahModul(Request $request, $id)

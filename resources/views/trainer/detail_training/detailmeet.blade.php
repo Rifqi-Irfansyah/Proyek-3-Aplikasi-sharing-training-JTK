@@ -7,12 +7,15 @@
 <div class="content bg-custom-pattern ms-300 vh-auto w-100">
     <div class="p-5">
         <div class="row">
-            <div class="col-8 offset-2 text-center">
+            <div class="col-4 offset-4 text-center">
                 <h1>Detail Meet</h1>
             </div>
-            <div class="col-2 d-flex justify-content-end align-items-center">
-                <button class="btn btn-md fs-6 rounded-5 btn-custom w-100 py-2" onClick="buttonEditMeet()">
-                    <i class="fa-regular fa-user"></i> Edit Meet
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <button class="btn btn-md fs-6 rounded-5 btn-custom me-2 px-4 py-2" onClick="buttonEditMeet()">
+                    <i class="fa fa-pencil me-1"></i> Edit Meet
+                </button>
+                <button class="btn btn-md fs-6 rounded-5 btn-danger px-4 py-2" onClick="buttonDeleteMeet()">
+                    <i class="fa fa-trash me-1"></i> Delete
                 </button>
             </div>
         </div> 
@@ -55,7 +58,7 @@
 
 <script>
 function buttonEditMeet() {
-    @if (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($meet->waktu_mulai), true) < 3)
+    @if (\Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->diffInDays(\Carbon\Carbon::parse($meet->waktu_mulai), true) <= 3)
         Swal.fire({
             icon: 'info',
             title: 'Meeting Cannot Edit!',
@@ -265,6 +268,73 @@ function buttonEditMeet() {
     @endif
 }
 
+function buttonDeleteMeet(){
+    (async () => {
+        const confirmation = await Swal.fire({
+            icon: "warning",
+            title: "Are You Sure Want Delete",
+            text: "This Meet",
+            focusConfirm: false,
+            backdrop: 'rgba(0,0,0,0.9)',
+            showConfirmButton: true,
+            showCancelButton: true,
+            customClass: {
+                popup: 'popup-warning',
+                confirmButton: 'btn-cancel',
+                cancelButton: 'btn-confirm',
+                title: 'title',
+                color: '#DE2323',
+            }
+        });
+
+        if (confirmation.isConfirmed) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                        'content')
+                }
+            });
+            $.ajax({
+                url: "{{route('deleteMeet', '')}}/" + "{{$meet->id_jadwal}}",
+                method: 'DELETE',
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success Deleted!',
+                        text: 'Modul has been deleted',
+                        showConfirmButton: false,
+                        backdrop: 'rgba(0,0,0,0.8)',
+                        timer: 2000,
+                        customClass: {
+                            popup: 'popup-success',
+                            title: 'title',
+                            color: '#DE2323',
+                        }
+                    }).then(() => {
+                        window.location.href = "{{ route('detailTraining', $training->id_training) }}";
+                    });
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.responseJSON.error || xhr
+                        .responseJSON.message ||
+                        'There was problem while deleted data';
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed Deleted!',
+                        text: errorMessage,
+                        backdrop: 'rgba(0,0,0,0.8)',
+                        customClass: {
+                            popup: 'popup-error',
+                            confirmButton: 'btn-confirm',
+                            title: 'title',
+                            color: '#DE2323',
+                        }
+                    })
+                }
+            });
+        }
+    })();
+}
 function buttonAttendance(){
     var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
     var meetEnd = new Date("{{ \Carbon\Carbon::parse($meet->waktu_selesai) }}");
