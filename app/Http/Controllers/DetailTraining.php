@@ -10,6 +10,7 @@ use App\Models\ModulTraining;
 use App\Models\PesertaTraining;
 use App\Models\Absen;
 use Session;
+use Illuminate\Support\Facades\Log;
 
 class DetailTraining extends Controller
 {
@@ -91,7 +92,28 @@ class DetailTraining extends Controller
         return response()->json(['success' => 'Meeting added successfully!'], 200);
     }
 
-    public function tambahModul(Request $request)
+    public function editMeet(Request $request, $id)
+    {
+        $request->validate([
+            'startMeet' => 'required|date',
+            'endMeet' => 'required|date|after:startMeet',
+            'locationMeet' => 'required|string|max:255',
+            'status' => 'required|string|max:50',
+            'descMeet' => 'required|string|max:500',
+        ]);
+        $meet = JadwalTraining::find($id);
+
+        $meet->waktu_mulai = $request->startMeet;
+        $meet->waktu_selesai = $request->endMeet;
+        $meet->tempat_pelaksana = $request->locationMeet;
+        $meet->status = $request->status;
+        $meet->topik_pertemuan = $request->descMeet;
+        $meet->save();
+        
+        return response()->json(['success' => 'Meeting added successfully!'], 200);
+    }
+
+    public function tambahModul(Request $request, $id)
     {
         $request->validate([
             'title' => 'required|string|max:50',
@@ -108,7 +130,7 @@ class DetailTraining extends Controller
         ]);
 
         ModulTraining::create([
-            'id_training' => $request->id_training,
+            'id_training' => $id,
             'nama_file' => $namaFile,
         ]);
 
@@ -125,7 +147,7 @@ class DetailTraining extends Controller
             ]);
         }
         Session::flash('success', 'File added successfully!');
-        return redirect('/modul/'.$id);
+        return redirect('/detailTraining/modul/'.$id);
     }
 
     public function deleteModulTraining(Request $request, $id)

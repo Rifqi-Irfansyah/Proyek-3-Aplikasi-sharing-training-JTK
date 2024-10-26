@@ -202,10 +202,9 @@ function buttonEditMeet() {
                         }
                     });
                     $.ajax({
-                        url: '/tambahMeet',
-                        method: 'POST',
+                        url: "{{route('editMeet', $meet->id_jadwal)}}",
+                        method: 'PATCH',
                         data: {
-                            id_training: {{$training -> id_training}},
                             startMeet: formValues.startMeet,
                             endMeet: formValues.endMeet,
                             locationMeet: formValues.locationMeet,
@@ -308,10 +307,9 @@ function buttonAttendance(){
                     }
                 });
                 $.ajax({
-                    url: "{{route('absen')}}",
+                    url: "{{route('absen', $meet->id_jadwal)}}",
                     method: 'POST',
                     data: {
-                        id_jadwal: {{$meet->id_jadwal}},
                         email: "{{ auth()->user()->email }}"
                     },
                     success: function(response) {

@@ -27,7 +27,7 @@
             </li>
 
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield('modulSelect')">
-                <a href="/modul/{{$training->id_training}}" class=" text-decoration-none">
+                <a href="{{ route ('showModulTraining', $training->id_training) }}" class=" text-decoration-none">
                     <span class="fs-6 fw-bold my-1 ">Module</span>
                 </a>
             </li>
@@ -35,14 +35,14 @@
             <?php $i = 1; ?>
             @foreach($training->jadwalTrainings as $jadwal)
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield($jadwal->id_jadwal)">
-                <a href="/detailMeet/MT{{$jadwal->id_jadwal}}" class=" text-decoration-none">
+                <a href="{{ route ('detailMeet', $jadwal->id_jadwal )}}" class=" text-decoration-none">
                     <span class="fs-6 fw-bold my-1">{{$i}}st Meet</span>
                 </a>
             </li>
             <?php $i++; ?>
             @endforeach
 
-            @if( $i < 7)
+            @if( $i <= 7)
             <li class="d-flex align-items-center ps-4 py-1 mb-3 last-sidebar" onClick="buttonEdit()">
                 <a href="#" class=" text-decoration-none">
                     <span class="fs-6 fw-bold my-1">Add Meet {{$i}}st</span>
@@ -188,7 +188,7 @@ function buttonEdit() {
                     }
                 });
                 $.ajax({
-                    url: '/tambahMeet',
+                    url: "{{route('addMeet')}}",
                     method: 'POST',
                     data: {
                         id_training: {{$training -> id_training}},

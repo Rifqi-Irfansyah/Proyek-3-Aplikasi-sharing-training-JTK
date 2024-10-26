@@ -13,7 +13,7 @@ use App\Http\Controllers\EditTraining;
 use App\Http\Controllers\Attendance;
 use App\Http\Controllers\BerandaAdminController;
 use App\Http\Controllers\ModulController;
-use App\Http\Controllers\PreviewTrainingController;
+// use App\Http\Controllers\PreviewTrainingController;
 use App\Http\Controllers\BerandaPesertaController;
 use App\Http\Controllers\DetailTrainingPeserta;
 
@@ -47,17 +47,18 @@ Route::post('/training/store', [CreateTrainingController::class, 'store'])->name
 Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainingController::class, 'createMeetings'])->name('create.meetings');
 Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
 
-Route::post('/tambahMeet', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
-Route::post('/tambahModulTraining', [DetailTraining::class, 'tambahModul'])->name('tambahModulTraining');
-Route::post('/attendance', [Attendance::class, 'attendanceTrainer'])->name('absen');
-// Route::post('/editTraining/{id}', [DetailTraining::class, 'tambahMeet'])->name('tambahmeet');
-
-Route::post('/editTraining', [EditTraining::class, 'editTraining'])->name('editTraining');
 Route::get('/detailTraining/{id}', [DetailTraining::class, 'detailTraining']);
-Route::get('/detailMeet/MT{id}', [DetailTraining::class, 'detailMeet']);
-Route::get('/modul/{id}', [DetailTraining::class, 'modul'])->name('showModulTraining');
-Route::post('/modul/{id}', [DetailTraining::class, 'addModulFromList'])->name('addModulFromList');
-Route::delete('/modul/{id}', [DetailTraining::class, 'deleteModulTraining'])->name('deleteModulTraining');
+Route::patch('/detailTraining/{id}', [EditTraining::class, 'editTraining'])->name('editTraining');
+
+Route::get('/detailTraining/modul/{id}', [DetailTraining::class, 'modul'])->name('showModulTraining');
+Route::post('/detailTraining/modul/{id}', [DetailTraining::class, 'addModulFromList'])->name('addModulFromList');
+Route::post('/detailTraining/modul/list/{id}', [DetailTraining::class, 'tambahModul'])->name('addModulTraining');
+Route::delete('/detailTraining/modul/{id}', [DetailTraining::class, 'deleteModulTraining'])->name('deleteModulTraining');
+
+Route::get('/detailTraining/meet/MT{id}', [DetailTraining::class, 'detailMeet'])->name('detailMeet');
+Route::post('/detailTraining/meet', [DetailTraining::class, 'tambahMeet'])->name('addMeet');
+Route::patch('/detailTraining/meet/{id}', [DetailTraining::class, 'editMeet'])->name('editMeet');
+Route::post('/detailTraining/meet/attendance/{id}', [Attendance::class, 'attendanceTrainer'])->name('absen');
 
 Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
 Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
@@ -101,4 +102,4 @@ Route::middleware(['peserta'])->group(function () {
 });
 
 
-Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
+// Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');

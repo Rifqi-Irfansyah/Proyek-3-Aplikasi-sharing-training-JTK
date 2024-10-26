@@ -297,17 +297,13 @@
 
 .last-sidebar:hover,
 .last-sidebar.hovered {
-  background-color: #bde244 !important;
+  background-color: var(--gray) !important;
   width: 80% !important;
-}
-
-.last-sidebar:hover a{
-  color: var(--black1) !important;
 }
 
 /* --------- curve outside ---------- */
 /* .navigation ul li:hover a::before, */
-.navigation ul li:not(:last-child).hovered a::before {
+.navigation ul li:not(.last-sidebar).hovered a::before {
   content: "";
   position: absolute;
   right: 0;
@@ -320,7 +316,7 @@
   pointer-events: none;
 }
 /* .navigation ul li:hover a::after, */
-.navigation ul li:not(:last-child).hovered a::after {
+.navigation ul li:not(.last-sidebar).hovered a::after {
   content: "";
   position: absolute;
   right: 0;

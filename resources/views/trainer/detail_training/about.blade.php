@@ -150,9 +150,8 @@ function buttonEditTraining() {
                     }
                 });
                 $.ajax({
-                    type: 'POST',
-                    url: "{{route('editTraining')}}",
-                    // method: 'POST',
+                    method: 'PATCH',
+                    url: "{{route('editTraining', $training->id_training)}}",
                     data: {
                         id : {{$training->id_training}},
                         kuota: formValues.kuota,

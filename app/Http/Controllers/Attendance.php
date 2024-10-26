@@ -9,10 +9,10 @@ use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
 
 class Attendance extends Controller
 {
-    public function attendanceTrainer(Request $request)
+    public function attendanceTrainer(Request $request, $id)
     {
         DB::table('absen')
-        ->where('id_jadwal', $request->id_jadwal)
+        ->where('id_jadwal', $id)
         ->where('email', $request->email)
         ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
         return response()->json(['success' => 'Meeting added successfully!'], 200);

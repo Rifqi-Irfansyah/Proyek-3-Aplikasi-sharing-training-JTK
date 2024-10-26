@@ -123,7 +123,6 @@ function buttonAddModul() {
 
         if (formValues) {
             const formData = new FormData();
-            formData.append('id_training', {{$training -> id_training}});
             formData.append('title', formValues.title);
             formData.append('file', formValues.file);
 
@@ -133,7 +132,7 @@ function buttonAddModul() {
                 }
             });
             $.ajax({
-                url: "{{route('tambahModulTraining')}}",
+                url: "{{route('addModulTraining', $training->id_training)}}",
                 method: 'POST',
                 data: formData,
                 processData: false,
@@ -155,7 +154,7 @@ function buttonAddModul() {
                     });
                 },
                 error: function(xhr, status, error) {
-                    var errorMessage = xhr.responseJSON.message ||
+                    var errorMessage = xhr.responseJSON.message || xhr.responseJSON.error ||
                         'There was a problem while saving data';
                     Swal.fire({
                         icon: 'error',
@@ -186,7 +185,7 @@ function buttonAddFromList() {
             backdrop: 'rgba(0,0,0,0.8)',
             showConfirmButton: false,
             html: `
-                <form action="{{route('addModulFromList', ['id' => $training->id_training]) }}" method="POST">
+                <form action="{{ route('addModulFromList', ['id' => $training->id_training]) }}" method="POST">
                     @csrf
                     <div class="d-flex container row justify-content-center" id="modulContainer">
                     @foreach($modulGlobal as $file)
