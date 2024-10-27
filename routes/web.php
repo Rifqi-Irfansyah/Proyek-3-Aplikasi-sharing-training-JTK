@@ -96,9 +96,6 @@ Route::middleware(['checkRole:admin,pemateri'])->group(function () {
     Route::delete('/detailTraining/meet/{id}', [DetailTraining::class, 'deleteMeet'])->name('deleteMeet');
     Route::post('/detailTraining/meet/attendance/{id}', [Attendance::class, 'attendanceTrainer'])->name('absen');
 
-
-
-
     // Modul Global PAGE
     Route::get('/listModul', [ModulController::class, 'showModul'])->name('listModul');
     Route::post('/listModul', [ModulController::class, 'tambahModul'])->name('tambahModul');
