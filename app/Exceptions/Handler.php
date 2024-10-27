@@ -52,8 +52,14 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($this->isHttpException($exception)) {
+            if (strpos($exception->getMessage(), 'storage/uploads') !== false) {
+                return response()->view('errors.404', ['exception' => ['message' => 'modul']], 404);
+            }
             if ($exception->getStatusCode() == 404) {
-                return response()->view('errors.404', ['exception' => $exception], 404);
+                return response()->view('errors.404', ['exception' => ['message' => $exception->getMessage()]], 404);
+            }
+            if ($exception->getStatusCode() == 403) {
+                return response()->view('errors.403', ['exception' => $exception], 403);
             }
         }
 
