@@ -51,6 +51,9 @@ class Handler extends ExceptionHandler
     //CUSTOM ERROR 404 VIEW
     public function render($request, Throwable $exception)
     {
+        if ($exception->getCode() == 2002) {
+            return response()->view('errors.505', ['exception' => ['message' => 'Server Error']], 505);
+        }
         if ($this->isHttpException($exception)) {
             if (strpos($exception->getMessage(), 'storage/uploads') !== false) {
                 return response()->view('errors.404', ['exception' => ['message' => 'modul']], 404);
@@ -61,6 +64,7 @@ class Handler extends ExceptionHandler
             if ($exception->getStatusCode() == 403) {
                 return response()->view('errors.403', ['exception' => $exception], 403);
             }
+            
         }
 
         return parent::render($request, $exception);
