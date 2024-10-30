@@ -26,54 +26,56 @@ Swal.fire({
 <!-- Main content -->
 <div class="content bg-custom-pattern ms-300 w-100 d-flex flex-column">
     @if($modul->isEmpty())
-    <div class="d-flex flex-column align-items-center justify-content-center h-100 mb-5">
-        <div class="div ">
-            <h1>The Training Not Have Module</h1>
+        <div class="d-flex flex-column align-items-center justify-content-center h-100 mb-5">
+            <div class="div ">
+                <h1>The Training Not Have Module</h1>
+            </div>
+            <br>
+            @if(!((\Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta'))))
+                <div class="">
+                    <button class="btn btn-md rounded-5 btn-custom py-2 me-2" onClick="buttonAddFromList()">
+                        <i class="fa fa-plus me-1"></i>Add From List
+                    </button>
+                    <button class="btn btn-md fs-6 rounded-5 btn-custom py-2 px-4" onClick="buttonAddModul()">
+                        <i class="fa fa-plus me-2"></i>Upload Module
+                    </button>
+                </div>
+            @endif
         </div>
-        <br>
-        <div class="">
-            <button class="btn btn-md rounded-5 btn-custom py-2 me-2" onClick="buttonAddFromList()">
-                <i class="fa fa-plus me-1"></i>Add From List
-            </button>
-            <button class="btn btn-md fs-6 rounded-5 btn-custom py-2 px-4" onClick="buttonAddModul()">
-                <i class="fa fa-plus me-2"></i>Upload Module
-            </button>
-        </div>
-    </div>
     @else
-    <div class="text-center mt-5">
-        <h1>Module Training</h1>
-    </div>
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-md rounded-5 btn-custom py-2 me-2" onClick="buttonAddFromList()">
-            <i class="fa fa-plus me-1"></i>Add From List
-        </button>
-        <button class="btn btn-md rounded-5 btn-custom py-2 me-5" onClick="buttonAddModul()">
-            <i class="fa fa-plus me-1"></i>Upload Module
-        </button>
-    </div>
-
-
-    <div class="row mt-2 px-5">
-        @foreach($modul as $file)
-        <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-            <div class="card border-primary mb-4 rounded-4 ">
-                <div class="card-body d-flex justify-content-center flex-column align-items-center">
-                    <i class="fas fa-file-pdf fa-3x me-3 text-danger"></i>
-                    <h5 class="card-title my-2">{{ $file->judul }}</h5>
-                    <div class="d-flex">
-                        <a href="#" type="button" class="btn btn-outline-primary bordered-2 rounded-5 mx-1" id="btn-{{$file->nama_file}}">
-                            <i class="fa fa-folder-open me-2 text-warning"></i>Open
-                        </a>
-                        <a href="#" type="button" class="btn btn-outline-danger rounded-5 mx-1 btn-delete" data-file="{{$file}}">
-                            <i class="fa fa-trash me-2 text-danger"></i>Delete
-                        </a>
+        <div class="text-center mt-5">
+            <h1>Module Training</h1>
+        </div>
+        @if(!((\Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta'))))
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-md rounded-5 btn-custom py-2 me-2" onClick="buttonAddFromList()">
+                    <i class="fa fa-plus me-1"></i>Add From List
+                </button>
+                <button class="btn btn-md rounded-5 btn-custom py-2 me-5" onClick="buttonAddModul()">
+                    <i class="fa fa-plus me-1"></i>Upload Module
+                </button>
+            </div>
+        @endif
+        <div class="row mt-2 px-5">
+            @foreach($modul as $file)
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
+                <div class="card border-primary mb-4 rounded-4 ">
+                    <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                        <i class="fas fa-file-pdf fa-3x me-3 text-danger"></i>
+                        <h5 class="card-title my-2">{{ $file->judul }}</h5>
+                        <div class="d-flex">
+                            <a href="#" type="button" class="btn btn-outline-primary bordered-2 rounded-5 mx-1" id="btn-{{$file->nama_file}}">
+                                <i class="fa fa-folder-open me-2 text-warning"></i>Open
+                            </a>
+                            <a href="#" type="button" class="btn btn-outline-danger rounded-5 mx-1 btn-delete" data-file="{{$file}}">
+                                <i class="fa fa-trash me-2 text-danger"></i>Delete
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
     @endif
 
 </div>
