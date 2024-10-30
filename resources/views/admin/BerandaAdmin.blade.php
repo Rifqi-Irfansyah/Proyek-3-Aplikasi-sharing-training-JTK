@@ -80,32 +80,40 @@
             <th class="text-center">Action</td>
         </thead >
         <tbody>
-        @foreach ($info as $training)
+            @if($info->isEmpty())
                 <tr>
-                    <td class="text-center">{{ $training->judul_training }}</td>
-                    <td class="text-center">
-                        @if($training->user)
-                {{ $training->user->name }}
-            @else
-                <span class="text-muted">No Trainer Yet</span>
-            @endif
-            
-                    </td>
-                    <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->first()->waktu_mulai)->format('l, d M Y') }}</td>
-                    <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_selesai)->format('l, d M Y') }}</td>
-                    <td class="text-center">{{ $training->status}}</td>
-                    <td class="text-center">
-                        <div class="d-flex justify-content-center gap-3 ">
-                                <a href="/detailTraining/{{ $training->id_training }}" class="text-decoration-none text-white"><button class="btn btn-outline-primary "><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                <form id="deleteForm-{{ $training->id_training }}" action="{{ route('training.delete', $training->id_training) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-outline-danger deleteButton" data-form-id="deleteForm-{{ $training->id_training}}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                                </form>                                                              
-                        </div>
+                    <td colspan="6" class="text-center text-dark p-5">
+                        <i>Currently, there are no trainings.</i>
                     </td>
                 </tr>
-        @endforeach
+            @else
+                @foreach ($info as $training)
+                    <tr>
+                        <td class="text-center">{{ $training->judul_training }}</td>
+                        <td class="text-center">
+                            @if($training->user)
+                    {{ $training->user->name }}
+                @else
+                    <span class="text-muted">No Trainer Yet</span>
+                @endif
+                
+                        </td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->first()->waktu_mulai)->format('l, d M Y') }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_selesai)->format('l, d M Y') }}</td>
+                        <td class="text-center">{{ $training->status}}</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-3 ">
+                                    <a href="/detailTraining/{{ $training->id_training }}" class="text-decoration-none text-white"><button class="btn btn-outline-primary "><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                    <form id="deleteForm-{{ $training->id_training }}" action="{{ route('training.delete', $training->id_training) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-outline-danger deleteButton" data-form-id="deleteForm-{{ $training->id_training}}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </form>                                                              
+                            </div>
+                        </td>
+                    </tr>
+            @endforeach
+            @endif
         </tbody>
     </table>
     <a href="/training/create">

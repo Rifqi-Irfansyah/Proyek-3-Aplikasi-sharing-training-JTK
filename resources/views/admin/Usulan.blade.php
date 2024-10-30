@@ -29,26 +29,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($usulans as $usulan)
+            @if($usulans->isEmpty())
             <tr>
-                <td class="text-center">{{ $usulan->judul_materi }}</td>
-                <td class="text-center">{{ $usulan->bahasan }}</td>
-                <td class="text-center">{{ $usulan->usulan }}</td>
-                <td class="text-center">{{ $usulan->email_pengusul }}</td>
-                <td class="text-center">{{ Carbon\Carbon::parse($usulan->created_at)->timezone('Asia/Jakarta')->format('l, d M Y - H:i:s') }}</td>
-
-                {{-- <td>
-                    <form action="{{ route('usulan.update', $usulan->id_usulan) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <select name="status" class="form-select" onchange="this.form.submit()">
-                            <option value="Dilihat" {{ $usulan->status == 'Dilihat' ? 'selected' : '' }}>Dilihat</option>
-                            <option value="Belum dilihat" {{ $usulan->status == 'Belum dilihat' ? 'selected' : '' }}>Belum dilihat</option>
-                        </select>
-                    </form>
-                </td> --}}
+                <td colspan="5" class="text-center text-dark p-5" ><i>No suggestions yet.</i></td>
             </tr>
-            @endforeach
+            @else
+                @foreach($usulans as $usulan)
+                <tr>
+                    <td class="text-center">{{ $usulan->judul_materi }}</td>
+                    <td class="text-center">{{ $usulan->bahasan }}</td>
+                    <td class="text-center">{{ $usulan->usulan }}</td>
+                    <td class="text-center">{{ $usulan->email_pengusul }}</td>
+                    <td class="text-center">{{ Carbon\Carbon::parse($usulan->created_at)->timezone('Asia/Jakarta')->format('l, d M Y - H:i:s') }}</td>
+                </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 </div>
