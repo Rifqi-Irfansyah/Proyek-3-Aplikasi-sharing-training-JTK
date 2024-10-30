@@ -441,7 +441,34 @@ function buttonAttendance(){
             showCloseButton: true,
             showConfirmButton: false,
             backdrop: 'rgba(0,0,0,0.8)',
-            html: `
+            html: ` <div class="mt-2 mb-3 fs-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-6 d-flex align-items-left">
+                                Trainer Start Meet
+                            </div>
+                            <div class="d-flex col-lg-9 col-6 align-items-left">
+                                {{$meet->pertemuan_mulai}}
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-lg-3 col-md-6 d-flex align-items-left">
+                                Trainer End Meet
+                            </div>
+                            <div class="d-flex col-lg-9 col-6 align-items-left">
+                            @if($meet->pertemuan_selesai)
+                                {{$meet->pertemuan_selesai}}
+                            @elseif((auth()->user()->email ?? 'null') === ($trainerAbsent->email ?? 'null'))
+                                <form action="{{ route('editMeet', ['id' => $meet->id_jadwal]) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="pertemuan_selesai" value="1">
+                                    <button type="submit" class="btn btn-sm btn-custom mt-3 px-3 rounded-5">End Meet</button>
+                                </form>
+                            @endif
+                            </div>
+                            
+                        </div>
+                    </div>
                     <table class="table table-striped" style="border-radius: 1rem; overflow: hidden; background-color: transparent;">
                         <thead>
                             <tr class="text-center">
@@ -466,7 +493,8 @@ function buttonAttendance(){
                             @endforeach 
                         </tbody>
                     </table>
-                `,
+                `
+                ,
             customClass: {
                 popup: 'popup-modul',
                 title: 'title',
@@ -481,6 +509,10 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonAttendance();
         localStorage.removeItem('runButtonAttendance');
     }
+    @if(session('runButtonAttendance'))
+        localStorage.setItem('runButtonAttendance', 'true');
+        location.reload();
+    @endif
 });
 
 </script>

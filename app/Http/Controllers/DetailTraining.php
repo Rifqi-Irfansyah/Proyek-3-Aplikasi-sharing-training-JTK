@@ -96,19 +96,31 @@ class DetailTraining extends Controller
     public function editMeet(Request $request, $id)
     {
         $request->validate([
-            'startMeet' => 'required|date',
-            'endMeet' => 'required|date|after:startMeet',
-            'locationMeet' => 'required|string|max:255',
-            'status' => 'required|string|max:50',
-            'descMeet' => 'required|string|max:500',
+            'startMeet' => 'nullable|date',
+            'endMeet' => 'nullable|date|after:startMeet',
+            'locationMeet' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:50',
+            'descMeet' => 'nullable|string|max:500',
         ]);
         $meet = JadwalTraining::find($id);
 
-        $meet->waktu_mulai = $request->startMeet;
-        $meet->waktu_selesai = $request->endMeet;
-        $meet->tempat_pelaksana = $request->locationMeet;
-        $meet->status = $request->status;
-        $meet->topik_pertemuan = $request->descMeet;
+        if (!is_null($request->startMeet))
+            $meet->waktu_mulai = $request->startMeet;
+        if (!is_null($request->endMeet))
+            $meet->waktu_selesai = $request->endMeet;
+        if (!is_null($request->locationMeet))
+            $meet->tempat_pelaksana = $request->locationMeet;
+        if (!is_null($request->status))
+            $meet->status = $request->status;
+        if (!is_null($request->descMeet))
+            $meet->topik_pertemuan = $request->descMeet;
+        if(!is_null($request->pertemuan_selesai)){
+            $meet->pertemuan_selesai = now()->setTimezone('Asia/Jakarta');
+            $meet->save();
+            session::flash('runButtonAttendance', true);
+            return redirect('detailTraining/meet/MT'.$id);
+        }
+
         $meet->save();
         
         return response()->json(['success' => 'Meeting added successfully!'], 200);

@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Absen;
+use App\Models\JadwalTraining;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
+use Carbon\Carbon;
 
 class Attendance extends Controller
 {
     public function attendanceTrainer(Request $request, $id)
     {
+        $now = Carbon::now()->setTimezone('Asia/Jakarta');
+        $meet = JadwalTraining::find($id);
+        $meet->pertemuan_mulai = $now;
+        $meet->save();
+        
         DB::table('absen')
         ->where('id_jadwal', $id)
         ->where('email', $request->email)

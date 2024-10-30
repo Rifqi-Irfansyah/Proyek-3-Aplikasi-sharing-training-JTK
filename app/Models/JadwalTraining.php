@@ -14,11 +14,13 @@ class JadwalTraining extends Model
 
     protected $fillable = [
         'id_training',
-        'waktu_mulai',
-        'waktu_selesai',
         'status',
         'tempat_pelaksana',
         'topik_pertemuan',
+        'waktu_mulai',
+        'waktu_selesai',
+        'pertemuan_mulai',
+        'pertemuan_selesai',
     ];
 
     public function training()
