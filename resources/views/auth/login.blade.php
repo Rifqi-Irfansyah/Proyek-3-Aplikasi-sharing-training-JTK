@@ -58,9 +58,9 @@ Swal.fire({
         <div class="col-md-5 ps-5 right-box row align-items-center">
             <div class="rounded-5 px-5 py-3 shadow box-area bg-white">
                 <div class="header-text mb-5 justify-center text-center w-100">
-                    <h2 class="fw-bolder">Login</h2>
+                    <h2 class="fw-bolder">{{$title}}</h2>
                 </div>
-                <form action="{{route('loginaksi')}}" method="post" autocomplete="off" class="w-100 form-floating">
+                <form action="{{route( $postLogin )}}" method="post" autocomplete="off" class="w-100 form-floating">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="email" name="email" id="email"
@@ -79,9 +79,11 @@ Swal.fire({
                         <button class="btn btn-md w-50 fs-6 rounded-5 btn-custom">Login</button>
                     </div>
                 </form>
+                @if($signup)
                 <div class="text-center text-secondary">
                     <small>Don't have account? <a href="{{route('register.choice')}}" class ="text-decoration-none">Sign Up</a></small>
                 </div>
+                @endif
             </div>
         </div>
     </div>

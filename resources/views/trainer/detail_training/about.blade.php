@@ -72,6 +72,20 @@
 
 <script>
 function buttonEditTraining() {
+@if ((\Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
+        Swal.fire({
+            icon: 'info',
+            title: 'Meeting Cannot Edit!',
+            text: 'Only training scheduled before H-3 are editable',
+            backdrop: 'rgba(0,0,0,0.8)',
+            customClass: {
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
+                title: 'title',
+                color: '#DE2323',
+            }
+        })
+@else
     var title = "Edit Training \n" + "<?php echo $training->judul_training; ?>" + "\n\n";
     (async () => {
         const {
@@ -150,9 +164,8 @@ function buttonEditTraining() {
                     }
                 });
                 $.ajax({
-                    type: 'POST',
-                    url: "{{route('editTraining')}}",
-                    // method: 'POST',
+                    method: 'PATCH',
+                    url: "{{route('editTraining', $training->id_training)}}",
                     data: {
                         id : {{$training->id_training}},
                         kuota: formValues.kuota,
@@ -209,6 +222,7 @@ function buttonEditTraining() {
             }
         }
     })();
+@endif
 }
 </script>
 @endsection

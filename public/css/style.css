@@ -8,6 +8,7 @@
   --black1: #222;
   --black2: #999999;
   --orange: #f5e506;
+  --white-black: #d8d2d2;
 }
 
 .background{
@@ -93,9 +94,9 @@
 
 .full-size {
   border-radius: 15px !important;
-  width: 100vh;  
-  height: 85vh; 
-  border: none; 
+  width: 100vh;
+  height: 85vh;
+  border: none;
 }
 
 .btn-confirm{
@@ -169,9 +170,9 @@
 
 .bg-custom-pattern{
   background-image: url("../asset/wp-blur.png");
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat; 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: var(--white);
 }
 
@@ -297,17 +298,13 @@
 
 .last-sidebar:hover,
 .last-sidebar.hovered {
-  background-color: #bde244 !important;
+  background-color: var(--gray) !important;
   width: 80% !important;
-}
-
-.last-sidebar:hover a{
-  color: var(--black1) !important;
 }
 
 /* --------- curve outside ---------- */
 /* .navigation ul li:hover a::before, */
-.navigation ul li:not(:last-child).hovered a::before {
+.navigation ul li:not(.last-sidebar).hovered a::before {
   content: "";
   position: absolute;
   right: 0;
@@ -320,7 +317,7 @@
   pointer-events: none;
 }
 /* .navigation ul li:hover a::after, */
-.navigation ul li:not(:last-child).hovered a::after {
+.navigation ul li:not(.last-sidebar).hovered a::after {
   content: "";
   position: absolute;
   right: 0;
@@ -400,4 +397,158 @@ body {
 
 .dropdown ul li a:hover{
   background-color: var(--blue);
+}
+
+.sidebar-new {
+    width: 280px;
+    height: 100vh;
+    background: #ffffff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: all 0.3s ease;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 10px 0;
+}
+
+.logo-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo-img {
+    width: 24px;
+    height: 24px;
+}
+
+.brand-text {
+    font-weight: bold;
+    font-size: 20px;
+    color: #000;
+}
+
+.circle-button {
+    width: 32px;
+    height: 32px;
+    background: #514D4D;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.circle-button i {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    margin-bottom: 15px;
+}
+
+.menu-link {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #000000;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.menu-link:hover {
+    color: #ffffff;
+    background-color: #84A3E0;
+}
+
+.menu-item.active .menu-link {
+    background-color: #84A3E0;
+    color: #ffffff;
+    border-radius: 25px;
+}
+
+.sidebar-new.collapsed {
+    width: 80px;
+}
+
+.sidebar-new.collapsed .brand-text,
+.sidebar-new.collapsed .menu-link span {
+    display: none;
+}
+
+.sidebar-new.collapsed .circle-button {
+    transform: rotate(180deg);
+}
+
+.sidebar-new.collapsed .menu-link {
+    padding: 12px;
+    text-align: center;
+}
+
+/* PAGINATION */
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+  border-radius: 50px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin: 0px 10px;
+  color: var(--black1);
+  background-color: var(--white);
+}
+
+.pagination .page-item.disabled .page-link {
+  opacity: 0.5; 
+  cursor: not-allowed;
+}
+
+.pagination .page-item .page-link {
+  border-radius: 50px !important;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  margin: 0px 3px;
+  font-weight: 600;
+  color: var(--black1);
+  background-color: var(--white); 
+}
+
+.pagination{
+  padding: 5px 25px;
+  border-radius: 30px;
+  align-items: center;
+  text-align: center;
+}
+
+.pagination .page-item.active .page-link {
+  font-weight: 600;
+  border-width: 0px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  color: var(--white);
+  background-color: var(--black1); 
 }

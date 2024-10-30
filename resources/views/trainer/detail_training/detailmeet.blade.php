@@ -7,12 +7,15 @@
 <div class="content bg-custom-pattern ms-300 vh-auto w-100">
     <div class="p-5">
         <div class="row">
-            <div class="col-8 offset-2 text-center">
+            <div class="col-4 offset-4 text-center">
                 <h1>Detail Meet</h1>
             </div>
-            <div class="col-2 d-flex justify-content-end align-items-center">
-                <button class="btn btn-md fs-6 rounded-5 btn-custom w-100 py-2" onClick="buttonEditMeet()">
-                    <i class="fa-regular fa-user"></i> Edit Meet
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <button class="btn btn-md fs-6 rounded-5 btn-custom me-2 px-4 py-2" onClick="buttonEditMeet()">
+                    <i class="fa fa-pencil me-1"></i> Edit Meet
+                </button>
+                <button class="btn btn-md fs-6 rounded-5 btn-danger px-4 py-2" onClick="buttonDeleteMeet()">
+                    <i class="fa fa-trash me-1"></i> Delete
                 </button>
             </div>
         </div> 
@@ -55,7 +58,7 @@
 
 <script>
 function buttonEditMeet() {
-    @if (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($meet->waktu_mulai), true) < 3)
+    @if ((\Carbon\Carbon::parse($meet->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
         Swal.fire({
             icon: 'info',
             title: 'Meeting Cannot Edit!',
@@ -202,10 +205,9 @@ function buttonEditMeet() {
                         }
                     });
                     $.ajax({
-                        url: '/tambahMeet',
-                        method: 'POST',
+                        url: "{{route('editMeet', $meet->id_jadwal)}}",
+                        method: 'PATCH',
                         data: {
-                            id_training: {{$training -> id_training}},
                             startMeet: formValues.startMeet,
                             endMeet: formValues.endMeet,
                             locationMeet: formValues.locationMeet,
@@ -266,6 +268,88 @@ function buttonEditMeet() {
     @endif
 }
 
+function buttonDeleteMeet(){
+    @if ((\Carbon\Carbon::parse($meet->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
+        Swal.fire({
+            icon: 'info',
+            title: 'Meeting Cannot Edit!',
+            text: 'Only meeting scheduled before H-3 are editable',
+            backdrop: 'rgba(0,0,0,0.8)',
+            customClass: {
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
+                title: 'title',
+                color: '#DE2323',
+            }
+        })
+    @else
+        (async () => {
+            const confirmation = await Swal.fire({
+                icon: "warning",
+                title: "Are You Sure Want Delete",
+                text: "This Meet",
+                focusConfirm: false,
+                backdrop: 'rgba(0,0,0,0.9)',
+                showConfirmButton: true,
+                showCancelButton: true,
+                customClass: {
+                    popup: 'popup-warning',
+                    confirmButton: 'btn-cancel',
+                    cancelButton: 'btn-confirm',
+                    title: 'title',
+                    color: '#DE2323',
+                }
+            });
+
+            if (confirmation.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                            'content')
+                    }
+                });
+                $.ajax({
+                    url: "{{route('deleteMeet', '')}}/" + "{{$meet->id_jadwal}}",
+                    method: 'DELETE',
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success Deleted!',
+                            text: 'Modul has been deleted',
+                            showConfirmButton: false,
+                            backdrop: 'rgba(0,0,0,0.8)',
+                            timer: 2000,
+                            customClass: {
+                                popup: 'popup-success',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        }).then(() => {
+                            window.location.href = "{{ route('detailTraining', $training->id_training) }}";
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.responseJSON.error || xhr
+                            .responseJSON.message ||
+                            'There was problem while deleted data';
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed Deleted!',
+                            text: errorMessage,
+                            backdrop: 'rgba(0,0,0,0.8)',
+                            customClass: {
+                                popup: 'popup-error',
+                                confirmButton: 'btn-confirm',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        })
+                    }
+                });
+            }
+        })();
+    @endif
+}
 function buttonAttendance(){
     var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
     var meetEnd = new Date("{{ \Carbon\Carbon::parse($meet->waktu_selesai) }}");
@@ -308,10 +392,9 @@ function buttonAttendance(){
                     }
                 });
                 $.ajax({
-                    url: "{{route('absen')}}",
+                    url: "{{route('absen', $meet->id_jadwal)}}",
                     method: 'POST',
                     data: {
-                        id_jadwal: {{$meet->id_jadwal}},
                         email: "{{ auth()->user()->email }}"
                     },
                     success: function(response) {
@@ -358,7 +441,34 @@ function buttonAttendance(){
             showCloseButton: true,
             showConfirmButton: false,
             backdrop: 'rgba(0,0,0,0.8)',
-            html: `
+            html: ` <div class="mt-2 mb-3 fs-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-6 d-flex align-items-left">
+                                Trainer Start Meet
+                            </div>
+                            <div class="d-flex col-lg-9 col-6 align-items-left">
+                                {{$meet->pertemuan_mulai}}
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-lg-3 col-md-6 d-flex align-items-left">
+                                Trainer End Meet
+                            </div>
+                            <div class="d-flex col-lg-9 col-6 align-items-left">
+                            @if($meet->pertemuan_selesai)
+                                {{$meet->pertemuan_selesai}}
+                            @elseif((auth()->user()->email ?? 'null') === ($trainerAbsent->email ?? 'null'))
+                                <form action="{{ route('editMeet', ['id' => $meet->id_jadwal]) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="pertemuan_selesai" value="1">
+                                    <button type="submit" class="btn btn-sm btn-custom mt-3 px-3 rounded-5">End Meet</button>
+                                </form>
+                            @endif
+                            </div>
+                            
+                        </div>
+                    </div>
                     <table class="table table-striped" style="border-radius: 1rem; overflow: hidden; background-color: transparent;">
                         <thead>
                             <tr class="text-center">
@@ -383,7 +493,8 @@ function buttonAttendance(){
                             @endforeach 
                         </tbody>
                     </table>
-                `,
+                `
+                ,
             customClass: {
                 popup: 'popup-modul',
                 title: 'title',
@@ -398,6 +509,10 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonAttendance();
         localStorage.removeItem('runButtonAttendance');
     }
+    @if(session('runButtonAttendance'))
+        localStorage.setItem('runButtonAttendance', 'true');
+        location.reload();
+    @endif
 });
 
 </script>

@@ -12,9 +12,11 @@
             <span class="title text-white ps-0">Trainify </span>
         </div>
         <div>
-            <button class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
-                <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
-            </button>
+            <a href="{{route('beranda.admin')}}">
+                <button class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
+                    <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
+                </button>
+            </a>
         </div>
 
         <ul class="list-unstyled mt-4 ps-1">
@@ -25,7 +27,7 @@
             </li>
 
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield('modulSelect')">
-                <a href="/modul/{{$training->id_training}}" class=" text-decoration-none">
+                <a href="{{ route ('showModulTraining', $training->id_training) }}" class=" text-decoration-none">
                     <span class="fs-6 fw-bold my-1 ">Module</span>
                 </a>
             </li>
@@ -33,14 +35,25 @@
             <?php $i = 1; ?>
             @foreach($training->jadwalTrainings as $jadwal)
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield($jadwal->id_jadwal)">
-                <a href="/detailMeet/MT{{$jadwal->id_jadwal}}" class=" text-decoration-none">
-                    <span class="fs-6 fw-bold my-1">{{$i}}st Meet</span>
+                <a href="{{ route ('detailMeet', $jadwal->id_jadwal )}}" class=" text-decoration-none">
+                    <span class="fs-6 fw-bold my-1">
+                        @if($i == 1)
+                        {{$i}}st
+                        @elseif($i == 2)
+                        {{$i}}nd    
+                        @elseif($i == 3)
+                        {{$i}}rd
+                        @else
+                        {{$i}}th
+                        @endif
+                        Meet
+                    </span>
                 </a>
             </li>
             <?php $i++; ?>
             @endforeach
 
-            @if( $i < 7)
+            @if( $i <= 7)
             <li class="d-flex align-items-center ps-4 py-1 mb-3 last-sidebar" onClick="buttonEdit()">
                 <a href="#" class=" text-decoration-none">
                     <span class="fs-6 fw-bold my-1">Add Meet {{$i}}st</span>
@@ -186,7 +199,7 @@ function buttonEdit() {
                     }
                 });
                 $.ajax({
-                    url: '/tambahMeet',
+                    url: "{{route('addMeet')}}",
                     method: 'POST',
                     data: {
                         id_training: {{$training -> id_training}},

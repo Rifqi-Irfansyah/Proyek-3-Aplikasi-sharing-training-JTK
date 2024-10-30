@@ -54,6 +54,8 @@ return new class extends Migration
         $table->enum('status', ['online', 'offline']);
         $table->DATETIME('waktu_mulai');
         $table->DATETIME('waktu_selesai');
+        $table->DATETIME('pertemuan_mulai')->nullable();
+        $table->DATETIME('pertemuan_selesai')->nullable();
         $table->timestamps();
       });
 

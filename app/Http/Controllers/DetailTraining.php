@@ -9,12 +9,17 @@ use App\Models\Modul;
 use App\Models\ModulTraining;
 use App\Models\PesertaTraining;
 use App\Models\Absen;
+use Session;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class DetailTraining extends Controller
 {
     public function detailTraining($id)
     {
         $training = Training::with(['jadwalTrainings', 'user'],)->find($id);
+        if(!$training)
+            abort(404, "Training didn't exist");
         $total_peserta = Training::withCount('peserta')->find($id);
 
         $meetStart = $training->jadwalTrainings->first()->waktu_mulai;
@@ -47,7 +52,9 @@ class DetailTraining extends Controller
         $namaFiles = $filenames->pluck('nama_file');
         $modul = Modul::whereIn('nama_file', $namaFiles)->get();
         $training = Training::with(['jadwalTrainings'])->find($id);
-        return view('trainer.detail_training.modul', ['modul' => $modul, 'training' => $training]);
+        $modulGlobal = Modul::whereNotIn('nama_file', $namaFiles)->orderBy('judul', 'asc')->get();
+
+        return view('trainer.detail_training.modul', ['modul' => $modul,'modulGlobal' => $modulGlobal, 'training' => $training]);
     }
 
     public function tambahMeet(Request $request)
@@ -86,7 +93,57 @@ class DetailTraining extends Controller
         return response()->json(['success' => 'Meeting added successfully!'], 200);
     }
 
-    public function tambahModul(Request $request)
+    public function editMeet(Request $request, $id)
+    {
+        $request->validate([
+            'startMeet' => 'nullable|date',
+            'endMeet' => 'nullable|date|after:startMeet',
+            'locationMeet' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:50',
+            'descMeet' => 'nullable|string|max:500',
+        ]);
+        $meet = JadwalTraining::find($id);
+
+        if (!is_null($request->startMeet))
+            $meet->waktu_mulai = $request->startMeet;
+        if (!is_null($request->endMeet))
+            $meet->waktu_selesai = $request->endMeet;
+        if (!is_null($request->locationMeet))
+            $meet->tempat_pelaksana = $request->locationMeet;
+        if (!is_null($request->status))
+            $meet->status = $request->status;
+        if (!is_null($request->descMeet))
+            $meet->topik_pertemuan = $request->descMeet;
+        if(!is_null($request->pertemuan_selesai)){
+            $meet->pertemuan_selesai = now()->setTimezone('Asia/Jakarta');
+            $meet->save();
+            session::flash('runButtonAttendance', true);
+            return redirect('detailTraining/meet/MT'.$id);
+        }
+
+        $meet->save();
+        
+        return response()->json(['success' => 'Meeting added successfully!'], 200);
+    }
+
+    public function deleteMeet(Request $request, $id)
+    {
+        $meet = JadwalTraining::find($id);
+        $now = Carbon::now()->setTimezone('Asia/Jakarta');
+        
+        if($meet->waktu_selesai < $now)
+            return response()->json(['error' => 'Can`t delete meet that has already been done!'], 400);
+        if($meet->waktu_mulai <= $now->addDay(3))
+            return response()->json(['error' => 'Can`t delete a meet scheduled to take place in less than 3 days!'], 400);
+
+        $absenPeserta = Absen::where('id_jadwal', $id)->delete();
+        $id_training = $meet->id_training;
+        $meet->delete();
+
+        return response()->json(['success' => 'Meeting deleted successfully!'], 200);
+    }
+
+    public function tambahModul(Request $request, $id)
     {
         $request->validate([
             'title' => 'required|string|max:50',
@@ -103,10 +160,29 @@ class DetailTraining extends Controller
         ]);
 
         ModulTraining::create([
-            'id_training' => $request->id_training,
+            'id_training' => $id,
             'nama_file' => $namaFile,
         ]);
 
         return response()->json(['success' => 'File upload successfully!'], 200);
+    }
+
+    public function addModulFromList(Request $request, $id)
+    {
+        $name_file = $request->selected_files;
+        foreach ($name_file as $file) {
+            ModulTraining::create([
+                'id_training' => $id,
+                'nama_file' => $file
+            ]);
+        }
+        Session::flash('success', 'File added successfully!');
+        return redirect('/detailTraining/modul/'.$id);
+    }
+
+    public function deleteModulTraining(Request $request, $id)
+    {
+        $modul = ModulTraining::where('nama_file', $request->nameFile)->where('id_training', $id)->delete();
+        return response()->json(['success' => 'Modul deleted successfully'], 200);
     }
 }

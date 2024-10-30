@@ -72,6 +72,9 @@
                     </div>
                 </div>
                 @endforeach
+                <div class="d-flex justify-content-center mb-5 mt-3">
+                    {!! $modul->links('pagination::bootstrap-4') !!}
+                </div>
             </div>
             @endif
 
@@ -88,7 +91,7 @@
                 if (query.length > 0 || hasPreviousInput) {
 
                     debounceTimeout = setTimeout(function() {
-                        fetch(`/search?q=${query}`)
+                        fetch(`/listModul/search?q=${query}`)
                             .then(response => response.json())
                             .then(data => {
                                 console.log(data);

@@ -45,6 +45,46 @@ class ModulSeeder extends Seeder
             'nama_file' => "Pertemuan09 BMC.pdf"
         ]);
 
+        DB::table('modul')->insert([
+            'nama_file' => "dummy1.pdf",
+            'judul' => "Dummy Data 1"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy2.pdf",
+            'judul' => "Dummy Data 2"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy3.pdf",
+            'judul' => "Dummy Data 3"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy4.pdf",
+            'judul' => "Dummy Data 4"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy5.pdf",
+            'judul' => "Dummy Data 5"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy6.pdf",
+            'judul' => "Dummy Data 6"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy7.pdf",
+            'judul' => "Dummy Data 7"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy8.pdf",
+            'judul' => "Dummy Data 8"
+        ]);
+
         DB::table('modul_training')->insert([
             'id_training' => 1,
             'nama_file' => "employee.pdf"
