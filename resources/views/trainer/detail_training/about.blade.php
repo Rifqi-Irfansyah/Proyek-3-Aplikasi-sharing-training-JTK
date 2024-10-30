@@ -12,11 +12,13 @@
             <div class="col-8 offset-2 text-center">
                 <h1>{{$training->judul_training}}</h1>
             </div>
+            @if ($training->jadwalTrainings->last()->waktu_selesai >= \Carbon\Carbon::now()->setTimezone('Asia/Jakarta'))
             <div class="col-2 d-flex justify-content-end align-items-center">
                 <button class="btn btn-md fs-6 rounded-5 btn-custom w-100 py-2" onClick="buttonEditTraining()">
                     <i class="fa-regular fa-user"></i> Edit Training
                 </button>
             </div>
+            @endif
         </div>
 
         <!-- Trainer information -->

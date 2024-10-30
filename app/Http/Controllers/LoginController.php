@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\TambahanTrainer;
 use Session;
 
 class LoginController extends Controller
@@ -59,8 +60,13 @@ class LoginController extends Controller
             }
             else if($role == 'pemateri'){
                 $tambahanTrainer = $user->TambahanTrainer;
-                if ($tambahanTrainer->status_akun == 'Terkonfirmasi')
+                if ($tambahanTrainer->status_akun == 'Terkonfirmasi'){
+                    if(!$tambahanTrainer->status_login){
+                        TambahanTrainer::where('email', $tambahanTrainer->email)->update(['status_login' => true]);
+                        Session::flash('info', 'Your Account is Confirmed !!');
+                    }
                     return redirect('pemateri');
+                }
                 else{
                     Session::flash('error', 'Your Account Havent Confirmed');
                     Auth::logout();

@@ -30,7 +30,7 @@ use App\Http\Controllers\UsulanController;
 */
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
-Route::get('/loginAdmin', [LoginController::class, 'loginAdmin'])->name('login');
+Route::get('/loginAdmin', [LoginController::class, 'loginAdmin'])->name('loginAdmin');
 Route::post('/login', [LoginController::class, 'loginaksi'])->name('loginaksi');
 Route::post('/loginAdmin', [LoginController::class, 'loginaksiAdmin'])->name('loginaksiAdmin');
 Route::get('/logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('auth')->name('logout');

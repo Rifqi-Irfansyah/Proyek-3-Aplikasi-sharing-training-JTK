@@ -31,21 +31,34 @@
     <body class="antialiased">
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-            @if(session('success'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login Success',
-                    text: "{{ session('success') }}", // Menampilkan pesan dari session
-                    timer: 2000,
-                    showConfirmButton: false,
-                    customClass: {
-                        popup: 'popup-success',
-                        title: 'title',
-                    }
-                });
+                @if(session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Success',
+                        text: "{{ session('success') }}", // Menampilkan pesan dari session
+                        timer: 2000,
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: 'popup-success',
+                            title: 'title',
+                        }
+                    });
+                @elseif(session('info'))
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Info',
+                        text: "{{ session('info') }}", // Menampilkan pesan dari session
+                        timer: 2000,
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: 'popup-success',
+                            title: 'title',
+                        }
+                    });
+                @endif
             });
-            @endif
         </script>
+
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
