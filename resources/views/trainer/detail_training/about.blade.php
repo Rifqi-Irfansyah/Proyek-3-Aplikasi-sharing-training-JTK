@@ -12,13 +12,11 @@
             <div class="col-8 offset-2 text-center">
                 <h1>{{$training->judul_training}}</h1>
             </div>
-            @if ($training->jadwalTrainings->last()->waktu_selesai >= \Carbon\Carbon::now()->setTimezone('Asia/Jakarta'))
             <div class="col-2 d-flex justify-content-end align-items-center">
                 <button class="btn btn-md fs-6 rounded-5 btn-custom w-100 py-2" onClick="buttonEditTraining()">
                     <i class="fa-regular fa-user"></i> Edit Training
                 </button>
             </div>
-            @endif
         </div>
 
         <!-- Trainer information -->
@@ -74,6 +72,20 @@
 
 <script>
 function buttonEditTraining() {
+@if ((\Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
+        Swal.fire({
+            icon: 'info',
+            title: 'Meeting Cannot Edit!',
+            text: 'Only training scheduled before H-3 are editable',
+            backdrop: 'rgba(0,0,0,0.8)',
+            customClass: {
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
+                title: 'title',
+                color: '#DE2323',
+            }
+        })
+@else
     var title = "Edit Training \n" + "<?php echo $training->judul_training; ?>" + "\n\n";
     (async () => {
         const {
@@ -210,6 +222,7 @@ function buttonEditTraining() {
             }
         }
     })();
+@endif
 }
 </script>
 @endsection

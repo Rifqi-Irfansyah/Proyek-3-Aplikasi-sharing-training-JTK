@@ -36,7 +36,18 @@
             @foreach($training->jadwalTrainings as $jadwal)
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield($jadwal->id_jadwal)">
                 <a href="{{ route ('detailMeet', $jadwal->id_jadwal )}}" class=" text-decoration-none">
-                    <span class="fs-6 fw-bold my-1">{{$i}}st Meet</span>
+                    <span class="fs-6 fw-bold my-1">
+                        @if($i == 1)
+                        {{$i}}st
+                        @elseif($i == 2)
+                        {{$i}}nd    
+                        @elseif($i == 3)
+                        {{$i}}rd
+                        @else
+                        {{$i}}th
+                        @endif
+                        Meet
+                    </span>
                 </a>
             </li>
             <?php $i++; ?>

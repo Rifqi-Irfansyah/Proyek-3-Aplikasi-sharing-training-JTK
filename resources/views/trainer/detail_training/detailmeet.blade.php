@@ -58,7 +58,7 @@
 
 <script>
 function buttonEditMeet() {
-    @if (\Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->diffInDays(\Carbon\Carbon::parse($meet->waktu_mulai), true) <= 3)
+    @if ((\Carbon\Carbon::parse($meet->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
         Swal.fire({
             icon: 'info',
             title: 'Meeting Cannot Edit!',
@@ -269,71 +269,86 @@ function buttonEditMeet() {
 }
 
 function buttonDeleteMeet(){
-    (async () => {
-        const confirmation = await Swal.fire({
-            icon: "warning",
-            title: "Are You Sure Want Delete",
-            text: "This Meet",
-            focusConfirm: false,
-            backdrop: 'rgba(0,0,0,0.9)',
-            showConfirmButton: true,
-            showCancelButton: true,
+    @if ((\Carbon\Carbon::parse($meet->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
+        Swal.fire({
+            icon: 'info',
+            title: 'Meeting Cannot Edit!',
+            text: 'Only meeting scheduled before H-3 are editable',
+            backdrop: 'rgba(0,0,0,0.8)',
             customClass: {
-                popup: 'popup-warning',
-                confirmButton: 'btn-cancel',
-                cancelButton: 'btn-confirm',
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
                 title: 'title',
                 color: '#DE2323',
             }
-        });
+        })
+    @else
+        (async () => {
+            const confirmation = await Swal.fire({
+                icon: "warning",
+                title: "Are You Sure Want Delete",
+                text: "This Meet",
+                focusConfirm: false,
+                backdrop: 'rgba(0,0,0,0.9)',
+                showConfirmButton: true,
+                showCancelButton: true,
+                customClass: {
+                    popup: 'popup-warning',
+                    confirmButton: 'btn-cancel',
+                    cancelButton: 'btn-confirm',
+                    title: 'title',
+                    color: '#DE2323',
+                }
+            });
 
-        if (confirmation.isConfirmed) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                        'content')
-                }
-            });
-            $.ajax({
-                url: "{{route('deleteMeet', '')}}/" + "{{$meet->id_jadwal}}",
-                method: 'DELETE',
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success Deleted!',
-                        text: 'Modul has been deleted',
-                        showConfirmButton: false,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        timer: 2000,
-                        customClass: {
-                            popup: 'popup-success',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    }).then(() => {
-                        window.location.href = "{{ route('detailTraining', $training->id_training) }}";
-                    });
-                },
-                error: function(xhr, status, error) {
-                    var errorMessage = xhr.responseJSON.error || xhr
-                        .responseJSON.message ||
-                        'There was problem while deleted data';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Failed Deleted!',
-                        text: errorMessage,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        customClass: {
-                            popup: 'popup-error',
-                            confirmButton: 'btn-confirm',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    })
-                }
-            });
-        }
-    })();
+            if (confirmation.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                            'content')
+                    }
+                });
+                $.ajax({
+                    url: "{{route('deleteMeet', '')}}/" + "{{$meet->id_jadwal}}",
+                    method: 'DELETE',
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success Deleted!',
+                            text: 'Modul has been deleted',
+                            showConfirmButton: false,
+                            backdrop: 'rgba(0,0,0,0.8)',
+                            timer: 2000,
+                            customClass: {
+                                popup: 'popup-success',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        }).then(() => {
+                            window.location.href = "{{ route('detailTraining', $training->id_training) }}";
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.responseJSON.error || xhr
+                            .responseJSON.message ||
+                            'There was problem while deleted data';
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed Deleted!',
+                            text: errorMessage,
+                            backdrop: 'rgba(0,0,0,0.8)',
+                            customClass: {
+                                popup: 'popup-error',
+                                confirmButton: 'btn-confirm',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        })
+                    }
+                });
+            }
+        })();
+    @endif
 }
 function buttonAttendance(){
     var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
