@@ -30,4 +30,4 @@ class JadwalTraining extends Model
         return $this->hasMany(Absen::class, 'id_jadwal');
     }
 
-}
+}                                      

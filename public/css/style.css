@@ -8,6 +8,7 @@
   --black1: #222;
   --black2: #999999;
   --orange: #f5e506;
+  --white-black: #d8d2d2;
 }
 
 .background{
@@ -500,4 +501,54 @@ body {
 .sidebar-new.collapsed .menu-link {
     padding: 12px;
     text-align: center;
+}
+
+/* PAGINATION */
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+  border-radius: 50px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin: 0px 10px;
+  color: var(--black1);
+  background-color: var(--white);
+}
+
+.pagination .page-item.disabled .page-link {
+  opacity: 0.5; 
+  cursor: not-allowed;
+}
+
+.pagination .page-item .page-link {
+  border-radius: 50px !important;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  margin: 0px 3px;
+  font-weight: 600;
+  color: var(--black1);
+  background-color: var(--white); 
+}
+
+.pagination{
+  padding: 5px 25px;
+  border-radius: 30px;
+  align-items: center;
+  text-align: center;
+}
+
+.pagination .page-item.active .page-link {
+  font-weight: 600;
+  border-width: 0px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  color: var(--white);
+  background-color: var(--black1); 
 }

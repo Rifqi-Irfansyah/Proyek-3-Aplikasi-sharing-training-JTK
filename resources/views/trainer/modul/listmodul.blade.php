@@ -72,6 +72,9 @@
                     </div>
                 </div>
                 @endforeach
+                <div class="d-flex justify-content-center mb-5 mt-3">
+                    {!! $modul->links('pagination::bootstrap-4') !!}
+                </div>
             </div>
             @endif
 

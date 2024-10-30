@@ -14,7 +14,7 @@ class ModulController extends Controller
 {
     public function showModul()
     {
-        $modul = Modul::orderBy('judul', 'asc')->get();
+        $modul = Modul::orderBy('judul', 'asc')->paginate(10);
         return view('trainer.modul.listmodul', (['modul' => $modul]));
     }
 
