@@ -45,37 +45,33 @@ Route::get('/register-trainer', [RegistController::class, 'showTrainerForm'])->n
 Route::post('/register-peserta', [RegistController::class, 'registerPeserta'])->name('register.peserta.submit');
 Route::post('/register-trainer', [RegistController::class, 'registerTrainer'])->name('register.trainer.submit');
 
-Route::get('/training/create', [CreateTrainingController::class, 'create'])->name('training.create');
-Route::post('/training/store', [CreateTrainingController::class, 'store'])->name('training.store');
-Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainingController::class, 'createMeetings'])->name('create.meetings');
-Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
 
-Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
-Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
-Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
 
-//listtrainer
-Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');
-//verif
-Route::get('verif-trainer', [VerifTrainerController::class, 'verifTrainer'])->name('verifTrainer');
-Route::post('/verif-trainer/update-status', [VerifTrainerController::class, 'updateStatus'])->name('verif-trainer');
-Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
-//Approve
-Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
-
-Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
-Route::get('/Beranda', [BerandaPesertaController::class, 'CardTraining'])->name('beranda_peserta');
-Route::post('/usulan', [BerandaPesertaController::class, 'store'])->name('usulan.store');
-Route::put('/usulan/{id_usulan}', [UsulanController::class, 'update'])->name('usulan.update');
-
-Route::get('/admin/usulan', [UsulanController::class, 'view_usulan'])->name('admin.usulan');
-Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name('training.delete');
-
-//Route::get('/delete/{id}',[BerandaAdminController::class, 'delete'])->name('delete');
-
-// User Access
+// User Access 
 Route::middleware(['checkRole:admin'])->group(function () {
     Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
+
+    Route::get('/training/create', [CreateTrainingController::class, 'create'])->name('training.create');
+    Route::post('/training/store', [CreateTrainingController::class, 'store'])->name('training.store');
+    Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainingController::class, 'createMeetings'])->name('create.meetings');
+    Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
+
+    //listtrainer
+    Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');
+    //verif
+    Route::get('verif-trainer', [VerifTrainerController::class, 'verifTrainer'])->name('verifTrainer');
+    Route::post('/verif-trainer/update-status', [VerifTrainerController::class, 'updateStatus'])->name('verif-trainer');
+    Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
+    //Approve
+    Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
+
+    Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
+
+    Route::put('/usulan/{id_usulan}', [UsulanController::class, 'update'])->name('usulan.update');
+
+    Route::get('/admin/usulan', [UsulanController::class, 'view_usulan'])->name('admin.usulan');
+    Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name('training.delete');
+
 });
 
 Route::middleware(['checkRole:pemateri'])->group(function () {
@@ -109,7 +105,15 @@ Route::middleware(['checkRole:admin,pemateri'])->group(function () {
 
 Route::middleware(['checkRole:peserta'])->group(function () {
     Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
+    Route::get('/Beranda', [BerandaPesertaController::class, 'CardTraining'])->name('beranda_peserta');
+    Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
+
+    Route::post('/usulan', [BerandaPesertaController::class, 'store'])->name('usulan.store');
+
+    Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
+    Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
+    Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
+
 });
 
 
-Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
