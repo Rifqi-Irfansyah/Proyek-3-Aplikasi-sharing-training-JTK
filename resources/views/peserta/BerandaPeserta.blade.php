@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="d-flex flex-column min-vh-100">
- @include('admin.topbar') {{--Sementara--}}
+@include('admin.topbar') {{--Sementara--}}
 <div class='container'>
     <br>
     <br>
@@ -22,9 +22,9 @@
         <div class = 'col-md-4 mb-5'>
             <div class="card" style="width: 20rem;">
                 <div class="card-body">
-                  <h5 class="card-title">{{ $training->judul_training }}</h5>
-                  <p class="card-text">{{ Str::limit($training->deskripsi,100) }}</p>
-                  <a href="{{--{{ $training-> }}--}}" class="btn btn-info float-end ">Select</a>
+                    <h5 class="card-title">{{ $training->judul_training }}</h5>
+                    <p class="card-text">{{ Str::limit($training->deskripsi,100) }}</p>
+                    <a href="{{--{{ $training-> }}--}}" class="btn btn-info float-end ">Select</a>
                 </div>
             </div>  
         </div>
@@ -41,11 +41,11 @@
         <div class = 'col-md-4 mb-5 mt-4'>
             <div class="card shadow" style="width: 20rem;">
                 <div class="card-body">
-                  <h5 class="card-title">{{ $trainingView->judul_training }}</h5>
-                  <p class="card-text">{{ Str::limit($trainingView->deskripsi,100) }}</p>
-                  <a href="{{--{{ $training-> }}--}}" class="btn btn-info float-end ">Select</a>
+                <h5 class="card-title">{{ $trainingView->judul_training }}</h5>
+                <p class="card-text">{{ Str::limit($trainingView->deskripsi,100) }}</p>
+                <a href="{{--{{ $training-> }}--}}" class="btn btn-info float-end ">Select</a>
                 </div>
-            </div>  
+            </div>
         </div>
         @endforeach
     </div>
