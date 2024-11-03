@@ -30,7 +30,13 @@
 
         <div class="row mt-4 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-link me-3"></i>Room/Link</div>
-            <div class="col-7">{{$meet->tempat_pelaksana}}</div>
+            <div class="col-7">
+                @if ($meet->status === 'online')
+                    <a href="{{ $meet->tempat_pelaksana }}" target="_blank">{{ $meet->tempat_pelaksana }}</a>
+                @else
+                    {{ $meet->tempat_pelaksana }}
+                @endif
+            </div>
         </div>
 
         <div class="row mt-4 justify-content-center">
