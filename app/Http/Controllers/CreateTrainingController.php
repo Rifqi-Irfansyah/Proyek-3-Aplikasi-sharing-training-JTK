@@ -34,6 +34,7 @@ class CreateTrainingController extends Controller
         $training->deskripsi = $request->deskripsi;
         $training->status = 'Pendaftaran'; // Status awal
         $training->save();
+        Session::flash('success', 'Training is successfully created, please set each meeting');
         return redirect()->route('create.meetings', ['jumlah_pertemuan' => $request->jumlah_pertemuan, 'id_training' => $training->id_training])->with('success', 'Training has been successfully created. Please set the meetings.');
     }
 
@@ -72,7 +73,7 @@ class CreateTrainingController extends Controller
             $jadwal->save();
         }
         Session::flash('success', 'Each training meetings has been successfully created');
-        return redirect('BerandaAdmin');
+        return redirect()->route('beranda.admin');
         // return redirect()->route('beranda.admin')->with('success', 'Each training meetings has been successfully created');
     }
 }

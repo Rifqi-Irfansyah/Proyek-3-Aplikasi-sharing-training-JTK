@@ -30,11 +30,17 @@
             </li>
 
             @foreach($training->jadwalTrainings as $index => $jadwal)
-            <li class="menu-item @yield($jadwal->id_jadwal)">
-                <a href="/detailMeetPeserta/{{$jadwal->id_jadwal}}" class="menu-link fw-bold d-flex justify-content-center me-3">
-                    <span>{{($index + 1) }}st Meet</span>
-                </a>
-            </li>
+                @php
+                    $number = $index + 1;
+                    $suffix = ($number % 10 == 1 && $number % 100 != 11) ? 'st' :
+                            (($number % 10 == 2 && $number % 100 != 12) ? 'nd' :
+                            (($number % 10 == 3 && $number % 100 != 13) ? 'rd' : 'th'));
+                @endphp
+                <li class="menu-item @yield($jadwal->id_jadwal)">
+                    <a href="/detailMeetPeserta/{{$jadwal->id_jadwal}}" class="menu-link fw-bold d-flex justify-content-center me-3">
+                        <span>{{ $number . $suffix }} Meet</span>
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>

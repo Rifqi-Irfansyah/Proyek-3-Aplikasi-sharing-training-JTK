@@ -4,22 +4,21 @@
 
 @section('content')
 <script>
-    @if(session('success'))
-    Swal.fire({
-        icon: 'success',
-        var message = "{{ Session::get('success') }}";
-        title: 'Training Created!',
-        text: messagge,
-        showConfirmButton: false,
-        backdrop: 'rgba(0,0,0,0.8)',
-        timer: 2000,
-        customClass: {
-            popup: 'popup-success',
-            title: 'title',
-            color: '#DE2323',
-        }
-    })
-    @endif
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-success',
+                    title: 'title',
+                }
+            });
+        @endif
+    });
 </script>
 
 @include('admin.topbar')
@@ -35,8 +34,8 @@
                 <form action="{{ route('meeting.store') }}" method="POST" class="w-100" id="meetingForm">
                     @csrf
                     <input type="hidden" name="id_training" value="{{ $id_training }}">
-                    @for ($i = 1; $i <= $jumlah_pertemuan; $i++)
-                        <h4>Meeting {{ $i }}</h4>
+                    @for ($i = 0; $i < $jumlah_pertemuan; $i++)
+                        <h4>Meeting {{ $i + 1 }}</h4>
 
                         <div class="form-group mb-3">
                             <label for="topik_pertemuan_{{ $i }}" class="form-label">Meeting Discussion</label>
@@ -44,20 +43,24 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-6 form-group mb-3">
-                                <label for="waktu_mulai_{{ $i }}" class="form-label">Start Time</label>
-                                <input type="datetime-local" class="form-control rounded-5" id="waktu_mulai_{{ $i }}" name="waktu_mulai[]" required>
+                            <div class="col-4 form-group mb-3">
+                                <label for="date_{{ $i }}" class="form-label">Date</label>
+                                <input type="date" class="form-control rounded-5" id="date_{{ $i }}" name="date[]" required>
                             </div>
-                            <div class="col-6 form-group mb-3">
+                            <div class="col-4 form-group mb-3">
+                                <label for="waktu_mulai_{{ $i }}" class="form-label">Start Time</label>
+                                <input type="time" class="form-control rounded-5" id="waktu_mulai_{{ $i }}" name="waktu_mulai[]" required>
+                            </div>
+                            <div class="col-4 form-group mb-3">
                                 <label for="waktu_selesai_{{ $i }}" class="form-label">Finish Time</label>
-                                <input type="datetime-local" class="form-control rounded-5" id="waktu_selesai_{{ $i }}" name="waktu_selesai[]" required>
+                                <input type="time" class="form-control rounded-5" id="waktu_selesai_{{ $i }}" name="waktu_selesai[]" required>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-6 form-group mb-3">
                                 <label for="status_{{ $i }}" class="form-label">Meeting Status</label>
-                                <select class="form-control rounded-5" id="status_{{ $i }}" name="status[]">
+                                <select class="form-control rounded-5" id="status_{{ $i }}" name="status[]" required>
                                     <option value="online">Online</option>
                                     <option value="offline">Offline</option>
                                 </select>
@@ -80,6 +83,7 @@
     </div>
 </div>
 @include('footer')
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById('meetingForm');
@@ -87,18 +91,31 @@
             let valid = true;
             let errorMessage = '';
 
-            for (let i = 1; i <= {{ $jumlah_pertemuan }}; i++) {
+            for (let i = 0; i < {{ $jumlah_pertemuan }}; i++) {
+                const dateInput = document.getElementById(`date_${i}`);
                 const startTimeInput = document.getElementById(`waktu_mulai_${i}`);
                 const endTimeInput = document.getElementById(`waktu_selesai_${i}`);
-                const startTime = new Date(startTimeInput.value);
-                const endTime = new Date(endTimeInput.value);
+                const startTime = new Date(`${dateInput.value} ${startTimeInput.value}:00`);
+                const endTime = new Date(`${dateInput.value} ${endTimeInput.value}:00`);
 
                 if (startTime >= endTime) {
                     valid = false;
-                    errorMessage += `Please check the meeting time you set. The finish time for Meeting ${i} must be greater than the start time.\n`;
+                    errorMessage += `Please check the meeting time you set. The finish time for Meeting ${i + 1} must be greater than the start time.\n`;
                     startTimeInput.focus();
                     break;
                 }
+
+                // if (i > 0) {
+                //     const previousDateInput = document.getElementById(`date_${i - 1}`);
+                //     const previousDate = new Date(previousDateInput.value);
+
+                //     if (previousDate >= new Date(dateInput.value)) {
+                //         valid = false;
+                //         errorMessage += `The date for Meeting ${i + 1} must be greater than the date for Meeting ${i}.\n`;
+                //         dateInput.focus();
+                //         break;
+                //     }
+                // }
             }
 
             if (!valid) {
@@ -117,7 +134,6 @@
                 });
             }
         });
-
     });
 </script>
 @endsection
