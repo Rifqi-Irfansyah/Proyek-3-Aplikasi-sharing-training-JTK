@@ -32,7 +32,13 @@
             <div class="col-3"><i class="fa-solid fa-link me-3"></i>Room/Link</div>
             <div class="col-7">
                 @if ($meet->status === 'online')
-                    <a href="{{ $meet->tempat_pelaksana }}" target="_blank">{{ $meet->tempat_pelaksana }}</a>
+                    @php
+                        $url = $meet->tempat_pelaksana;
+                        if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                            $url = "https://{$url}";
+                        }
+                    @endphp
+                    <a href="{{ $url }}" target="_blank">{{ $meet->tempat_pelaksana }}</a>
                 @else
                     {{ $meet->tempat_pelaksana }}
                 @endif

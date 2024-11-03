@@ -11,7 +11,7 @@
                 <span class="title text-black ps-0 me-4">TRAINIFY</span>
             </div>
             <div class="mt-2">
-                <a href="{{ route('beranda.admin') }}" class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
+                <a href="{{ route('beranda_peserta') }}" class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
                     <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
                 </a>
             </div>

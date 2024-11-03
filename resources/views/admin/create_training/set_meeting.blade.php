@@ -87,44 +87,115 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById('meetingForm');
+
+        // tanggal minimum (7 hari dari sekarang)
+        function getMinDate() {
+            const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+            const minDate = new Date(now);
+            minDate.setDate(now.getDate() + 7);
+            return minDate.toISOString().split('T')[0];
+        }
+
+        function formatDate(dateString) {
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // waktu minimum selesai
+        function getMinEndTime(startTime) {
+            const [hours, minutes] = startTime.split(':');
+            const date = new Date();
+            date.setHours(parseInt(hours));
+            date.setMinutes(parseInt(minutes));
+            date.setHours(date.getHours() + 1);
+            return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+        }
+
+        for (let i = 0; i < {{ $jumlah_pertemuan }}; i++) {
+            const dateInput = document.getElementById(`date_${i}`);
+            const startTimeInput = document.getElementById(`waktu_mulai_${i}`);
+            const endTimeInput = document.getElementById(`waktu_selesai_${i}`);
+
+            // tanggal minimum untuk pertemuan pertama
+            if (i === 0) {
+                const minDate = getMinDate();
+                dateInput.min = minDate;
+                dateInput.title = `Minimum date: ${formatDate(minDate)}`;
+            }
+
+            startTimeInput.addEventListener('change', function() {
+                const minEndTime = getMinEndTime(this.value);
+                endTimeInput.min = minEndTime;
+                // reset waktu selesai jika kurang dari minimum
+                if (endTimeInput.value && endTimeInput.value < minEndTime) {
+                    endTimeInput.value = minEndTime;
+                }
+            });
+
+            dateInput.addEventListener('change', function() {
+                if (i < {{ $jumlah_pertemuan }} - 1) {
+                    const nextDateInput = document.getElementById(`date_${i + 1}`);
+                    nextDateInput.min = this.value;
+                    // reset nilai input berikutnya jika lebih kecil dari minimum
+                    if (nextDateInput.value && nextDateInput.value < this.value) {
+                        nextDateInput.value = '';
+                    }
+                }
+            });
+        }
+
         form.addEventListener('submit', function(event) {
             let valid = true;
             let errorMessage = '';
 
-            for (let i = 0; i < {{ $jumlah_pertemuan }}; i++) {
-                const dateInput = document.getElementById(`date_${i}`);
-                const startTimeInput = document.getElementById(`waktu_mulai_${i}`);
-                const endTimeInput = document.getElementById(`waktu_selesai_${i}`);
-                const startTime = new Date(`${dateInput.value} ${startTimeInput.value}:00`);
-                const endTime = new Date(`${dateInput.value} ${endTimeInput.value}:00`);
+            // pertemuan pertama minimal 7 hari dari now
+            const firstMeetingDate = document.getElementById('date_0');
+            const minDate = getMinDate();
 
-                if (startTime >= endTime) {
-                    valid = false;
-                    errorMessage += `Please check the meeting time you set. The finish time for Meeting ${i + 1} must be greater than the start time.\n`;
-                    startTimeInput.focus();
-                    break;
-                }
-
-                // if (i > 0) {
-                //     const previousDateInput = document.getElementById(`date_${i - 1}`);
-                //     const previousDate = new Date(previousDateInput.value);
-
-                //     if (previousDate >= new Date(dateInput.value)) {
-                //         valid = false;
-                //         errorMessage += `The date for Meeting ${i + 1} must be greater than the date for Meeting ${i}.\n`;
-                //         dateInput.focus();
-                //         break;
-                //     }
-                // }
+            if (firstMeetingDate.value < minDate) {
+                valid = false;
+                errorMessage = `The first meeting must be scheduled at least 7 days from now (${formatDate(minDate)}).\n`;
+                firstMeetingDate.focus();
             }
 
+            if (valid) {
+                for (let i = 0; i < {{ $jumlah_pertemuan }}; i++) {
+                    const dateInput = document.getElementById(`date_${i}`);
+                    const startTimeInput = document.getElementById(`waktu_mulai_${i}`);
+                    const endTimeInput = document.getElementById(`waktu_selesai_${i}`);
+
+                    if (i > 0) {
+                        const previousDate = new Date(document.getElementById(`date_${i-1}`).value);
+                        const currentDate = new Date(dateInput.value);
+
+                        if (currentDate <= previousDate) {
+                            valid = false;
+                            errorMessage += `The date for Meeting ${i + 1} must be after Meeting ${i}.\n`;
+                            dateInput.focus();
+                            break;
+                        }
+                    }
+                    if (valid) {
+                        // validasi waktu durasi minimal 1 jam
+                        const startTime = new Date(`${dateInput.value} ${startTimeInput.value}:00`);
+                        const endTime = new Date(`${dateInput.value} ${endTimeInput.value}:00`);
+                        const durationInMinutes = (endTime - startTime) / (1000 * 60);
+
+                        if (startTime >= endTime || durationInMinutes < 60) {
+                            valid = false;
+                            errorMessage += `Please check your start and finish time. Meeting ${i + 1} duration must be at least 1 hour.\n`;
+                            endTimeInput.focus();
+                            break;
+                        }
+                    }
+                }
+            }
             if (!valid) {
                 event.preventDefault();
 
-                // Menampilkan SweetAlert dengan pesan error
                 Swal.fire({
                     icon: 'error',
-                    title: 'Invalid Time',
+                    title: 'Invalid Date/Time',
                     text: errorMessage,
                     confirmButtonText: 'OK',
                     customClass: {
@@ -136,4 +207,3 @@
         });
     });
 </script>
-@endsection
