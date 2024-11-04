@@ -9,22 +9,22 @@
 <!-- Custom Styling -->
 <style>
     body {
-        background-color: #e9f3fb; 
+        background-color: #e9f3fb;
     }
     h1 {
         font-weight: bold;
         font-family: 'Arial', sans-serif;
         color: #333;
         text-align: center;
-        margin: 30px 0 50px; 
+        margin: 30px 0 50px;
         padding-bottom: 20px;
     }
     .table {
         width: 90%;
         margin: 0 auto;
         border-collapse: collapse;
-        border-radius: 10px; 
-        overflow: hidden; 
+        border-radius: 10px;
+        overflow: hidden;
     }
     .table th, .table td {
         padding: 10px;
@@ -33,10 +33,10 @@
         vertical-align: middle;
     }
     .table th {
-        background-color: #91c3f2; 
+        background-color: #91c3f2;
     }
     .table td {
-        background-color: white; 
+        background-color: white;
     }
     .table tr:hover {
         background-color: #f1f7fc;
@@ -52,7 +52,7 @@
         background-color: #17a2b8;
     }
     .btn-delete {
-        background-color: #dc3545; 
+        background-color: #dc3545;
     }
     .btn-view:hover {
         background-color: #138496;
@@ -70,14 +70,14 @@
 <!-- Main Container -->
 <div class="container">
     <table class="table">
-        <thead class="table-primary"> 
+        <thead class="table-primary">
             <tr>
                 <th>Trainer Email</th>
                 <th>Trainer Name</th>
                 <th>No Telfon</th>
                 <th>Pengalaman</th>
-                <th>Kemampuan</th> 
-                <th>Verifikasi</th> 
+                <th>Kemampuan</th>
+                <th>Verifikasi</th>
             </tr>
         </thead>
         <tbody>
@@ -85,16 +85,16 @@
                 @if($tr->status_akun === 'Belum direview') <!-- Memastikan hanya menampilkan trainer dengan status 'Belum direview' -->
                 <tr>
                     <td>{{ $tr->email }}</td>
-                    <td>{{ $tr->user->name }}</td> 
-                    <td>{{ $tr->no_wa }}</td> 
-                    <td>{{ $tr->pengalaman }}</td> 
-                    <td>{{ $tr->kemampuan }}</td> 
+                    <td>{{ $tr->user->name }}</td>
+                    <td>{{ $tr->no_wa }}</td>
+                    <td>{{ $tr->pengalaman }}</td>
+                    <td>{{ $tr->kemampuan }}</td>
                     <td>
                         <div class="btn-group">
                             <a href="#" class="btn btn-view" onclick="updateStatus('{{ $tr->email }}', '{{ $tr->status_akun }}')">✔️ Verif</a>
                             <a href="#" class="btn btn-delete" onclick="update2Status('{{ $tr->email }}','{{$tr->status_akun}}')">❌ Tolak</a>
                         </div>
-                    </td> 
+                    </td>
                 </tr>
                 @endif
             @endforeach

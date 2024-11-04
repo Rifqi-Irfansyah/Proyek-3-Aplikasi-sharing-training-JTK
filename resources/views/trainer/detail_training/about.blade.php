@@ -172,7 +172,7 @@ function buttonEditTraining() {
                         descMeet: formValues.descMeet
                     },
                     success: function(response) {
-                        location.reload(); 
+                        location.reload();
 
                         Swal.fire({
                             icon: 'success',
@@ -210,7 +210,7 @@ function buttonEditTraining() {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Cancelled',
-                    text: 'No changes were made',            
+                    text: 'No changes were made',
                     showConfirmButton: false,
                     backdrop: 'rgba(0,0,0,0.8)',
                     timer: 1000,

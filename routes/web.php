@@ -17,6 +17,7 @@ use App\Http\Controllers\PreviewTrainingController;
 use App\Http\Controllers\BerandaPesertaController;
 use App\Http\Controllers\DetailTrainingPeserta;
 use App\Http\Controllers\UsulanController;
+use App\Http\Controllers\BerandaTrainerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,7 @@ Route::post('/register-trainer', [RegistController::class, 'registerTrainer'])->
 
 
 
-// User Access 
+// User Access
 Route::middleware(['checkRole:admin'])->group(function () {
     Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
 
@@ -116,4 +117,9 @@ Route::middleware(['checkRole:peserta'])->group(function () {
 
 });
 
-
+Route::middleware(['checkRole:trainer'])->group(function () {
+    Route::get('/', [BerandaTrainerController::class, 'index'])->name('welcome');
+    Route::get('/detailTrainingTrainer/{id}', [BerandaTrainerController::class, 'detailTraining'])->name('detailTrainingTrainer');
+    Route::get('/tambahkanTrainingTrainer/{id}', [BerandaTrainerController::class, 'tambahTraining'])->name('tambahkanTrainingTrainer');
+    Route::post('/usulan', [BerandaTrainerController::class, 'storeUsulan'])->name('usulan.store');
+});

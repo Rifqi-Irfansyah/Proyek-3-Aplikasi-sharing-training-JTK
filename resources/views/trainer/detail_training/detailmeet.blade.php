@@ -18,7 +18,7 @@
                     <i class="fa fa-trash me-1"></i> Delete
                 </button>
             </div>
-        </div> 
+        </div>
 
         <div class="row mt-5 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-clock me-3"></i>Start Meet</div>
@@ -118,7 +118,7 @@ function buttonEditMeet() {
                                 <div class ="col-3">Status</div>
                                 <div class ="col ms-3">
                                     <div class="d-flex align-items-center justify-content-around">
-                                        <div class="form-check">    
+                                        <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input text-sm-left" name="status" value="online" {{ ($meet->status == 'online') ? 'checked' : '' }}>Online
                                             </label>
@@ -490,7 +490,7 @@ function buttonAttendance(){
                                     </td>
                                 </tr>
                                 @php $i++ @endphp
-                            @endforeach 
+                            @endforeach
                         </tbody>
                     </table>
                 `

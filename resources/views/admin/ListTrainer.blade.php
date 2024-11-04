@@ -93,11 +93,11 @@
                         <td>{{ $tr->no_wa }}</td> <!-- No Telepon diambil dari model tambahan_trainer -->
                         <td>{{ $tr->status_akun }}</td> <!-- Status Akun diambil dari model tambahan_trainer -->
                     </tr>
-                @endforeach  
+                @endforeach
                 </tbody>
             </table>
         </div>
-    </div>  
+    </div>
 </div>
 
 @include('footer')
