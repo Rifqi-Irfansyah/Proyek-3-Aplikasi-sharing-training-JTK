@@ -11,7 +11,7 @@
                 <span class="title text-black ps-0 me-4">TRAINIFY</span>
             </div>
             <div class="mt-2">
-                <a href="{{ route('beranda.admin') }}" class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
+                <a href="{{ route('beranda_peserta') }}" class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
                     <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
                 </a>
             </div>
@@ -30,11 +30,17 @@
             </li>
 
             @foreach($training->jadwalTrainings as $index => $jadwal)
-            <li class="menu-item @yield($jadwal->id_jadwal)">
-                <a href="/detailMeetPeserta/{{$jadwal->id_jadwal}}" class="menu-link fw-bold d-flex justify-content-center me-3">
-                    <span>{{($index + 1) }}st Meet</span>
-                </a>
-            </li>
+                @php
+                    $number = $index + 1;
+                    $suffix = ($number % 10 == 1 && $number % 100 != 11) ? 'st' :
+                            (($number % 10 == 2 && $number % 100 != 12) ? 'nd' :
+                            (($number % 10 == 3 && $number % 100 != 13) ? 'rd' : 'th'));
+                @endphp
+                <li class="menu-item @yield($jadwal->id_jadwal)">
+                    <a href="/detailMeetPeserta/{{$jadwal->id_jadwal}}" class="menu-link fw-bold d-flex justify-content-center me-3">
+                        <span>{{ $number . $suffix }} Meet</span>
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>

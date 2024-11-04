@@ -30,7 +30,19 @@
 
         <div class="row mt-4 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-link me-3"></i>Room/Link</div>
-            <div class="col-7">{{$meet->tempat_pelaksana}}</div>
+            <div class="col-7">
+                @if ($meet->status === 'online')
+                    @php
+                        $url = $meet->tempat_pelaksana;
+                        if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                            $url = "https://{$url}";
+                        }
+                    @endphp
+                    <a href="{{ $url }}" target="_blank">{{ $meet->tempat_pelaksana }}</a>
+                @else
+                    {{ $meet->tempat_pelaksana }}
+                @endif
+            </div>
         </div>
 
         <div class="row mt-4 justify-content-center">
@@ -41,7 +53,7 @@
         <div class="row mt-4 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-user-check me-3"></i>Attendance</div>
             <div class="col-7">
-                <div class="btn btn-sm btn-custom rounded-4 px-3" onClick="buttonAttendance()">Click Here</div>
+                <div class="btn btn-sm btn-custom rounded-4 px-3">Click Here</div>
             </div>
         </div>
 
@@ -49,132 +61,6 @@
 </div>
 
 <script>
-function buttonAttendance(){
-    var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
-    var meetEnd = new Date("{{ \Carbon\Carbon::parse($meet->waktu_selesai) }}");
-    var now = new Date("{{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta') }}");
-    if(now < meetStart){
-        Swal.fire({
-            icon: 'warning',
-            title: 'Cannot Absence!',
-            text: 'Outside of attendance time',
-            backdrop: 'rgba(0,0,0,0.8)',
-            customClass: {
-                popup: 'popup-warning',
-                confirmButton: 'btn-confirm',
-                title: 'title',
-                color: '#DE2323',
-            }
-        })
-    }
-    else if(now >= meetStart && now <= meetEnd && ("{{auth()->user()->email ?? 'null'}}") == ("{{$trainerAbsent->email ?? 'null'}}" ) && ("{{$trainerAbsent->status ?? 'null'}}") == "Tidak Hadir"){
-        (async () => {
-            const confirmation = await Swal.fire({
-                icon: 'info',
-                title: 'Attendance',
-                showCloseButton: true,
-                showConfirmButton: true,
-                confirmButtonText: "Present",
-                backdrop: 'rgba(0,0,0,0.8)',
-                customClass: {
-                    popup: 'popup-edit',
-                    confirmButton: 'btn-confirm',
-                    title: 'title',
-                    color: '#DE2323',
-                }
-            });
-
-            if (confirmation.isConfirmed) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    url: "{{route('absen')}}",
-                    method: 'POST',
-                    data: {
-                        id_jadwal: {{$meet->id_jadwal}},
-                        email: "{{ auth()->user()->email }}"
-                    },
-                    success: function(response) {
-                        (async()=>{
-                            await Swal.fire({
-                                icon: 'success',
-                                title: 'Success Absence!',
-                                showConfirmButton: false,
-                                backdrop: 'rgba(0,0,0,0.8)',
-                                timer: 1000,
-                                customClass: {
-                                    popup: 'popup-success',
-                                    title: 'title',
-                                    color: '#DE2323',
-                                }
-                        })
-                        localStorage.setItem('runButtonAttendance', 'true');
-                        location.reload();
-                    })();
-
-                },
-                error: function(xhr, status, error) {
-                    var errorMessage = xhr.responseJSON.message ||
-                    'There was problem while saved data';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Failed Absence!',
-                        text: errorMessage,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        customClass: {
-                            popup: 'popup-error',
-                            confirmButton: 'btn-confirm',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    })
-                }
-            });
-        }})();
-    }
-    else{
-        Swal.fire({
-            title: 'Attendance Recap',
-            showCloseButton: true,
-            showConfirmButton: false,
-            backdrop: 'rgba(0,0,0,0.8)',
-            html: `
-                    <table class="table table-striped" style="border-radius: 1rem; overflow: hidden; background-color: transparent;">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col">No</th>
-                                <th scope="col-6">Name</th>
-                                <th scope="col-3">Time</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $i = 1; @endphp
-                            @foreach($meet->absen as $absen)
-                                <tr class="text-center">
-                                    <th scope="row">{{$i}}</th>
-                                    <td>{{$absen->user->name}}</td>
-                                    <td>{{$absen->updated_at}}</td>
-                                    <td class="{{ $absen->status === 'Hadir' ? 'text-success' : ($absen->status === 'Tidak Hadir' ? 'text-danger' : 'text-warning') }}">
-                                        {{ $absen->status }}
-                                    </td>
-                                </tr>
-                                @php $i++ @endphp
-                            @endforeach
-                        </tbody>
-                    </table>
-                `,
-            customClass: {
-                popup: 'popup-modul',
-                title: 'title',
-                color: '#DE2323',
-            }
-        });
-    }
-}
 
 document.addEventListener('DOMContentLoaded', function() {
     if (localStorage.getItem('runButtonAttendance')) {

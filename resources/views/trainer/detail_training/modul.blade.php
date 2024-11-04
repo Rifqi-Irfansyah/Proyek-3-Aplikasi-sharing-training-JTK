@@ -67,9 +67,11 @@ Swal.fire({
                             <a href="#" type="button" class="btn btn-outline-primary bordered-2 rounded-5 mx-1" id="btn-{{$file->nama_file}}">
                                 <i class="fa fa-folder-open me-2 text-warning"></i>Open
                             </a>
+                            @if(!((\Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta'))))
                             <a href="#" type="button" class="btn btn-outline-danger rounded-5 mx-1 btn-delete" data-file="{{$file}}">
                                 <i class="fa fa-trash me-2 text-danger"></i>Delete
                             </a>
+                            @endif
                         </div>
                     </div>
                 </div>

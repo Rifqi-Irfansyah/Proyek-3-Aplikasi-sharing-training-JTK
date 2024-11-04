@@ -46,7 +46,7 @@ class RegistController extends Controller
             // Cek apakah user berhasil disimpan
             if ($user) {
                 Session::flash('success', 'Your Account Success Registered');
-                return view('auth.login');
+                return view('auth.login', (['title' => 'Login', 'postLogin' => 'loginaksi', 'signup' => true]));
                 // return redirect()->route('login')->with('success', 'Your Account Success Registered');
             } else {
                 Session::flash('error', 'Register failed. Please Try again.');
@@ -92,7 +92,7 @@ class RegistController extends Controller
         ]);
 
         Session::flash('success', 'Your Account Success Registered');
-        return view('auth.login');
+        return view('auth.login', (['title' => 'Login', 'postLogin' => 'loginaksi', 'signup' => true]));
         // return redirect()->route('login')->with('success', 'Your Account Success Registered');
     } else {
         Session::flash('error', 'Register failed. Please Try again.');
