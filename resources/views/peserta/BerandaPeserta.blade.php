@@ -27,7 +27,7 @@
         <span>What would you like to </span>
         <span class="text-primary">Learn </span>
         <span>Today?</span>
-    </h1>   
+    </h1>
 </div>
 
 <div class = 'container pt-5'>
@@ -44,7 +44,7 @@
                     <p class="card-text">{{ Str::limit($training->deskripsi,100) }}</p>
                     {{-- <a href="{{ route('detailTrainingPeserta') }}" class="btn btn-info float-end ">Select</a> --}}
                     </div>
-                </div>  
+                </div>
             </div>
             @endforeach
         @endif
@@ -67,7 +67,7 @@
                     <p class="card-text">{{ Str::limit($trainingView->deskripsi,100) }}</p>
                     <a href="{{--{{ $training-> }}--}}" class="btn btn-info float-end">Select</a>
                     </div>
-                </div>  
+                </div>
             </div>
             @endforeach
         @endif
