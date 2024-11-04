@@ -17,7 +17,7 @@ class LoginController extends Controller
                 return redirect('BerandaAdmin');
 
             else if ($role == 'pemateri')
-                return redirect('pemateri');
+                return redirect('berandaTrainer');
 
             else if($role == 'peserta')
                 return redirect('Beranda');
@@ -34,7 +34,7 @@ class LoginController extends Controller
                 return redirect('BerandaAdmin');
 
             else if ($role == 'pemateri')
-                return redirect('pemateri');
+                return redirect('berandaTrainer');
 
             else if($role == 'peserta')
                 return redirect('Beranda');
@@ -65,7 +65,7 @@ class LoginController extends Controller
                         TambahanTrainer::where('email', $tambahanTrainer->email)->update(['status_login' => true]);
                         Session::flash('info', 'Your Account is Confirmed !!');
                     }
-                    return redirect('pemateri');
+                    return redirect('berandaTrainer');
                 }
                 else{
                     Session::flash('error', 'Your Account Havent Confirmed');
