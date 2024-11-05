@@ -6,7 +6,6 @@
 
 @include('admin.topbar')
 
-<!-- Custom Styling -->
 <style>
     body {
         background-color: #e9f3fb; 
@@ -16,85 +15,98 @@
         font-family: 'Arial', sans-serif;
         color: #333;
         text-align: center;
-        margin: 30px 0 50px; 
-        padding-bottom: 20px;
+        margin: 30px 0 30px;
+        padding-bottom: 10px;
+    }
+    .table-container {
+        width: 50%; /* Lebar lebih kecil */
+        margin: 0 auto;
     }
     .table {
-        width: 90%;
-        margin: 0 auto;
+        width: 100%;
         border-collapse: collapse;
-        border-radius: 10px; 
-        overflow: hidden; 
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
     }
     .table th, .table td {
-        padding: 10px;
+        padding: 8px 10px; /* Reduced padding for tighter spacing */
         text-align: center;
         border-bottom: 1px solid #ddd;
         vertical-align: middle;
+        font-size: 16px; /* Standard font size */
     }
     .table th {
-        background-color: #91c3f2; 
+        background-color: #91c3f2;
+        font-weight: bold; /* Bold text for header */
     }
     .table td {
-        background-color: white; 
+        background-color: white;
+        transition: background-color 0.3s; /* Smooth transition for hover effect */
     }
-    .table tr:hover {
-        background-color: #f1f7fc;
+    .table tr:hover td {
+        background-color: #f1f7fc; /* Highlight row on hover */
     }
     .btn {
-        padding: 5px 10px;
+        padding: 8px 12px;
         border-radius: 5px;
         text-decoration: none;
         color: white;
-        display: inline-block;
+        font-size: 14px;
     }
     .btn-view {
         background-color: #17a2b8;
     }
-    .btn-delete {
-        background-color: #dc3545; 
-    }
     .btn-view:hover {
         background-color: #138496;
     }
-    .btn-delete:hover {
-        background-color: #c82333;
+    .table th:nth-child(1), .table td:nth-child(1) {
+        width: 30%; /* Lebar kolom "Trainer Email" */
     }
+
+    .table th:nth-child(2), .table td:nth-child(2) {
+        width: 30%; /* Lebar kolom "Trainer Name" */
+    }
+
+    .table th:nth-child(3), .table td:nth-child(3) {
+        width: 20%; /* Lebar kolom "No Telepon" */
+    }
+
+    .table th:nth-child(4), .table td:nth-child(4) {
+        width: 20%; /* Lebar kolom "Actions" */
+    }
+
 </style>
 
-<!-- Title -->
 <div class="container mt-5">
     <h1>Verifikasi Trainer</h1>
 </div>
 
-<!-- Main Container -->
-<div class="container">
+<div class="container table-container">
     <table class="table">
-        <thead class="table-primary"> 
+        <thead class="table-primary">
             <tr>
                 <th>Trainer Email</th>
                 <th>Trainer Name</th>
-                <th>No Telfon</th>
-                <th>Pengalaman</th>
-                <th>Kemampuan</th> 
-                <th>Verifikasi</th> 
+                <th>No Telepon</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($trainers as $tr)
-                @if($tr->status_akun === 'Belum direview') <!-- Memastikan hanya menampilkan trainer dengan status 'Belum direview' -->
+                @if($tr->status_akun === 'Belum direview')
                 <tr>
                     <td>{{ $tr->email }}</td>
-                    <td>{{ $tr->user->name }}</td> 
-                    <td>{{ $tr->no_wa }}</td> 
-                    <td>{{ $tr->pengalaman }}</td> 
-                    <td>{{ $tr->kemampuan }}</td> 
+                    <td>{{ $tr->user->name }}</td>
+                    <td>{{ $tr->no_wa }}</td>
                     <td>
                         <div class="btn-group">
-                            <a href="#" class="btn btn-view" onclick="updateStatus('{{ $tr->email }}', '{{ $tr->status_akun }}')">✔️ Verif</a>
-                            <a href="#" class="btn btn-delete" onclick="update2Status('{{ $tr->email }}','{{$tr->status_akun}}')">❌ Tolak</a>
+                            <!-- Only the View button -->
+                            <a href="{{ route('view-trainer-detail', $tr->email) }}" class="btn btn-view">
+                                <i class="fas fa-eye"></i> View
+                            </a>
                         </div>
-                    </td> 
+                    </td>
                 </tr>
                 @endif
             @endforeach
@@ -103,85 +115,5 @@
 </div>
 
 @include('footer')
-
-<script>
-    // Fungsi untuk mengonfirmasi trainer
-    function updateStatus(email, status) {
-        const confirmation = confirm('Apakah Anda yakin ingin mengonfirmasi trainer ini?');
-
-        if (confirmation) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('verif-trainer') }}", // Route untuk konfirmasi trainer
-                method: 'POST',
-                data: {
-                    email: email,
-                    status: 'Terkonfirmasi'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        location.reload();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Trainer Dikonfirmasi!',
-                            text: 'Trainer telah berhasil dikonfirmasi.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan dalam mengonfirmasi trainer.');
-                }
-            });
-        }
-    }
-
-    // Fungsi untuk menolak trainer
-    function update2Status(email, status) {
-        const confirmation = confirm('Apakah Anda yakin ingin menolak trainer ini?');
-
-        if (confirmation) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('verif-trainer-delete') }}", // Route untuk menolak trainer
-                method: 'POST',
-                data: {
-                    email: email,
-                    status: 'Ditolak'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        location.reload();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Trainer Ditolak!',
-                            text: 'Trainer telah berhasil ditolak.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan dalam menolak trainer.');
-                }
-            });
-        }
-    }
-</script>
 
 @endsection

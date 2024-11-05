@@ -25,7 +25,7 @@
         border-spacing: 0 10px;
     }
     .table th {
-        background-color: #004080; /* Warna background header tabel */
+        background-color: #004080; 
         color: white;
         border: none;
         font-size: 1.1rem;
@@ -37,9 +37,9 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .table tr:hover td {
-        transform: scale(1.03); /* Slight scaling effect */
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
-        background-color: #f0faff; /* Slight background color change */
+        transform: scale(1.03); 
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+        background-color: #f0faff; 
     }
     .age-badge {
         background-color: #e6f7ff;
@@ -59,13 +59,14 @@
 <div class="container d-flex justify-content-start mt-3">
     <div class="form-group">
         <label for="sortBy" class="me-2">Sort By</label>
-        <select class="form-select" id="sortBy">
-            <option selected>Nama</option>
-            <option value="Status Akun">Status Akun</option>
-            <option value="Email">Email</option>
+        <select class="form-select" id="sortBy" onchange="location = this.value;">
+            <option value="{{ route('listtrainer', ['sort' => 'name']) }}" {{ $sortBy == 'name' ? 'selected' : '' }}>Nama</option>
+            <option value="{{ route('listtrainer', ['sort' => 'status_akun']) }}" {{ $sortBy == 'status_akun' ? 'selected' : '' }}>Status Akun</option>
+            <option value="{{ route('listtrainer', ['sort' => 'email']) }}" {{ $sortBy == 'email' ? 'selected' : '' }}>Email</option>
         </select>
     </div>
 </div>
+
 
 <!-- Main Container -->
 <div class="container d-flex justify-content-center align-items-center mt-4">
@@ -73,25 +74,25 @@
         <!-- Table -->
         <div class="col-md-10">
             <table class="table table-borderless text-center">
-                <thead class="table-primary"> <!-- Tambahkan kelas table-primary di sini -->
+                <thead class="table-primary"> 
                     <tr>
                         <th>Email</th>
                         <th>Name</th>
                         <th>Gender</th>
                         <th>Tanggal Lahir</th>
-                        <th>No Telepon</th> <!-- Tambahkan kolom No Telepon -->
-                        <th>Status Akun</th> <!-- Tambahkan kolom Status Akun -->
+                        <th>No Telepon</th> 
+                        <th>Status Akun</th> 
                     </tr>
                 </thead>
                 <tbody>
                 @foreach ($trainers as $tr)
                     <tr>
                         <td>{{ $tr->email }}</td>
-                        <td>{{ $tr->user->name }}</td> <!-- Nama diambil dari relasi user -->
-                        <td>{{ $tr->user->gender }}</td> <!-- Gender diambil dari relasi user -->
-                        <td>{{ $tr->user->tanggal_lahir }}</td> <!-- Tanggal lahir diambil dari relasi user -->
-                        <td>{{ $tr->no_wa }}</td> <!-- No Telepon diambil dari model tambahan_trainer -->
-                        <td>{{ $tr->status_akun }}</td> <!-- Status Akun diambil dari model tambahan_trainer -->
+                        <td>{{ $tr->user->name }}</td> 
+                        <td>{{ $tr->user->gender }}</td> 
+                        <td>{{ $tr->user->tanggal_lahir }}</td> 
+                        <td>{{ $tr->no_wa }}</td> 
+                        <td>{{ $tr->status_akun }}</td> 
                     </tr>
                 @endforeach  
                 </tbody>

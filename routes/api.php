@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('send-email', function(){
+    $email = new SendEmail();
+    Mail::to('muhammad.daffa.tif23@polban.ac.id')->send($email);
+});

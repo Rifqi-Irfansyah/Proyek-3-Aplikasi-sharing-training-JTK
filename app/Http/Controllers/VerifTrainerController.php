@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Mail\SendEmail; // Import class email
+use Illuminate\Support\Facades\Mail;
+use App\Models\Trainer; // Pastikan model Trainer sudah diimport
 use Illuminate\Http\Request;
 use App\Models\TambahanTrainer;
 
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
 class VerifTrainerController extends Controller
 {
     public function verifTrainer()
@@ -41,9 +41,25 @@ class VerifTrainerController extends Controller
         
         return response()->json(['error' => true, 'message' => 'Trainer not found.']);
     }
+    public function viewTrainerDetail($email)
+    {
+        $trainer = TambahanTrainer::where('email', $email)->with('user')->first();
+        
+        if (!$trainer) {
+            return redirect()->route('verifTrainer')->withErrors('Trainer not found.');
+        }
 
-    
+        return view('admin.trainerDetail', ['trainer' => $trainer]);
+    }
 
+    protected function verifyTrainer($trainer)
+    {
+        $data = [
+            'name' => $trainer->user->name,
+            'status_akun' => $trainer->status,
+        ];
 
+        Mail::to($trainer->email)->send(new SendEmail($data));
+    }
 
 }

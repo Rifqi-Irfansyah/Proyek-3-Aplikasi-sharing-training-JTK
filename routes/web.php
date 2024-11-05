@@ -55,9 +55,17 @@ Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta'])
 //listtrainer
 Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');
 //verif
+Route::get('verif-trainer/{email}', [VerifTrainerController::class, 'viewTrainerDetail'])->name('view-trainer-detail');
 Route::get('verif-trainer', [VerifTrainerController::class, 'verifTrainer'])->name('verifTrainer');
 Route::post('/verif-trainer/update-status', [VerifTrainerController::class, 'updateStatus'])->name('verif-trainer');
 Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
+
+Route::get('/verif-trainer/{Id}/{status}',function(){
+     Mail::to('yulina.anggraeni.tif23@polban.ac.id')
+     ->send(new template_email());
+});
+
+
 //Approve
 Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
 
