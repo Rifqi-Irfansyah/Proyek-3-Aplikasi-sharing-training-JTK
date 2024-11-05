@@ -4,22 +4,21 @@
 
 @section('content')
 <script>
-    @if(session('success'))
-    Swal.fire({
-        icon: 'success',
-        var message = "{{ Session::get('success') }}";
-        title: 'Training Created!',
-        text: messagge,
-        showConfirmButton: false,
-        backdrop: 'rgba(0,0,0,0.8)',
-        timer: 2000,
-        customClass: {
-            popup: 'popup-success',
-            title: 'title',
-            color: '#DE2323',
-        }
-    })
-    @endif
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-success',
+                    title: 'title',
+                }
+            });
+        @endif
+    });
 </script>
 
 @include('admin.topbar')
@@ -44,13 +43,19 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-6 form-group mb-3">
-                                <label for="waktu_mulai_{{ $i }}" class="form-label">Start Time</label>
-                                <input type="datetime-local" class="form-control rounded-5" id="waktu_mulai_{{ $i }}" name="waktu_mulai[]" required>
+                            <div class="col-4 form-group mb-3">
+                                <label for="tanggal_{{ $i }}" class="form-label">Date</label>
+                                <input type="date" class="form-control rounded-5" id="tanggal_{{ $i }}" required>
                             </div>
-                            <div class="col-6 form-group mb-3">
-                                <label for="waktu_selesai_{{ $i }}" class="form-label">Finish Time</label>
-                                <input type="datetime-local" class="form-control rounded-5" id="waktu_selesai_{{ $i }}" name="waktu_selesai[]" required>
+                            <div class="col-4 form-group mb-3">
+                                <label for="jam_mulai_{{ $i }}" class="form-label">Start Time</label>
+                                <input type="time" class="form-control rounded-5" id="jam_mulai_{{ $i }}" required>
+                                <input type="hidden" id="waktu_mulai_{{ $i }}" name="waktu_mulai[]">
+                            </div>
+                            <div class="col-4 form-group mb-3">
+                                <label for="jam_selesai_{{ $i }}" class="form-label">Finish Time</label>
+                                <input type="time" class="form-control rounded-5" id="jam_selesai_{{ $i }}" required>
+                                <input type="hidden" id="waktu_selesai_{{ $i }}" name="waktu_selesai[]">
                             </div>
                         </div>
 
@@ -80,34 +85,75 @@
     </div>
 </div>
 @include('footer')
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById('meetingForm');
+
         form.addEventListener('submit', function(event) {
             let valid = true;
             let errorMessage = '';
+            let previousDate = null;
+
+            const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+            const currentDate = new Date(now);
+            const minimumDate = new Date(currentDate);
+            minimumDate.setDate(currentDate.getDate() + 7);
 
             for (let i = 1; i <= {{ $jumlah_pertemuan }}; i++) {
-                const startTimeInput = document.getElementById(`waktu_mulai_${i}`);
-                const endTimeInput = document.getElementById(`waktu_selesai_${i}`);
-                const startTime = new Date(startTimeInput.value);
-                const endTime = new Date(endTimeInput.value);
+                const tanggalInput = document.getElementById(`tanggal_${i}`);
+                const jamMulaiInput = document.getElementById(`jam_mulai_${i}`);
+                const jamSelesaiInput = document.getElementById(`jam_selesai_${i}`);
+                const waktuMulaiInput = document.getElementById(`waktu_mulai_${i}`);
+                const waktuSelesaiInput = document.getElementById(`waktu_selesai_${i}`);
+
+                waktuMulaiInput.value = `${tanggalInput.value} ${jamMulaiInput.value}:00`;
+                waktuSelesaiInput.value = `${tanggalInput.value} ${jamSelesaiInput.value}:00`;
+
+                const startTime = new Date(waktuMulaiInput.value);
+                const endTime = new Date(waktuSelesaiInput.value);
+                const currentDate = new Date(tanggalInput.value);
+
+                if (i === 1 && currentDate < minimumDate) {
+                    valid = false;
+                    errorMessage += `The first meeting must be scheduled at least 7 days from today.\n`;
+                    tanggalInput.focus();
+                    break;
+                }
+
+                if (previousDate && currentDate <= previousDate) {
+                    valid = false;
+                    errorMessage += `The date for Meeting ${i} must be greater than the date of Meeting ${i - 1}.\n`;
+                    tanggalInput.focus();
+                    break;
+                }
+
+                const minimumEndTime = new Date(startTime);
+                minimumEndTime.setHours(startTime.getHours() + 1);
 
                 if (startTime >= endTime) {
                     valid = false;
-                    errorMessage += `Please check the meeting time you set. The finish time for Meeting ${i} must be greater than the start time.\n`;
-                    startTimeInput.focus();
+                    errorMessage += `Please check the meeting time you set. The finish time for Meeting ${i} must be at least 1 hour after the start time.\n`;
+                    jamSelesaiInput.focus();
                     break;
                 }
+
+                if (endTime < minimumEndTime) {
+                    valid = false;
+                    errorMessage += `The finish time for Meeting ${i} must be at least 1 hour after the start time.\n`;
+                    jamSelesaiInput.focus();
+                    break;
+                }
+
+                previousDate = currentDate;
             }
 
             if (!valid) {
                 event.preventDefault();
 
-                // Menampilkan SweetAlert dengan pesan error
                 Swal.fire({
                     icon: 'error',
-                    title: 'Invalid Time',
+                    title: 'Invalid Date or Time',
                     text: errorMessage,
                     confirmButtonText: 'OK',
                     customClass: {
@@ -117,7 +163,6 @@
                 });
             }
         });
-
     });
 </script>
 @endsection

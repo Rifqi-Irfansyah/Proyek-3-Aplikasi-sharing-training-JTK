@@ -36,7 +36,18 @@
             @foreach($training->jadwalTrainings as $jadwal)
             <li class="d-flex align-items-center ps-4 py-1 mb-3 @yield($jadwal->id_jadwal)">
                 <a href="{{ route ('detailMeet', $jadwal->id_jadwal )}}" class=" text-decoration-none">
-                    <span class="fs-6 fw-bold my-1">{{$i}}st Meet</span>
+                    <span class="fs-6 fw-bold my-1">
+                        @if($i == 1)
+                        {{$i}}st
+                        @elseif($i == 2)
+                        {{$i}}nd    
+                        @elseif($i == 3)
+                        {{$i}}rd
+                        @else
+                        {{$i}}th
+                        @endif
+                        Meet
+                    </span>
                 </a>
             </li>
             <?php $i++; ?>
@@ -59,6 +70,10 @@
 <script>
 function buttonEdit() {
     var title = "Add " + "<?php echo $i; ?>" + "st Meet\n" + "<?php echo $training->judul_training; ?>" + "\n\n";
+    <?php
+        $lastJadwal = optional($training->jadwalTrainings->last());
+        $minDate = $lastJadwal && $lastJadwal->waktu_mulai ? Carbon\Carbon::parse($lastJadwal->waktu_mulai)->addDays(1)->format('Y-m-d') : '';
+    ?>
     (async () => {
         const {
             value: formValues
@@ -72,7 +87,7 @@ function buttonEdit() {
                         <div class="row align-items-center">
                             <div class="col-5 d-flex align-self-left">Date</div>
                             <div class="col-7 d-flex align-items-center">
-                                <input id="input-date" name="startMeet" type="date" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                                <input id="input-date" name="startMeet" type="date" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" min="<?php echo $minDate; ?>">
                             </div>
                         </div>
 

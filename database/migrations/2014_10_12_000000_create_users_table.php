@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('kemampuan');
             $table->enum('pengalaman',['belum ada','<1 tahun','1-3 tahun','3 tahun +']);
             $table->enum('status_akun',['Terkonfirmasi','Belum direview','Ditolak']);
+            $table->boolean('status_login')->default(false);
             $table->timestamps();
         });
     }

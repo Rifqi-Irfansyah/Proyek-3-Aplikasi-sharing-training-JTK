@@ -18,7 +18,7 @@
                     <i class="fa fa-trash me-1"></i> Delete
                 </button>
             </div>
-        </div> 
+        </div>
 
         <div class="row mt-5 justify-content-center">
             <div class="col-3"><i class="fa-solid fa-clock me-3"></i>Start Meet</div>
@@ -58,7 +58,7 @@
 
 <script>
 function buttonEditMeet() {
-    @if (\Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->diffInDays(\Carbon\Carbon::parse($meet->waktu_mulai), true) <= 3)
+    @if ((\Carbon\Carbon::parse($meet->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
         Swal.fire({
             icon: 'info',
             title: 'Meeting Cannot Edit!',
@@ -118,7 +118,7 @@ function buttonEditMeet() {
                                 <div class ="col-3">Status</div>
                                 <div class ="col ms-3">
                                     <div class="d-flex align-items-center justify-content-around">
-                                        <div class="form-check">    
+                                        <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input text-sm-left" name="status" value="online" {{ ($meet->status == 'online') ? 'checked' : '' }}>Online
                                             </label>
@@ -269,71 +269,86 @@ function buttonEditMeet() {
 }
 
 function buttonDeleteMeet(){
-    (async () => {
-        const confirmation = await Swal.fire({
-            icon: "warning",
-            title: "Are You Sure Want Delete",
-            text: "This Meet",
-            focusConfirm: false,
-            backdrop: 'rgba(0,0,0,0.9)',
-            showConfirmButton: true,
-            showCancelButton: true,
+    @if ((\Carbon\Carbon::parse($meet->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
+        Swal.fire({
+            icon: 'info',
+            title: 'Meeting Cannot Edit!',
+            text: 'Only meeting scheduled before H-3 are editable',
+            backdrop: 'rgba(0,0,0,0.8)',
             customClass: {
-                popup: 'popup-warning',
-                confirmButton: 'btn-cancel',
-                cancelButton: 'btn-confirm',
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
                 title: 'title',
                 color: '#DE2323',
             }
-        });
+        })
+    @else
+        (async () => {
+            const confirmation = await Swal.fire({
+                icon: "warning",
+                title: "Are You Sure Want Delete",
+                text: "This Meet",
+                focusConfirm: false,
+                backdrop: 'rgba(0,0,0,0.9)',
+                showConfirmButton: true,
+                showCancelButton: true,
+                customClass: {
+                    popup: 'popup-warning',
+                    confirmButton: 'btn-cancel',
+                    cancelButton: 'btn-confirm',
+                    title: 'title',
+                    color: '#DE2323',
+                }
+            });
 
-        if (confirmation.isConfirmed) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                        'content')
-                }
-            });
-            $.ajax({
-                url: "{{route('deleteMeet', '')}}/" + "{{$meet->id_jadwal}}",
-                method: 'DELETE',
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success Deleted!',
-                        text: 'Modul has been deleted',
-                        showConfirmButton: false,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        timer: 2000,
-                        customClass: {
-                            popup: 'popup-success',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    }).then(() => {
-                        window.location.href = "{{ route('detailTraining', $training->id_training) }}";
-                    });
-                },
-                error: function(xhr, status, error) {
-                    var errorMessage = xhr.responseJSON.error || xhr
-                        .responseJSON.message ||
-                        'There was problem while deleted data';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Failed Deleted!',
-                        text: errorMessage,
-                        backdrop: 'rgba(0,0,0,0.8)',
-                        customClass: {
-                            popup: 'popup-error',
-                            confirmButton: 'btn-confirm',
-                            title: 'title',
-                            color: '#DE2323',
-                        }
-                    })
-                }
-            });
-        }
-    })();
+            if (confirmation.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                            'content')
+                    }
+                });
+                $.ajax({
+                    url: "{{route('deleteMeet', '')}}/" + "{{$meet->id_jadwal}}",
+                    method: 'DELETE',
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success Deleted!',
+                            text: 'Modul has been deleted',
+                            showConfirmButton: false,
+                            backdrop: 'rgba(0,0,0,0.8)',
+                            timer: 2000,
+                            customClass: {
+                                popup: 'popup-success',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        }).then(() => {
+                            window.location.href = "{{ route('detailTraining', $training->id_training) }}";
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.responseJSON.error || xhr
+                            .responseJSON.message ||
+                            'There was problem while deleted data';
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed Deleted!',
+                            text: errorMessage,
+                            backdrop: 'rgba(0,0,0,0.8)',
+                            customClass: {
+                                popup: 'popup-error',
+                                confirmButton: 'btn-confirm',
+                                title: 'title',
+                                color: '#DE2323',
+                            }
+                        })
+                    }
+                });
+            }
+        })();
+    @endif
 }
 function buttonAttendance(){
     var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
@@ -426,7 +441,34 @@ function buttonAttendance(){
             showCloseButton: true,
             showConfirmButton: false,
             backdrop: 'rgba(0,0,0,0.8)',
-            html: `
+            html: ` <div class="mt-2 mb-3 fs-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-6 d-flex align-items-left">
+                                Trainer Start Meet
+                            </div>
+                            <div class="d-flex col-lg-9 col-6 align-items-left">
+                                {{$meet->pertemuan_mulai}}
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-lg-3 col-md-6 d-flex align-items-left">
+                                Trainer End Meet
+                            </div>
+                            <div class="d-flex col-lg-9 col-6 align-items-left">
+                            @if($meet->pertemuan_selesai)
+                                {{$meet->pertemuan_selesai}}
+                            @elseif((auth()->user()->email ?? 'null') === ($trainerAbsent->email ?? 'null'))
+                                <form action="{{ route('editMeet', ['id' => $meet->id_jadwal]) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="pertemuan_selesai" value="1">
+                                    <button type="submit" class="btn btn-sm btn-custom mt-3 px-3 rounded-5">End Meet</button>
+                                </form>
+                            @endif
+                            </div>
+                            
+                        </div>
+                    </div>
                     <table class="table table-striped" style="border-radius: 1rem; overflow: hidden; background-color: transparent;">
                         <thead>
                             <tr class="text-center">
@@ -448,10 +490,11 @@ function buttonAttendance(){
                                     </td>
                                 </tr>
                                 @php $i++ @endphp
-                            @endforeach 
+                            @endforeach
                         </tbody>
                     </table>
-                `,
+                `
+                ,
             customClass: {
                 popup: 'popup-modul',
                 title: 'title',
@@ -466,6 +509,10 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonAttendance();
         localStorage.removeItem('runButtonAttendance');
     }
+    @if(session('runButtonAttendance'))
+        localStorage.setItem('runButtonAttendance', 'true');
+        location.reload();
+    @endif
 });
 
 </script>

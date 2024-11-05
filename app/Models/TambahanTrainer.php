@@ -18,6 +18,7 @@ class TambahanTrainer extends Model
         'kemampuan',
         'pengalaman',
         'status_akun',
+        'status_login'
     ];
 
     // Define relation one to one

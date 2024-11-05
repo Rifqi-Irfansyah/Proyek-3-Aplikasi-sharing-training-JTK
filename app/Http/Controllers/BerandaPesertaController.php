@@ -20,16 +20,16 @@ class BerandaPesertaController extends Controller
         $trainingBelumDiikuti = Training::whereDoesntHave('peserta', function ($query) use ($peserta) {
             $query->where('email_peserta', $peserta);
         })->get();
-        
-        return view('peserta.BerandaPeserta', compact('trainingDiikuti','trainingBelumDiikuti'));
+        $nama = Auth::user()->name;
+        return view('peserta.BerandaPeserta', compact('trainingDiikuti','trainingBelumDiikuti','nama'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'judul_materi' => 'required|string|max:50',
-            'bahasan' => 'required|string',
-            'usulan' => 'required|string',
+            'bahasan' => 'required|string|max:255',
+            'usulan' => 'required|string|max:255',
             'email_pengusul' => 'required|email|exists:users,email', // Validasi email
         ]);
 
@@ -38,7 +38,6 @@ class BerandaPesertaController extends Controller
             'bahasan' => $request->bahasan,
             'email_pengusul' => $request->email_pengusul, // Ambil dari input email
             'usulan' => $request->usulan,
-            'status' => 'Belum dilihat', // Set default status
         ]);
 
         return redirect()->back()->with('success', 'Usulan berhasil dikirim!');

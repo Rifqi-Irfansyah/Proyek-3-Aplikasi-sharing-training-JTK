@@ -17,6 +17,7 @@ use App\Http\Controllers\PreviewTrainingController;
 use App\Http\Controllers\BerandaPesertaController;
 use App\Http\Controllers\DetailTrainingPeserta;
 use App\Http\Controllers\UsulanController;
+use App\Http\Controllers\BerandaTrainerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,10 @@ use App\Http\Controllers\UsulanController;
 */
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
-Route::post('login', [LoginController::class, 'loginaksi'])->name('loginaksi');
-Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('auth')->name('logout');
+Route::get('/loginAdmin', [LoginController::class, 'loginAdmin'])->name('loginAdmin');
+Route::post('/login', [LoginController::class, 'loginaksi'])->name('loginaksi');
+Route::post('/loginAdmin', [LoginController::class, 'loginaksiAdmin'])->name('loginaksiAdmin');
+Route::get('/logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('auth')->name('logout');
 
 Route::get('/pra-register', function () {
     return view('auth.pra_register');
@@ -43,10 +46,6 @@ Route::get('/register-trainer', [RegistController::class, 'showTrainerForm'])->n
 Route::post('/register-peserta', [RegistController::class, 'registerPeserta'])->name('register.peserta.submit');
 Route::post('/register-trainer', [RegistController::class, 'registerTrainer'])->name('register.trainer.submit');
 
-Route::get('/training/create', [CreateTrainingController::class, 'create'])->name('training.create');
-Route::post('/training/store', [CreateTrainingController::class, 'store'])->name('training.store');
-Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainingController::class, 'createMeetings'])->name('create.meetings');
-Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
 
 Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
 Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
@@ -60,10 +59,10 @@ Route::get('verif-trainer', [VerifTrainerController::class, 'verifTrainer'])->na
 Route::post('/verif-trainer/update-status', [VerifTrainerController::class, 'updateStatus'])->name('verif-trainer');
 Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
 
-Route::get('/verif-trainer/{Id}/{status}',function(){
-     Mail::to('yulina.anggraeni.tif23@polban.ac.id')
-     ->send(new template_email());
-});
+// Route::get('/verif-trainer/{Id}/{status}',function(){
+//      Mail::to('yulina.anggraeni.tif23@polban.ac.id')
+//      ->send(new template_email());
+// });
 
 
 //Approve
@@ -82,6 +81,28 @@ Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name
 // User Access
 Route::middleware(['checkRole:admin'])->group(function () {
     Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
+
+    Route::get('/training/create', [CreateTrainingController::class, 'create'])->name('training.create');
+    Route::post('/training/store', [CreateTrainingController::class, 'store'])->name('training.store');
+    Route::get('/training/meetings/{jumlah_pertemuan}/{id_training}', [CreateTrainingController::class, 'createMeetings'])->name('create.meetings');
+    Route::post('/training/meetings/store', [CreateTrainingController::class, 'storeMeetings'])->name('meeting.store');
+
+    //listtrainer
+    Route::get('listtrainer', [ListTrainerController::class, 'index'])->name('listtrainer');
+    //verif
+    Route::get('verif-trainer', [VerifTrainerController::class, 'verifTrainer'])->name('verifTrainer');
+    Route::post('/verif-trainer/update-status', [VerifTrainerController::class, 'updateStatus'])->name('verif-trainer');
+    Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
+    //Approve
+    Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
+
+    Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
+
+    Route::put('/usulan/{id_usulan}', [UsulanController::class, 'update'])->name('usulan.update');
+
+    Route::get('/admin/usulan', [UsulanController::class, 'view_usulan'])->name('admin.usulan');
+    Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name('training.delete');
+
 });
 
 Route::middleware(['checkRole:pemateri'])->group(function () {
@@ -115,7 +136,20 @@ Route::middleware(['checkRole:admin,pemateri'])->group(function () {
 
 Route::middleware(['checkRole:peserta'])->group(function () {
     Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
+    Route::get('/Beranda', [BerandaPesertaController::class, 'CardTraining'])->name('beranda_peserta');
+    Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
+
+    Route::post('/usulan', [BerandaPesertaController::class, 'store'])->name('usulan.store');
+
+    Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
+    Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
+    Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
+
 });
 
-
-Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
+Route::middleware(['checkRole:pemateri'])->group(function () {
+    Route::get('/berandaTrainer', [BerandaTrainerController::class, 'index'])->name('berandaTrainer');
+    Route::get('/detailTrainingTrainer/{id}', [BerandaTrainerController::class, 'detailTraining'])->name('detailTrainingTrainer');
+    Route::get('/tambahkanTrainingTrainer/{id}', [BerandaTrainerController::class, 'tambahTraining'])->name('tambahkanTrainingTrainer');
+    Route::post('/usulan', [BerandaTrainerController::class, 'storeUsulan'])->name('usulan.store');
+});

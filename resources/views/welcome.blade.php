@@ -24,28 +24,41 @@
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     </script>
     </head>
     <body class="antialiased">
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-            @if(session('success'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login Success',
-                    text: "{{ session('success') }}", // Menampilkan pesan dari session
-                    timer: 2000,
-                    showConfirmButton: false,
-                    customClass: {
-                        popup: 'popup-success',
-                        title: 'title',
-                    }
-                });
+                @if(session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Success',
+                        text: "{{ session('success') }}", // Menampilkan pesan dari session
+                        timer: 2000,
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: 'popup-success',
+                            title: 'title',
+                        }
+                    });
+                @elseif(session('info'))
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Info',
+                        text: "{{ session('info') }}", // Menampilkan pesan dari session
+                        timer: 2000,
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: 'popup-success',
+                            title: 'title',
+                        }
+                    });
+                @endif
             });
-            @endif
         </script>
+
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">

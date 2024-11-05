@@ -94,11 +94,11 @@
                         <td>{{ $tr->no_wa }}</td> 
                         <td>{{ $tr->status_akun }}</td> 
                     </tr>
-                @endforeach  
+                @endforeach
                 </tbody>
             </table>
         </div>
-    </div>  
+    </div>
 </div>
 
 @include('footer')

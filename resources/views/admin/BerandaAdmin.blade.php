@@ -62,7 +62,10 @@
     <h1 class="container"><br>List Training <br></h1>
     <div class="container">
         <div class="text-end">
-            <button class="btn btn-outline-dark float-right text-end ">View Suggestion</button>
+            <a href="/admin/usulan">
+                <button class="btn btn-light float-right text-end " ><i class="fa fa-comments" aria-hidden="true"></i> View Suggestion</button>
+            </a>
+
         </div>
         <br>
         <br>
@@ -77,36 +80,48 @@
             <th class="text-center">Action</td>
         </thead >
         <tbody>
-        @foreach ($info as $training)
+            @if($info->isEmpty())
                 <tr>
-                    <td class="text-center">{{ $training->judul_training }}</td>
-                    <td class="text-center">
-                        @if($training->user)
-                {{ $training->user->name }}
-            @else
-                <span class="text-muted">No Trainer Yet</span>
-            @endif
-                    </td>
-                    <td class="text-center">{{ $training->jadwalTrainings->first()->waktu_mulai }}</td>
-                    <td class="text-center">{{ $training->jadwalTrainings->last()->waktu_selesai }}</td>
-                    <td class="text-center">{{ $training->status}}</td>
-                    <td class="text-center">
-                        <div class="d-flex justify-content-center gap-3 ">
-                                <a href="/detailTraining/{{ $training->id_training }}" class="text-decoration-none text-white"><button class="btn btn-info ">View</button></a>
-                                <form id="deleteForm-{{ $training->id_training }}" action="{{ route('training.delete', $training->id_training) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-danger deleteButton" data-form-id="deleteForm-{{ $training->id_training}}">Delete</button>
-                                </form>                                                              
-                        </div>
+                    <td colspan="6" class="text-center text-dark p-5">
+                        <i>Currently, there are no trainings.</i>
                     </td>
                 </tr>
-        @endforeach
+            @else
+                @foreach ($info as $training)
+                    <tr>
+                        <td class="text-center">{{ $training->judul_training }}</td>
+                        <td class="text-center">
+                            @if($training->user)
+                    {{ $training->user->name }}
+                @else
+                    <span class="text-muted">No Trainer Yet</span>
+                @endif
+                
+                        </td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->first()->waktu_mulai)->format('l, d M Y') }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_selesai)->format('l, d M Y') }}</td>
+                        <td class="text-center">{{ $training->status}}</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-3 ">
+                                    <a href="/detailTraining/{{ $training->id_training }}" class="text-decoration-none text-white"><button class="btn btn-outline-primary "><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                    <form id="deleteForm-{{ $training->id_training }}" action="{{ route('training.delete', $training->id_training) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-outline-danger deleteButton" data-form-id="deleteForm-{{ $training->id_training}}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </form>                                                              
+                            </div>
+                        </td>
+                    </tr>
+            @endforeach
+            @endif
         </tbody>
     </table>
-    <button type="button" class="btn btn-light position-absolute top-100 start-50 translate-middle mt-4 ">
-        <a href="/training/create">Add New Course</a>
-    </button>
+    <a href="/training/create">
+        <button type="button" class="btn btn-light position-absolute top-100 start-50 translate-middle mt-4 ">
+                <i class="fa fa-plus" aria-hidden="true"></i> New Course
+        </button>
+    </a>
+
 </div>
 
 <br>

@@ -8,13 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Usulan extends Model
 {
     use HasFactory;
-    protected $table = 'usulan'; // Pastikan ini
+    protected $table = 'usulan';
 
     protected $fillable = [
         'judul_materi',
         'bahasan',
         'email_pengusul',
         'usulan',
-        'status',
     ];
 }

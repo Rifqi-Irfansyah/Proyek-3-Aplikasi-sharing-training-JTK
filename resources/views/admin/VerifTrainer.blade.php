@@ -8,7 +8,7 @@
 
 <style>
     body {
-        background-color: #e9f3fb; 
+        background-color: #e9f3fb;
     }
     h1 {
         font-weight: bold;
@@ -21,6 +21,8 @@
     .table-container {
         width: 50%; /* Lebar lebih kecil */
         margin: 0 auto;
+        margin: 30px 0 50px;
+        padding-bottom: 20px;
     }
     .table {
         width: 100%;
@@ -28,6 +30,8 @@
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+        border-radius: 10px;
+        overflow: hidden;
     }
     .table th, .table td {
         padding: 8px 10px; /* Reduced padding for tighter spacing */
@@ -39,10 +43,12 @@
     .table th {
         background-color: #91c3f2;
         font-weight: bold; /* Bold text for header */
+        background-color: #91c3f2;
     }
     .table td {
         background-color: white;
         transition: background-color 0.3s; /* Smooth transition for hover effect */
+        background-color: white;
     }
     .table tr:hover td {
         background-color: #f1f7fc; /* Highlight row on hover */
@@ -56,6 +62,9 @@
     }
     .btn-view {
         background-color: #17a2b8;
+    }
+    .btn-delete {
+        background-color: #dc3545;
     }
     .btn-view:hover {
         background-color: #138496;
@@ -85,11 +94,16 @@
 <div class="container table-container">
     <table class="table">
         <thead class="table-primary">
+        <thead class="table-primary">
             <tr>
                 <th>Trainer Email</th>
                 <th>Trainer Name</th>
                 <th>No Telepon</th>
                 <th>Actions</th>
+                <th>No Telfon</th>
+                <th>Pengalaman</th>
+                <th>Kemampuan</th>
+                <th>Verifikasi</th>
             </tr>
         </thead>
         <tbody>
@@ -99,6 +113,10 @@
                     <td>{{ $tr->email }}</td>
                     <td>{{ $tr->user->name }}</td>
                     <td>{{ $tr->no_wa }}</td>
+                    <td>{{ $tr->user->name }}</td>
+                    <td>{{ $tr->no_wa }}</td>
+                    <td>{{ $tr->pengalaman }}</td>
+                    <td>{{ $tr->kemampuan }}</td>
                     <td>
                         <div class="btn-group">
                             <!-- Only the View button -->
@@ -106,6 +124,7 @@
                                 <i class="fas fa-eye"></i> View
                             </a>
                         </div>
+                    </td>
                     </td>
                 </tr>
                 @endif
