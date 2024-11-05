@@ -100,10 +100,6 @@
                 <th>Trainer Name</th>
                 <th>No Telepon</th>
                 <th>Actions</th>
-                <th>No Telfon</th>
-                <th>Pengalaman</th>
-                <th>Kemampuan</th>
-                <th>Verifikasi</th>
             </tr>
         </thead>
         <tbody>
@@ -113,10 +109,6 @@
                     <td>{{ $tr->email }}</td>
                     <td>{{ $tr->user->name }}</td>
                     <td>{{ $tr->no_wa }}</td>
-                    <td>{{ $tr->user->name }}</td>
-                    <td>{{ $tr->no_wa }}</td>
-                    <td>{{ $tr->pengalaman }}</td>
-                    <td>{{ $tr->kemampuan }}</td>
                     <td>
                         <div class="btn-group">
                             <!-- Only the View button -->

@@ -1,6 +1,6 @@
 @extends('../layoutmaster')
 
-@section('title', 'Detail Trainer')
+@section('title', 'Detail Trainer Approve')
 
 @section('content')
 
@@ -42,8 +42,8 @@
         <p><strong>Kemampuan:</strong> {{ $trainer->kemampuan }}</p>
         
         <div class="btn-group">
-            <a href="#" class="btn btn-view" onclick="updateStatus('{{ $trainer->email }}')">✔️ Verif</a>
-            <a href="#" class="btn btn-delete" onclick="update2Status('{{ $trainer->email }}')">❌ Tolak</a>
+            <a href="#" class="btn btn-view" onclick="StatusDiterima('{{ $trainer->email }}')">✔️ Terima</a>
+            <a href="#" class="btn btn-delete" onclick="StatusDitolak('{{ $trainer->email }}')">❌ Tolak</a>
         </div>
     </div>
 </div>
@@ -51,7 +51,7 @@
 @include('footer')
 
 <script>
-    function updateStatus(email, trainerId) {
+    function updateStatus_1(email, trainerId) {
         const confirmation = confirm('Apakah Anda yakin ingin mengonfirmasi trainer ini?');
 
         if (confirmation) {
@@ -61,11 +61,11 @@
                 }
             });
             $.ajax({
-                url: "{{ route('verif-trainer') }}",
+                url: "{{ route('approve-trainer-confirm') }}",
                 method: 'POST',
                 data: {
                     email: email,
-                    status: 'Terkonfirmasi'
+                    status: 'Diterima'
                 },
                 success: function(response) {
                     if (response.success) {
@@ -76,7 +76,7 @@
                             showConfirmButton: false,
                             timer: 1000
                         }).then(() => {
-                            window.location.href = "{{ route('verifTrainer') }}"; // Redirect to verif-trainer page
+                            window.location.href = "{{ route('approve-trainer') }}"; 
                         });
                     } else {
                         alert(response.message);
@@ -90,7 +90,7 @@
         }
     }
 
-    function update2Status(email, trainerId) {
+    function updateStatus_2(email, trainerId) {
         const confirmation = confirm('Apakah Anda yakin ingin menolak trainer ini?');
 
         if (confirmation) {
@@ -100,7 +100,7 @@
                 }
             });
             $.ajax({
-                url: "{{ route('verif-trainer-delete') }}",
+                url: "{{ route('approve-trainer-reject') }}",
                 method: 'POST',
                 data: {
                     email: email,
@@ -115,7 +115,7 @@
                             showConfirmButton: false,
                             timer: 1000
                         }).then(() => {
-                            window.location.href = "{{ route('verifTrainer') }}"; // Redirect to verif-trainer page
+                            window.location.href = "{{ route('approve-trainer') }}"; // Redirect to verif-trainer page
                         });
                     } else {
                         alert(response.message);

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\SendEmail; // Import class email
+use App\Mail\SendEmail; 
 use Illuminate\Support\Facades\Mail;
-use App\Models\Trainer; // Pastikan model Trainer sudah diimport
+use App\Models\Trainer; 
 use Illuminate\Http\Request;
 use App\Models\TambahanTrainer;
 

@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_training');
             $table->string('email_trainer');
-            $table->enum('status_pengajuan', ['Diterima', 'Ditolak', 'Menunggu'])->default('Menunggu'); // Set default to 'Menunggu'
+            $table->enum('status_pengajuan', ['Diterima', 'Ditolak', 'Dikirim'])->default('Dikirim');
 
-            // Foreign key definitions
             $table->foreign('id_training')->references('id_training')->on('training')->onDelete('cascade');
             $table->foreign('email_trainer')->references('email')->on('users')->onDelete('cascade');
 

@@ -4,81 +4,119 @@
 
 @section('content')
 
-<!-- Custom Styling -->
+@include('admin.topbar')
+
 <style>
     body {
-        background-color: #e9f3fb; /* Light blue background */
+        background-color: #e9f3fb;
     }
     h1 {
         font-weight: bold;
         font-family: 'Arial', sans-serif;
         color: #333;
-        text-align: center; /* Center align title */
-        margin: 30px 0; /* Margin above and below the title */
+        text-align: center;
+        margin: 30px 0 30px;
+        padding-bottom: 10px;
+    }
+    .table-container {
+        width: 50%; /* Lebar lebih kecil */
+        margin: 0 auto;
+        margin: 30px 0 50px;
+        padding-bottom: 20px;
     }
     .table {
-        width: 90%; /* Set width for the table */
-        margin: 0 auto; /* Center align the table */
-        border-collapse: collapse; /* Collapse borders */
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .table th, .table td {
+        padding: 8px 10px; /* Reduced padding for tighter spacing */
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+        font-size: 16px; /* Standard font size */
     }
     .table th {
-        background-color: #276BF3; /* Header color */
-        color: white; /* Header text color */
-        padding: 10px; /* Padding for header */
-        font-size: 1.1rem; /* Font size for header */
+        background-color: #91c3f2;
+        font-weight: bold; /* Bold text for header */
+        background-color: #91c3f2;
     }
     .table td {
-        background-color: white; /* Cell background color */
-        padding: 10px; /* Padding for cells */
-        text-align: center; /* Center text in cells */
-        border-bottom: 1px solid #ddd; /* Bottom border for rows */
+        background-color: white;
+        transition: background-color 0.3s; /* Smooth transition for hover effect */
+        background-color: white;
     }
-    .table tr:hover {
-        background-color: #f1f7fc; /* Change background color on hover */
+    .table tr:hover td {
+        background-color: #f1f7fc; /* Highlight row on hover */
     }
-    .see-detail {
-        cursor: pointer; /* Show pointer cursor */
-        color: #276BF3; /* Icon color */
+    .btn {
+        padding: 8px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        font-size: 14px;
     }
-    .see-detail:hover {
-        text-decoration: underline; /* Underline on hover */
+    .btn-view {
+        background-color: #17a2b8;
     }
+    .btn-delete {
+        background-color: #dc3545;
+    }
+    .btn-view:hover {
+        background-color: #138496;
+    }
+    .table th:nth-child(1), .table td:nth-child(1) {
+        width: 30%; /* Lebar kolom "Trainer Email" */
+    }
+
+    .table th:nth-child(2), .table td:nth-child(2) {
+        width: 30%; /* Lebar kolom "Trainer Name" */
+    }
+
+    .table th:nth-child(3), .table td:nth-child(3) {
+        width: 20%; /* Lebar kolom "No Telepon" */
+    }
+
+    .table th:nth-child(4), .table td:nth-child(4) {
+        width: 20%; /* Lebar kolom "Actions" */
+    }
+
 </style>
 
-<!-- Title -->
 <div class="container mt-5">
     <h1>Approve Trainer</h1>
 </div>
 
-<!-- Main Container -->
-<div class="container">
+<div class="container table-container">
     <table class="table">
         <thead>
             <tr>
-                <th>Training Name</th>
+                <th>Trainer Email</th>
                 <th>Trainer Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>See Detail</th>
+                <th>Nama Training</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        @foreach ($trainers as $tr)
-                    <tr>
-                        <td>{{ $tr->user->name }}</td> <!-- Nama diambil dari relasi user -->
-                        <td>{{ $tr->user->gender }}</td> <!-- Gender diambil dari relasi user -->
-                        <td>{{ $tr->user->tanggal_lahir }}</td> <!-- Tanggal lahir diambil dari relasi user -->
-                    </tr>
-                @endforeach
-            <tr>
-                <td>Training Name</td>
-                <td>Trainer Name</td>
-                <td>DD/MM/YYYY</td>
-                <td>DD/MM/YYYY</td>
-                <td><span class="see-detail" onclick="location.href='detail-page-url-1'">👁️</span></td>
-            </tr>
+            @foreach ($trainers as $tr)
+                <tr>
+                    <td>{{ $tr->email_trainer }}</td>
+                    <td>{{ $tr->user->name }}</td>
+                    <td>{{ $tr->training->nama_training ?? 'Tidak tersedia' }}</td>
+                    <td>
+                        <a href="{{ route('view-trainer-detail-approve', $tr->email_trainer) }}" class="btn btn-view">
+                                <i class="fas fa-eye"></i> View
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
+
+@include('footer')
 
 @endsection

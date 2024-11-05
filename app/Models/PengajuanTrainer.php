@@ -19,7 +19,7 @@ class PengajuanTrainer extends Model
         return $this->belongsTo(Training::class, 'id_training');
     }
 
-    public function pengaju()
+    public function user()
     {
         return $this->belongsTo(User::class, 'email_trainer', 'email');
     }
