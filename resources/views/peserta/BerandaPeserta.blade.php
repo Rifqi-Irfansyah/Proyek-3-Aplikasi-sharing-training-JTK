@@ -7,17 +7,64 @@
 
 <div class="d-flex flex-column min-vh-100">
 @include('peserta.topbarPeserta')
-<div class='container'>
-    @if(session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{{ session('success') }}',
-            confirmButtonText: 'OK'
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-success',
+                    title: 'title',
+                }
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "{{ session('error') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-error',
+                    title: 'title',
+                }
+            });
+        @endif
+
+
+        document.querySelectorAll('.deleteButton').forEach(function(button) {
+            button.addEventListener('click', function (event) {
+                const formId = this.getAttribute('data-form-id');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This action cannot be undone.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById(formId).submit();
+                    }
+                });
+            });
         });
-    </script>
-@endif
+    });
+</script>
+
+
+<div class='container'>
+
+    
     
     <h1 class=" pt-5">
         <span>Hi,</span>
@@ -31,14 +78,14 @@
 </div>
 
 <div class = 'container pt-5'>
-    <h2>My Training</h2>
+    <h2 class="pb-5">My Training</h2>
     <div class='row'>
         @if($trainingDiikuti->isEmpty())
             <h4 class="text-center p-5 m-5 text-light"><i><b>You haven’t joined any training yet.</b></i></h4>
         @else
             @foreach($trainingDiikuti as $training)
             <div class = 'col-md-4 mb-5'>
-                <div class="card" style="width: 20rem;">
+                <div class="card w-100" style="height: 230px;">
                     <div class="card-body">
                     <h5 class="card-title">{{ $training->judul_training }}</h5>
                     <p class="card-text">{{ Str::limit($training->deskripsi,100) }}</p>
@@ -74,7 +121,7 @@
     </div>
 </div>
 <div class="container pt-5 pb-5">
-    <h3>Make Trainify Better with Your Suggestion :)</h3>
+    <h3 class="pb-3">Help Us Improve Trainify with Your Ideas</h3>
     <form class="custom-form w-25" method="POST" action="{{ route('usulan.store') }}">
         @csrf <!-- Tambahkan token CSRF untuk keamanan -->
         <input type="hidden" name="email_pengusul" value="{{ auth()->user()->email }}">
