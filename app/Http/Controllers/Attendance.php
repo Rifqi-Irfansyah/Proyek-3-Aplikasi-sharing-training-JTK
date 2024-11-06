@@ -28,10 +28,22 @@ class Attendance extends Controller
 
     public function attendancePeserta(Request $request)
     {
-        DB::table('absen')
-            ->where('id_jadwal', $request->id_jadwal)
-            ->where('email', $request->email)
-            ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
-        return redirect()->back();
+        $request->validate([
+            'id_jadwal' => 'required|integer',
+            'email' => 'required|email',
+        ]);
+
+        $id_jadwal = $request->id_jadwal;
+        $email = $request->email;
+
+        if ($request->has('id_jadwal') && $request->has('email')) {
+            DB::table('absen')
+                ->where('id_jadwal', $id_jadwal)
+                ->where('email', $email)
+                ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
+
+            return response()->json(['success' => true, 'message' => 'Attendance marked successfully.']);
+        }
+        return response()->json(['success' => false, 'message' => 'Failed to mark attendance.']);
     }
 }

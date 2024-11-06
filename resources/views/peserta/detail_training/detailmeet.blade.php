@@ -53,12 +53,7 @@
             <div class="row mt-4 justify-content-center">
                 <div class="col-3"><i class="fa-solid fa-user-check me-3"></i>Attendance</div>
                 <div class="col-7">
-                    <form action="{{ route('attendancePeserta') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="id_jadwal" value="{{ $meet->id_jadwal }}">
-                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                        <button type="submit" id="attendanceButton" class="btn btn-dark btn-sm rounded-4 px-3">Click Here</button>
-                    </form>
+                    <button id="attendanceButton" class="btn btn-dark btn-sm rounded-4 px-3">Click Here</button>
                 </div>
             </div>
 
@@ -76,7 +71,9 @@
             let absent = false;
 
             function getCurrentTime() {
-                return new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+                return new Date().toLocaleString("en-US", {
+                    timeZone: "Asia/Jakarta"
+                });
             }
 
             function updateButtonStatus() {
@@ -86,46 +83,96 @@
                     if (now < waktuMulai) {
                         attendanceButton.classList.add('btn-dark');
                         attendanceButton.onclick = function() {
-                            showAlert('warning', 'Warning', 'Cannot take attendance, has not yet entered the meeting time');
+                            showAlertWarning('Warning', 'Cannot take attendance, has not yet entered the meeting time');
                         };
                     } else if (now >= waktuMulai && now <= waktuSelesai && trainerMemulai === null) {
                         attendanceButton.classList.add('btn-warning');
                         attendanceButton.onclick = function() {
-                            showAlert('warning', 'Warning', 'Cannot take attendance, the trainer has not opened absence.');
+                            showAlertWarning('Warning', 'Cannot take attendance, the trainer has not opened absence.');
                         };
                     } else if (now >= waktuMulai && now <= waktuSelesai && trainerMemulai !== null) {
                         absent = true;
                         attendanceButton.classList.remove('btn-dark', 'btn-warning', 'btn-danger');
                         attendanceButton.classList.add('btn-success');
                         attendanceButton.onclick = function() {
-                            showAlert('success', 'Success', 'Take attendance successfully.');
+                            // AJAX request
+                            fetch('{{ route('attendancePeserta') }}', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    },
+                                    body: JSON.stringify({
+                                        id_jadwal: '{{ $meet->id_jadwal }}',
+                                        email: '{{ auth()->user()->email }}'
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        showAlertSuccess('Success', data.message);
+                                    } else {
+                                        showAlertError('Failed', data.message);
+                                    }
+                                })
+                                .catch(error => {
+                                    showAlertError('Error', 'There was an error processing your request.');
+                                });
                         };
-                    } else if (now > trainerSelesai) {
+                    } else if (now > trainerSelesai && trainerSelesai !== null) {
                         attendanceButton.classList.add('btn-danger');
                         attendanceButton.onclick = function() {
-                            showAlert('warning', 'Warning', 'Cannot take attendance, the trainer has closed the meeting.');
+                            showAlertError('Failed', 'Cannot take attendance, the trainer has closed the meeting.');
                         };
                     } else {
                         attendanceButton.classList.add('btn-danger');
                         attendanceButton.onclick = function() {
-                            showAlert('error', 'Failed', 'Cannot take attendance, the meeting time has passed!');
+                            showAlertError('Failed', 'Cannot take attendance, the meeting time has passed!');
                         };
                     }
                 }
             }
-            setInterval(updateButtonStatus, 1000);
 
+            setInterval(updateButtonStatus, 1000);
         });
 
-        function showAlert(icon, title, message) {
+        function showAlertError(title, message) {
             Swal.fire({
-                icon: icon,
+                icon: 'error',
+                title: title,
+                text: message,
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-error',
+                    title: 'title',
+                }
+            });
+        }
+
+        function showAlertWarning(title, message) {
+            Swal.fire({
+                icon: 'warning',
                 title: title,
                 text: message,
                 timer: 2000,
                 showConfirmButton: false,
                 customClass: {
                     popup: 'popup-warning',
+                    title: 'title',
+                }
+            });
+        }
+
+        function showAlertSuccess(title, message) {
+            Swal.fire({
+                icon: 'success',
+                title: title,
+                text: message,
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-success',
                     title: 'title',
                 }
             });
