@@ -16,13 +16,32 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto" style="gap: 30px">
                 <li class="nav-link nav-item">
-                    <a class="nav-link {{ request()->routeIs('beranda_peserta') ? 'text-white' : '' }}"
+                    <a class="nav-link {{ request()->routeIs('berandaTrainer') ? 'text-white' : '' }}"
                         style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
-                        href="{{ route('beranda_peserta') }}">
+                        href="{{ route('berandaTrainer') }}">
                         <i class="fas fa-home"></i> Home
                     </a>
                 </li>
-
+                <li class="nav-link nav-item">
+                    <a class="nav-link {{ request()->routeIs('approvetrainer') ? 'text-white' : '' }}"
+                        style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
+                        href="#">
+                        <i class="fas fa-check"></i> Page
+                    </a>
+                </li>
+                <li class="nav-link nav-item">
+                    <a class="nav-link" style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
+                        href="#">
+                        <i class="fas fa-cog"></i> Page
+                    </a>
+                </li>
+                <li class="nav-link nav-item">
+                    <a class="nav-link {{ request()->routeIs('listModul') ? 'text-white' : '' }}"
+                        style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
+                        href="{{ route('listModul') }}">
+                        <i class="fas fa-book"></i> Module
+                    </a>
+                </li>
                 <li class="nav-link nav-item">
                     <div class="dropdown">
                         <a class="nav-link align-items-center" style="font-size: 0.9rem; display: flex; gap: 8px;"
