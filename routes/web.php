@@ -146,6 +146,7 @@ Route::middleware(['checkRole:peserta'])->group(function () {
 
     Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
     Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
+    Route::post('detailMeetPeserta/[id]/attendance', [Attendance::class, 'attendancePeserta'])->name('attendancePeserta');
     Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
 
 });
