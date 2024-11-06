@@ -14,11 +14,6 @@ class BerandaTrainerController extends Controller
         $trainer = Auth::user();
         $nama_trainer = $trainer->name;
         $listTrainingDiajarkan = Training::where('email_trainer', $trainer->email)->get();
-
-        // $listTrainingBelumDiajarkan = Training::whereDoesntHave('trainers', function ($query) {
-            // $query->where('email', Auth::user()->email);
-        // })->get();
-
         $listTrainingBelumDiajarkan = Training::where('email_trainer', $trainer->email)->get();
 
         return view('trainer.BerandaTrainer', compact('nama_trainer', 'listTrainingDiajarkan', 'listTrainingBelumDiajarkan'));
