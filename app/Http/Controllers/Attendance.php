@@ -18,19 +18,20 @@ class Attendance extends Controller
         $meet = JadwalTraining::find($id);
         $meet->pertemuan_mulai = $now;
         $meet->save();
-        
+
         DB::table('absen')
-        ->where('id_jadwal', $id)
-        ->where('email', $request->email)
-        ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
+            ->where('id_jadwal', $id)
+            ->where('email', $request->email)
+            ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
         return response()->json(['success' => 'Meeting added successfully!'], 200);
     }
 
     public function attendancePeserta(Request $request)
     {
         DB::table('absen')
-        ->where('id_jadwal', $request->id_jadwal)
-        ->where('email', $request->email)
-        ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
+            ->where('id_jadwal', $request->id_jadwal)
+            ->where('email', $request->email)
+            ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
+        return redirect()->back();
     }
 }
