@@ -72,7 +72,7 @@
     </div>
     </div>
 
-    <div class="container pt-5 pb-5">
+    {{-- <div class="container pt-5 pb-5">
     <h3>Make Trainify Better with Your Suggestion :)</h3>
     <form class="custom-form w-25" method="POST" action="{{ route('usulan.store') }}">
         @csrf <!-- Tambahkan token CSRF untuk keamanan -->
@@ -106,7 +106,7 @@
         </div>
     </form>
 </div>
-
+ --}}
     @include('footer')
 </div>
 

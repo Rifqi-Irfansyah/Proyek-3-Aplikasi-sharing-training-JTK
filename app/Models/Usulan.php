@@ -14,6 +14,6 @@ class Usulan extends Model
         'judul_materi',
         'bahasan',
         'email_pengusul',
-        'usulan',
+        
     ];
 }

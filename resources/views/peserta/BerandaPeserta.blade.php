@@ -140,13 +140,6 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-            <label for="suggestion" class="col-form-label">Suggestion</label>
-            <div>
-                <textarea class="form-control" name="usulan" id="suggestion" rows="3" placeholder="Enter your Suggestion" required></textarea>
-            </div>
-        </div>
-
         <div class="row">
             <div>
                 <button type="submit" class="btn btn-primary">Submit</button>
