@@ -59,19 +59,6 @@ return new class extends Migration
         $table->timestamps();
       });
 
-      Schema::create('pengajuan_trainer', function (Blueprint $table) {
-        $table->unsignedBigInteger('id_training')->unique();
-        $table->foreign('id_training')
-          ->references('id_training')
-          ->on('training');
-        $table->string('email_trainer')->unique();
-        $table->foreign('email_trainer')
-          ->references('email')
-          ->on('users');
-        $table->enum('status_pengajuan', ['Dikirim', 'Diterima','Ditolak']);
-        $table->timestamps();
-      });
-
       // Create Stored Procedures
       DB::statement('DROP PROCEDURE IF EXISTS `insert_peserta`');
       DB::statement('

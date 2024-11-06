@@ -21,8 +21,6 @@ return new class extends Migration
             $table->foreign('email_pengusul')
             ->references('email')
             ->on('users');
-            $table->string('usulan');
-            $table->enum('status', ['Dilihat', 'Belum dilihat']);
             $table->timestamps();
         });
     }
