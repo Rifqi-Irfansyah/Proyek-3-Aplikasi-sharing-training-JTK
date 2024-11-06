@@ -89,8 +89,8 @@
                     <div class="card-body">
                     <h5 class="card-title">{{ $training->judul_training }}</h5>
                     <p class="card-text">{{ Str::limit($training->deskripsi,100) }}</p>
-                    {{-- <a href="{{ route('detailTrainingPeserta') }}" class="btn btn-info float-end ">Select</a> --}}
-                    </div>
+                    <a href="/detailTrainingPeserta/{{ $training->id_training }}" class="btn btn-info float-end">Select</a>
+                </div>
                 </div>
             </div>
             @endforeach
