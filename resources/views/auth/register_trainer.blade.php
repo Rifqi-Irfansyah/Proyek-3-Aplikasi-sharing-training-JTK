@@ -59,12 +59,10 @@
                         </div>
                     </div>
 
-                    <!-- Input tambahan untuk Kemampuan -->
                     <div class="mb-3">
                         <input type="text" name="kemampuan" class="custom-input input-text form-control" placeholder="Kemampuan" required>
                     </div>
 
-                    <!-- Dropdown untuk Pengalaman -->
                     <div class="mb-3">
                         <select name="pengalaman" class="custom-input input-text form-control" required>
                             <option value="" disabled selected>Pilih Pengalaman</option>
@@ -75,7 +73,6 @@
                         </select>
                     </div>
 
-                    <!-- Input untuk Nomor WhatsApp -->
                     <div class="mb-3">
                         <input type="tel" name="no_wa" class="custom-input input-text form-control" placeholder="Nomor WhatsApp" pattern="^\+?[0-9]{10,13}$" required>
                     </div>
@@ -95,7 +92,6 @@
             </div>
         </div>
 
-        <!-- Animasi SVG di sebelah form -->
         <div class="col-md-6 d-flex justify-content-center align-items-center">
             <div class="rounded-4 left-box">
                 <div id="lottie-container"></div>

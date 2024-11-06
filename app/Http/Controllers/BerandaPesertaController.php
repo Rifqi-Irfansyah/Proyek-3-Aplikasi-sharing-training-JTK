@@ -29,15 +29,13 @@ class BerandaPesertaController extends Controller
         $request->validate([
             'judul_materi' => 'required|string|max:50',
             'bahasan' => 'required|string|max:255',
-            'usulan' => 'required|string|max:255',
             'email_pengusul' => 'required|email|exists:users,email', // Validasi email
         ]);
 
         Usulan::create([
             'judul_materi' => $request->judul_materi,
             'bahasan' => $request->bahasan,
-            'email_pengusul' => $request->email_pengusul, // Ambil dari input email
-            'usulan' => $request->usulan,
+            'email_pengusul' => $request->email_pengusul, 
         ]);
 
         return redirect()->back()->with('success', 'Usulan berhasil dikirim!');

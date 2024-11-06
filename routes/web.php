@@ -145,6 +145,7 @@ Route::middleware(['checkRole:peserta'])->group(function () {
 
     Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
     Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
+    Route::post('detailMeetPeserta/[id]/attendance', [Attendance::class, 'attendancePeserta'])->name('attendancePeserta');
     Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
 
 });
@@ -153,5 +154,5 @@ Route::middleware(['checkRole:pemateri'])->group(function () {
     Route::get('/berandaTrainer', [BerandaTrainerController::class, 'index'])->name('berandaTrainer');
     Route::get('/detailTrainingTrainer/{id}', [BerandaTrainerController::class, 'detailTraining'])->name('detailTrainingTrainer');
     Route::get('/tambahkanTrainingTrainer/{id}', [BerandaTrainerController::class, 'tambahTraining'])->name('tambahkanTrainingTrainer');
-    Route::post('/usulan', [BerandaTrainerController::class, 'storeUsulan'])->name('usulan.store');
+    // Route::post('/usulan', [BerandaTrainerController::class, 'storeUsulan'])->name('usulan.store');
 });

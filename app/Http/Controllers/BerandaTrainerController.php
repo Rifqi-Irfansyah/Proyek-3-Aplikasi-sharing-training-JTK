@@ -11,14 +11,10 @@ class BerandaTrainerController extends Controller
 {
     public function index()
     {
-        $nama_trainer = Auth::user()->name;
-        $listTrainingDiajarkan = Training::whereHas('trainers', function ($query) {
-            $query->where('email', Auth::user()->email);
-        })->get();
-
-        $listTrainingBelumDiajarkan = Training::whereDoesntHave('trainers', function ($query) {
-            $query->where('email', Auth::user()->email);
-        })->get();
+        $trainer = Auth::user();
+        $nama_trainer = $trainer->name;
+        $listTrainingDiajarkan = Training::where('email_trainer', $trainer->email)->get();
+        $listTrainingBelumDiajarkan = Training::where('email_trainer', $trainer->email)->get();
 
         return view('trainer.BerandaTrainer', compact('nama_trainer', 'listTrainingDiajarkan', 'listTrainingBelumDiajarkan'));
     }

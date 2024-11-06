@@ -7,7 +7,11 @@
 
 <div class="d-flex flex-column h-100 w-100">
     <div class="w-100">
+        @if (Auth::user()->role == 'admin')
         @include('admin.topbar')
+        @elseif (Auth::user()->role == 'pemateri')
+        @include('trainer.topbarTrainer')
+        @endif
     </div>
 
     <div class="container align-self-start">

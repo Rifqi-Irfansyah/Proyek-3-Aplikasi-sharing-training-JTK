@@ -9,16 +9,13 @@ use Session;
 
 class CreateTrainingController extends Controller
 {
-    // Menampilkan halaman untuk membuat training
     public function create()
     {
         return view('admin.create_training.create_training');
     }
 
-    // Menyimpan data training
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'judul_training' => 'required|string|max:255',
             'jumlah_pertemuan' => 'required|integer|min:1',
@@ -26,7 +23,6 @@ class CreateTrainingController extends Controller
             'deskripsi' => 'required|string',
         ]);
 
-        // Simpan data training
         $training = new Training();
         $training->email_trainer = null; // Set ke null karena trainer belum ada
         $training->judul_training = $request->judul_training;
@@ -38,16 +34,13 @@ class CreateTrainingController extends Controller
         return redirect()->route('create.meetings', ['jumlah_pertemuan' => $request->jumlah_pertemuan, 'id_training' => $training->id_training])->with('success', 'Training has been successfully created. Please set the meetings.');
     }
 
-    // Menampilkan halaman untuk mengatur pertemuan
     public function createMeetings($jumlah_pertemuan, $id_training)
     {
         return view('admin.create_training.set_meeting', ['jumlah_pertemuan' => $jumlah_pertemuan, 'id_training' => $id_training]);
     }
 
-    // Menyimpan setiap pertemuan
     public function storeMeetings(Request $request)
     {
-        // Validasi input
         $request->validate([
             'topik_pertemuan' => 'required|array',
             'topik_pertemuan.*' => 'required|string',
@@ -61,7 +54,6 @@ class CreateTrainingController extends Controller
             'tempat_pelaksana.*' => 'required|string',
         ]);
 
-        // Simpan setiap pertemuan
         foreach ($request->topik_pertemuan as $key => $topik) {
             $jadwal = new JadwalTraining();
             $jadwal->id_training = $request->id_training;

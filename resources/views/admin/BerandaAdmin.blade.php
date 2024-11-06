@@ -108,7 +108,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="button" class="btn btn-outline-danger deleteButton" data-form-id="deleteForm-{{ $training->id_training}}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                                    </form>                                                              
+                                    </form>
                             </div>
                         </td>
                     </tr>
@@ -126,7 +126,7 @@
 
 <br>
 <br>
-<br>    
+<br>
 
 @include('footer')
 </div>
