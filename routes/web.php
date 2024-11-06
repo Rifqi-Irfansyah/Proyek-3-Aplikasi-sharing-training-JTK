@@ -155,5 +155,5 @@ Route::middleware(['checkRole:pemateri'])->group(function () {
     Route::get('/berandaTrainer', [BerandaTrainerController::class, 'index'])->name('berandaTrainer');
     Route::get('/detailTrainingTrainer/{id}', [BerandaTrainerController::class, 'detailTraining'])->name('detailTrainingTrainer');
     Route::get('/tambahkanTrainingTrainer/{id}', [BerandaTrainerController::class, 'tambahTraining'])->name('tambahkanTrainingTrainer');
-    Route::post('/usulan', [BerandaTrainerController::class, 'storeUsulan'])->name('usulan.store');
+    // Route::post('/usulan', [BerandaTrainerController::class, 'storeUsulan'])->name('usulan.store');
 });

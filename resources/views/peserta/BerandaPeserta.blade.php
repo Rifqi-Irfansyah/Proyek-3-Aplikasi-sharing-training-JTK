@@ -89,8 +89,8 @@
                     <div class="card-body">
                     <h5 class="card-title">{{ $training->judul_training }}</h5>
                     <p class="card-text">{{ Str::limit($training->deskripsi,100) }}</p>
-                    {{-- <a href="{{ route('detailTrainingPeserta') }}" class="btn btn-info float-end ">Select</a> --}}
-                    </div>
+                    <a href="/detailTrainingPeserta/{{ $training->id_training }}" class="btn btn-info float-end">Select</a>
+                </div>
                 </div>
             </div>
             @endforeach
@@ -137,13 +137,6 @@
             <label for="discussion" class="col-form-label">Discussion</label>
             <div>
                 <textarea class="form-control" name="bahasan" id="discussion" rows="3" placeholder="Enter discussion details" required></textarea>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <label for="suggestion" class="col-form-label">Suggestion</label>
-            <div>
-                <textarea class="form-control" name="usulan" id="suggestion" rows="3" placeholder="Enter your Suggestion" required></textarea>
             </div>
         </div>
 
