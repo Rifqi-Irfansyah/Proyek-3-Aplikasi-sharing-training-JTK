@@ -14,17 +14,16 @@ class RegistController extends Controller
 {
     public function showPesertaForm(Request $request)
     {
-        return view('auth.register_peserta'); // Form registrasi peserta
+        return view('auth.register_peserta');
     }
 
     public function showTrainerForm()
     {
-        return view('auth.register_trainer'); // Form registrasi trainer
+        return view('auth.register_trainer');
     }
 
         public function registerPeserta(Request $request)
         {
-            // Validasi input
             $validatedData = $request->validate([
                 'full_name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
@@ -33,7 +32,6 @@ class RegistController extends Controller
                 'password' => 'required|string|min:8|confirmed',
             ]);
 
-            // Buat user baru untuk peserta
             $user = User::create([
                 'email' => $validatedData['email'],
                 'role' => 'peserta', // Role peserta
@@ -43,7 +41,6 @@ class RegistController extends Controller
                 'password' => Hash::make($validatedData['password']),
             ]);
 
-            // Cek apakah user berhasil disimpan
             if ($user) {
                 Session::flash('success', 'Your Account Success Registered');
                 return view('auth.login', (['title' => 'Login', 'postLogin' => 'loginaksi', 'signup' => true]));
@@ -55,10 +52,8 @@ class RegistController extends Controller
             }
         }
 
-        // Proses registrasi trainer
         public function registerTrainer(Request $request)
         {
-            // Validasi input trainer
             $validatedData = $request->validate([
                 'full_name' => 'required|string|max:50',
                 'email' => 'required|string|email|max:50|unique:users,email',
@@ -70,7 +65,6 @@ class RegistController extends Controller
                 'pengalaman' => 'required|in:belum ada,<1 tahun,1-3 tahun,3 tahun +',
             ]);
 
-            // Buat user baru untuk trainer
     $user = User::create([
         'email' => $validatedData['email'],
         'role' => 'pemateri',
@@ -80,7 +74,6 @@ class RegistController extends Controller
         'password' => Hash::make($validatedData['password']),
     ]);
 
-    // Setelah user berhasil disimpan, simpan data ke tabel trainer
     if ($user) {
         $trainer = TambahanTrainer::create([
             'email' => $user->email,
