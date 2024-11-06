@@ -87,13 +87,14 @@
 
 </style>
 
+<div class="d-flex flex-column min-vh-100">
+
 <div class="container mt-5">
     <h1>Verifikasi Trainer</h1>
 </div>
 
 <div class="container table-container">
     <table class="table">
-        <thead class="table-primary">
         <thead class="table-primary">
             <tr>
                 <th>Trainer Email</th>
@@ -127,4 +128,5 @@
 
 @include('footer')
 
+</div>
 @endsection

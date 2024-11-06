@@ -6,7 +6,9 @@ use App\Models\JadwalTraining;
 use Illuminate\Http\Request;
 use App\Models\TambahanTrainer;
 use App\Models\PengajuanTrainer;
+use App\Models\Training;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 
 class ApproveTrainerController extends Controller
@@ -20,20 +22,21 @@ class ApproveTrainerController extends Controller
 
     public function updateStatus_1(Request $request)
     {
-        $trainer = PengajuanTrainer::where('email', $request->email)->update(['status_akun' => 'Diterima']);;
+        PengajuanTrainer::where('email_trainer', $request->email)
+            ->where('id_training', $request->id_training)
+            ->update(['status_pengajuan' => 'Diterima']);
     
-        if ($trainer) {
-            return response()->json(['success' => true]);
-        }
-    
-        return response()->json(['error' => false, 'message' => 'Trainer not found.']);
+        Training::where('id_training', $request->id_training)
+            ->update(['email_trainer' => $request->email] );
+
+        return response()->json(['success' => true]);
     }
     
 
     public function updateStatus_2(Request $request)
     {
         
-        $trainer = PengajuanTrainer::where('email', $request->email)->update(['status_akun' => 'Ditolak']);;
+        $trainer = PengajuanTrainer::where('email_trainer', $request->email_trainer)->update(['status_pengajuan' => 'Ditolak']);;
     
         if ($trainer) {
             return response()->json(['success' => true]);
@@ -42,14 +45,16 @@ class ApproveTrainerController extends Controller
         
         return response()->json(['error' => true, 'message' => 'Trainer not found.']);
     }
+    
     public function viewTrainerDetail($email)
     {
-        $trainer = PengajuanTrainer::where('email_trainer', $email)->with('user')->first();
+        $trainer = PengajuanTrainer::where('email_trainer', $email)->with(['user', 'training'])->first();
         
         if (!$trainer) {
             return redirect()->route('approve-trainer')->withErrors('Trainer not found.');
         }
-
+        
         return view('admin.detailTrainerApprove', ['trainer' => $trainer]);
     }
+    
 }

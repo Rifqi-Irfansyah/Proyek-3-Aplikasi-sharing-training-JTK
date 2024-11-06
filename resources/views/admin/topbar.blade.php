@@ -30,7 +30,8 @@
                     </a>
                 </li>
                 <li class="nav-link nav-item">
-                    <a class="nav-link" style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
+                    <a class="nav-link {{ request()->routeIs('verifTrainer') ? 'text-white' : '' }}"
+                        class="nav-link" style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
                         href="{{ route('verifTrainer') }}">
                         <i class="fas fa-cog"></i> Verification Trainer
                     </a>

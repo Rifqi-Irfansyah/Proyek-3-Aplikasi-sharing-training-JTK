@@ -16,7 +16,7 @@ class PengajuanTrainer extends Model
 
     public function training()
     {
-        return $this->belongsTo(Training::class, 'id_training');
+        return $this->belongsTo(JadwalTraining::class, 'id_training');
     }
 
     public function user()

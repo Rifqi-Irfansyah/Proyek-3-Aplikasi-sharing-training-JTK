@@ -19,7 +19,7 @@
         padding-bottom: 10px;
     }
     .table-container {
-        width: 50%; /* Lebar lebih kecil */
+        width: 60%; /* Lebar lebih kecil */
         margin: 0 auto;
         margin: 30px 0 50px;
         padding-bottom: 20px;
@@ -43,12 +43,10 @@
     .table th {
         background-color: #91c3f2;
         font-weight: bold; /* Bold text for header */
-        background-color: #91c3f2;
     }
     .table td {
         background-color: white;
         transition: background-color 0.3s; /* Smooth transition for hover effect */
-        background-color: white;
     }
     .table tr:hover td {
         background-color: #f1f7fc; /* Highlight row on hover */
@@ -69,22 +67,30 @@
     .btn-view:hover {
         background-color: #138496;
     }
+
     .table th:nth-child(1), .table td:nth-child(1) {
-        width: 30%; /* Lebar kolom "Trainer Email" */
+        width: 20%; /* Lebar kolom "Trainer Email" */
     }
 
     .table th:nth-child(2), .table td:nth-child(2) {
-        width: 30%; /* Lebar kolom "Trainer Name" */
+        width: 15%; /* Lebar kolom "Trainer Name" */
     }
 
     .table th:nth-child(3), .table td:nth-child(3) {
-        width: 20%; /* Lebar kolom "No Telepon" */
+        width: 15%; /* Lebar kolom "Nama Training" */
     }
 
     .table th:nth-child(4), .table td:nth-child(4) {
-        width: 20%; /* Lebar kolom "Actions" */
+        width: 15%; /* Lebar kolom "Tanggal Mulai" */
     }
 
+    .table th:nth-child(5), .table td:nth-child(5) {
+        width: 15%; /* Lebar kolom "Tanggal Selesai" */
+    }
+
+    .table th:nth-child(6), .table td:nth-child(6) {
+        width: 15%; /* Lebar kolom "Actions" */
+    }
 </style>
 
 <div class="container mt-5">
@@ -93,11 +99,13 @@
 
 <div class="container table-container">
     <table class="table">
-        <thead>
+        <thead class="table-primary">
             <tr>
                 <th>Trainer Email</th>
                 <th>Trainer Name</th>
                 <th>Nama Training</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Selesai</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -106,10 +114,13 @@
                 <tr>
                     <td>{{ $tr->email_trainer }}</td>
                     <td>{{ $tr->user->name }}</td>
-                    <td>{{ $tr->training->nama_training ?? 'Tidak tersedia' }}</td>
+                    <td>{{ $tr->training->nama_training }}</td>
+                    <td>{{ \Carbon\Carbon::parse($tr->training->create_at)->format('d-m-Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($tr->training->update_at)->format('d-m-Y') }}</td>
                     <td>
                         <a href="{{ route('view-trainer-detail-approve', $tr->email_trainer) }}" class="btn btn-view">
-                                <i class="fas fa-eye"></i> View
+                            <i class="fas fa-eye"></i> View
+                        </a>
                     </td>
                 </tr>
             @endforeach

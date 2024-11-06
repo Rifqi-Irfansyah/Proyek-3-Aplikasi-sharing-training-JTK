@@ -8,23 +8,20 @@
 
 <style>
     .card {
-        width: 1200px; /* Atur lebar sesuai kebutuhan */
-        margin: 20px auto; /* Margin atas-bawah 20px, margin kiri-kanan auto untuk memusatkan */
-        padding: 30px; /* Padding dalam kartu */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan untuk tampilan lebih menarik */
+        width: 1200px;
+        margin: 20px auto;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
     .card p {
-        font-size: 1.25rem; /* Mengatur ukuran font untuk paragraf di dalam kartu */
-        line-height: 1.5; /* Mengatur jarak antar baris untuk keterbacaan yang lebih baik */
+        font-size: 1.25rem;
+        line-height: 1.5;
     }
-
     .card strong {
-        font-size: 1.25rem; /* Mengatur ukuran font untuk teks yang dicetak tebal */
+        font-size: 1.25rem;
     }
-
     .btn-group {
-        margin-top: 20px; /* Jarak antara tombol dan konten atas */
+        margin-top: 20px;
     }
 </style>
 
@@ -35,97 +32,96 @@
 <div class="container">
     <div class="card" id="trainer-card-{{ $trainer->id }}">
         <p><strong>Nama Trainer:</strong> {{ $trainer->user->name }}</p>
-        <p><strong>Email:</strong> {{ $trainer->email }}</p>
+        <p><strong>Email:</strong> {{ $trainer->user->email }}</p>
         <p><strong>Tanggal Lahir:</strong> {{ $trainer->user->tanggal_lahir }}</p>
-        <p><strong>No Telepon:</strong> {{ $trainer->no_wa }}</p>
-        <p><strong>Pengalaman:</strong> {{ $trainer->pengalaman }}</p>
-        <p><strong>Kemampuan:</strong> {{ $trainer->kemampuan }}</p>
+        <p><strong>No Telepon:</strong> {{ $trainer->user->no_wa }}</p>
+        <p><strong>Pengalaman:</strong> {{ $trainer->user->pengalaman }}</p>
+        <p><strong>Kemampuan:</strong> {{ $trainer->user->kemampuan }}</p>
+        <p id="status"><strong>Status:</strong> {{ $trainer->status_pengajuan }}</p>
         
         <div class="btn-group">
-            <a href="#" class="btn btn-view" onclick="StatusDiterima('{{ $trainer->email }}')">✔️ Terima</a>
-            <a href="#" class="btn btn-delete" onclick="StatusDitolak('{{ $trainer->email }}')">❌ Tolak</a>
+            <a href="#" class="btn btn-view" onclick="approveTrainer('{{ $trainer->email }}')">✔️ Terima</a>
+            <a href="#" class="btn btn-delete" onclick="rejectTrainer('{{ $trainer->email }}')">❌ Tolak</a>
         </div>
     </div>
 </div>
 
 @include('footer')
 
+@endsection
+
 <script>
-    function updateStatus_1(email, trainerId) {
-        const confirmation = confirm('Apakah Anda yakin ingin mengonfirmasi trainer ini?');
-
-        if (confirmation) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('approve-trainer-confirm') }}",
-                method: 'POST',
-                data: {
-                    email: email,
-                    status: 'Diterima'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Trainer Dikonfirmasi!',
-                            text: 'Trainer telah berhasil dikonfirmasi.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        }).then(() => {
-                            window.location.href = "{{ route('approve-trainer') }}"; 
-                        });
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan dalam mengonfirmasi trainer.');
-                }
-            });
-        }
+    function approveTrainer(email) {
+    const confirmation = confirm('Apakah Anda yakin ingin menerima trainer ini?');
+    
+    if (confirmation) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('approve-trainer-confirm') }}",  
+            method: 'POST',
+            data: {
+                email: @json($trainer->email_trainer),
+                id_training: @json($trainer->id_training),
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Trainer Diterima!',
+                    text: 'Trainer telah berhasil diterima.',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                document.getElementById('status').innerHTML = `<strong>Status:</strong> Diterima`;
+                document.querySelector('.btn-group').style.display = 'none';
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan dalam menerima trainer.');
+            }
+        });
     }
+}
 
-    function updateStatus_2(email, trainerId) {
-        const confirmation = confirm('Apakah Anda yakin ingin menolak trainer ini?');
+function rejectTrainer(email) {
+    const confirmation = confirm('Apakah Anda yakin ingin menolak trainer ini?');
 
-        if (confirmation) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    if (confirmation) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('approve-trainer-reject') }}",  // Sesuaikan dengan route yang benar
+            method: 'POST',
+            data: {
+                email: email,
+                status: 'Ditolak'  // Mengirim status 'Ditolak'
+            },
+            success: function(response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Trainer Ditolak!',
+                        text: 'Trainer telah berhasil ditolak.',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                    document.getElementById('status').innerHTML = `<strong>Status:</strong> Ditolak`;
+                    document.querySelector('.btn-group').style.display = 'none';
+                } else {
+                    alert(response.message);
                 }
-            });
-            $.ajax({
-                url: "{{ route('approve-trainer-reject') }}",
-                method: 'POST',
-                data: {
-                    email: email,
-                    status: 'Ditolak'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Trainer Ditolak!',
-                            text: 'Trainer telah berhasil ditolak.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        }).then(() => {
-                            window.location.href = "{{ route('approve-trainer') }}"; // Redirect to verif-trainer page
-                        });
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan dalam menolak trainer.');
-                }
-            });
-        }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan dalam menolak trainer.');
+            }
+        });
     }
+}
 </script>
