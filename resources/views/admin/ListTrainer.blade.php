@@ -50,7 +50,8 @@
     }
 </style>
 
-<!-- Title -->
+<div class="d-flex flex-column min-vh-100"> 
+
 <div class="container mt-5 text-center">
     <h1>List Trainer</h1>
 </div>
@@ -103,4 +104,5 @@
 
 @include('footer')
 
+</div>
 @endsection

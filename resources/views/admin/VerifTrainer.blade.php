@@ -16,7 +16,7 @@
         color: #333;
         text-align: center;
         margin: 30px 0 30px;
-        padding-bottom: 10px;
+        padding-bottom: 0px;
     }
     .table-container {
         width: 50%; /* Lebar lebih kecil */
@@ -84,6 +84,7 @@
     .table th:nth-child(4), .table td:nth-child(4) {
         width: 20%; /* Lebar kolom "Actions" */
     }
+
 
 </style>
 

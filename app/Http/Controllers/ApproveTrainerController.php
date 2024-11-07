@@ -15,7 +15,6 @@ class ApproveTrainerController extends Controller
 {
     public function approveTrainer()
     {
-        // Ambil data trainer dengan nama training terkait
         $trainers = PengajuanTrainer::with(['user', 'training'])->get(); 
         return view('admin.ApproveTrainer', ['trainers' => $trainers]);
     }
@@ -36,14 +35,12 @@ class ApproveTrainerController extends Controller
     public function updateStatus_2(Request $request)
     {
         
-        $trainer = PengajuanTrainer::where('email_trainer', $request->email_trainer)->update(['status_pengajuan' => 'Ditolak']);;
-    
-        if ($trainer) {
-            return response()->json(['success' => true]);
-        }
-    
+        PengajuanTrainer::where('email_trainer', $request->email)
+            ->where('id_training', $request->id_training)
+            ->update(['status_pengajuan' => 'Ditolak']);
+
+        return response()->json(['success' => true]);
         
-        return response()->json(['error' => true, 'message' => 'Trainer not found.']);
     }
     
     public function viewTrainerDetail($email)

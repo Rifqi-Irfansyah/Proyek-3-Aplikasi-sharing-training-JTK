@@ -99,8 +99,8 @@ function rejectTrainer(email) {
             url: "{{ route('approve-trainer-reject') }}",  // Sesuaikan dengan route yang benar
             method: 'POST',
             data: {
-                email: email,
-                status: 'Ditolak'  // Mengirim status 'Ditolak'
+                email: @json($trainer->email_trainer),
+                id_training: @json($trainer->id_training),
             },
             success: function(response) {
                 if (response.success) {
