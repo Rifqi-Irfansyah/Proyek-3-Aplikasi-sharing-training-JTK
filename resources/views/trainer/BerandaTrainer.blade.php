@@ -8,28 +8,34 @@
 <div class="d-flex flex-column min-vh-100">
     @include('trainer.topbarTrainer')
     <div class='container'>
-    @if(session('success'))
-    <script>
-        Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: '{{ session('success') }}',
-        confirmButtonText: 'OK'
-        });
-    </script>
-    @endif
-    
-    <h1 class="pt-5" style="font-size: 8rem !important; font-weight: bold; margin-bottom: 3rem;">
-        <span>Hi,</span>
-        <span class="text-primary">{{$nama_trainer}}</span><span>!</span>
-    </h1>
+        @if(session('success'))
+        <script>
+            Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            confirmButtonText: 'OK'
+            });
+        </script>
+        @endif
+        
+        <h1 class="pt-5" style="font-size: 8rem !important; font-weight: bold; margin-top: 6rem; margin-bottom: 3rem;">
+            <span>Hi,</span>
+            <span class="text-primary">{{$nama_trainer}}</span><span>!</span>
+        </h1>
 
-    <h1 class="pt-5" style="font-size: 8rem !important; font-weight: bold; margin-top: 3rem;">
-        <span>What would you like to </span>
-        <span class="text-primary">Train </span>
-        <span>Today?</span>
-    </h1>
+        <h1 class="pt-5" style="font-size: 8rem !important; font-weight: bold; margin-top: 2rem;">
+            <span>What would you like to </span>
+            <span class="text-primary">Train </span>
+            <span>Today?</span>
+        </h1>
+    </div>
 
+    <div style="text-align: center;">
+        <h1 class="pt-5" style="font-size: 6rem !important; font-weight: bold; margin-top: 20rem;"
+            <span>Available </span>
+            <span class="text-primary">Training </span>
+        </h1>
     </div>
 
     <div class = 'container pt-5' >
