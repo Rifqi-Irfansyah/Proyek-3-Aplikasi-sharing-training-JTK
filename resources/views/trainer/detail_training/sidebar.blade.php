@@ -71,8 +71,12 @@
 function buttonEdit() {
     var title = "Add " + "<?php echo $i; ?>" + "st Meet\n" + "<?php echo $training->judul_training; ?>" + "\n\n";
     <?php
-        $lastJadwal = optional($training->jadwalTrainings->last());
-        $minDate = $lastJadwal && $lastJadwal->waktu_mulai ? Carbon\Carbon::parse($lastJadwal->waktu_mulai)->addDays(1)->format('Y-m-d') : '';
+        $lastJadwal = $training->jadwalTrainings->last();
+        $now = Carbon\Carbon::now('Asia/Jakarta')->addDays(3)->format('Y-m-d');
+        if($lastJadwal->waktu_mulai < $now)
+            $minDate = $now;
+        else
+            $minDate = $lastJadwal && $lastJadwal->waktu_mulai ? Carbon\Carbon::parse($lastJadwal->waktu_mulai)->addDays(1)->format('Y-m-d') : '';
     ?>
     (async () => {
         const {
@@ -155,7 +159,21 @@ function buttonEdit() {
                 if (!startMeet || !endMeet || !locationMeet || !status || !descMeet) {
                     Swal.showValidationMessage('Please complete all fields!');
                     setTimeout(() => {
-                        Swal.close();
+                        Swal.getValidationMessage().textContent = '';
+                        Swal.resetValidationMessage()
+                    }, 3000);
+                    return false;
+                }
+
+                const startDateTime = new Date(startMeet);
+                const endDateTime = new Date(endMeet);
+                const differenceInHours = (endDateTime - startDateTime) / (1000 * 60 * 60);
+
+                if (differenceInHours < 1) {
+                    Swal.showValidationMessage('End time must be at least 1 hour after the start time!');
+                    setTimeout(() => {
+                        Swal.getValidationMessage().textContent = '';
+                        Swal.resetValidationMessage()
                     }, 3000);
                     return false;
                 }

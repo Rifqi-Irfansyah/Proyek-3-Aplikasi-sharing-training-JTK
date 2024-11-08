@@ -50,7 +50,6 @@ return new class extends Migration
           ->on('training');
         $table->string('topik_pertemuan', 500);
         $table->string('tempat_pelaksana');
-        $table->string('modul')->nullable();
         $table->enum('status', ['online', 'offline']);
         $table->DATETIME('waktu_mulai');
         $table->DATETIME('waktu_selesai');
