@@ -47,6 +47,7 @@ class DetailTraining extends Controller
 
     public function modul($id)
     {
+        Session::forget('runAddFromList');
         $filenames = ModulTraining::where('id_training', $id)->get();
 
         $namaFiles = $filenames->pluck('nama_file');
@@ -178,6 +179,19 @@ class DetailTraining extends Controller
         }
         Session::flash('success', 'File added successfully!');
         return redirect('/detailTraining/modul/'.$id);
+    }
+
+    public function searchModulTraining(Request $request, $id)
+    {
+        $filenames = ModulTraining::where('id_training', $id)->get();
+
+        $namaFiles = $filenames->pluck('nama_file');
+        $modul = Modul::whereIn('nama_file', $namaFiles)->get();
+        $training = Training::with(['jadwalTrainings'])->find($id);
+        $modulGlobal = Modul::where('judul', 'like', '%' . $request->search . '%')->whereNotIn('nama_file', $namaFiles)->orderBy('judul', 'asc')->get();  
+
+        Session::flash('runAddFromList', true);
+        return view('trainer.detail_training.modul', ['modul' => $modul,'modulGlobal' => $modulGlobal, 'training' => $training]);
     }
 
     public function deleteModulTraining(Request $request, $id)

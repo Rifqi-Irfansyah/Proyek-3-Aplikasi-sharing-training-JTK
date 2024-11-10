@@ -120,6 +120,7 @@ Route::middleware(['checkRole:admin,pemateri'])->group(function () {
     Route::post('/detailTraining/modul/{id}', [DetailTraining::class, 'addModulFromList'])->name('addModulFromList');
     Route::post('/detailTraining/modul/list/{id}', [DetailTraining::class, 'tambahModul'])->name('addModulTraining');
     Route::delete('/detailTraining/modul/{id}', [DetailTraining::class, 'deleteModulTraining'])->name('deleteModulTraining');
+    Route::post('/searchModulTraining/{id}', [DetailTraining::class, 'searchModulTraining'])->name('searchModulTraining');
 
     Route::get('/detailTraining/meet/MT{id}', [DetailTraining::class, 'detailMeet'])->name('detailMeet');
     Route::post('/detailTraining/meet', [DetailTraining::class, 'tambahMeet'])->name('addMeet');

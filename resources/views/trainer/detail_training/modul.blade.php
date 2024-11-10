@@ -189,6 +189,18 @@ function buttonAddFromList() {
             backdrop: 'rgba(0,0,0,0.8)',
             showConfirmButton: false,
             html: `
+                <form action={{route('searchModulTraining', ['id' => $training->id_training]) }}" method="POST">
+                    @csrf
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-6">
+                            <input type="search" name="search" class="form-control ps-5 rounded-5" placeholder="Search..."
+                            aria-label="Search" id="searchInput">
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-custom w-100 rounded-5">Search</button>
+                        </div>
+                    </div>
+                </form>
                 <form action="{{ route('addModulFromList', ['id' => $training->id_training]) }}" method="POST">
                     @csrf
                     <div class="d-flex container row justify-content-center" id="modulContainer">
@@ -220,6 +232,10 @@ function buttonAddFromList() {
                 popup: 'popup-edit',
                 title: 'title',
                 color: '#DE2323',
+            }
+        }).then((result)=>{
+            if (result.isDismissed) {
+                window.location.href = "{{ route ('showModulTraining', $training->id_training) }}"; 
             }
         });
     })();
@@ -319,6 +335,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })();
     });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    @if(session('runAddFromList'))
+        buttonAddFromList();
+    @endif
 });
 </script>
 @endsection
