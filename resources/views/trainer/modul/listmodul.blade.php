@@ -88,12 +88,17 @@
             const searchInput = document.getElementById('searchInput');
             let debounceTimeout;
             let hasPreviousInput = false;
+            let initialHtml = '';
+            window.addEventListener('DOMContentLoaded', () => {
+                const modulContainer = document.getElementById('modulContainer');
+                initialHtml = modulContainer.innerHTML;
+            });
+
             searchInput.addEventListener('input', function() {
                 const query = this.value;
                 clearTimeout(debounceTimeout);
 
-                if (query.length > 0 || hasPreviousInput) {
-
+                if (query.length > 0) {
                     debounceTimeout = setTimeout(function() {
                         fetch(`/listModul/search?q=${query}`)
                             .then(response => response.json())
@@ -136,10 +141,10 @@
                                 });
                             })
                     }, 400);
-                    if (query.length > 0)
-                        hasPreviousInput = true;
-                    if (query.length == 0)
-                        hasPreviousInput = false;
+                }
+                if(query.length == 0) {
+                    const modulContainer = document.getElementById('modulContainer');
+                    modulContainer.innerHTML = initialHtml;
                 }
             });
         </script>
