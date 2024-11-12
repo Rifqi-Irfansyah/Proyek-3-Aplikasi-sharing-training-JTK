@@ -16,83 +16,83 @@ class ModulSeeder extends Seeder
     public function run()
     {
         DB::table('modul')->insert([
-            'nama_file' => "Pertemuan09 BMC.pdf",
-            'judul' => "Materi BMC",
+            'nama_file' => "Generic Programming.pdf",
+            'judul' => "Materi Generic Programming",
         ]);
 
         DB::table('modul')->insert([
-            'nama_file' => "kardinalitas.pdf",
-            'judul' => "Materi Kardinalitas"
+            'nama_file' => "Pertemuan 11 Collection.pdf",
+            'judul' => "Materi - Collection"
         ]);
 
         DB::table('modul')->insert([
-            'nama_file' => "document.pdf",
-            'judul' => "Materi PBO"
-        ]);
-
-        DB::table('modul')->insert([
-            'nama_file' => "employee.pdf",
-            'judul' => "Bahan Ajar PBO"
-        ]);
-
-        DB::table('modul')->insert([
-            'nama_file' => "kardinalitas2.pdf",
-            'judul' => "Materi Pertemuan 2 Python"
-        ]);
-
-        DB::table('modul_training')->insert([
-            'id_training' => 1,
-            'nama_file' => "Pertemuan09 BMC.pdf"
+            'nama_file' => "2-Java Fundamental.pdf",
+            'judul' => "Materi - Fundamental"
         ]);
 
         DB::table('modul')->insert([
             'nama_file' => "dummy1.pdf",
-            'judul' => "Dummy Data 1"
+            'judul' => "Modul Dummy 1"
         ]);
 
         DB::table('modul')->insert([
             'nama_file' => "dummy2.pdf",
-            'judul' => "Dummy Data 2"
+            'judul' => "Modul Dummy 2"
         ]);
 
         DB::table('modul')->insert([
             'nama_file' => "dummy3.pdf",
-            'judul' => "Dummy Data 3"
+            'judul' => "Modul Dummy 3"
         ]);
 
         DB::table('modul')->insert([
             'nama_file' => "dummy4.pdf",
-            'judul' => "Dummy Data 4"
+            'judul' => "Modul Dummy 4"
         ]);
 
         DB::table('modul')->insert([
             'nama_file' => "dummy5.pdf",
-            'judul' => "Dummy Data 5"
+            'judul' => "Modul Dummy 5"
         ]);
 
         DB::table('modul')->insert([
             'nama_file' => "dummy6.pdf",
-            'judul' => "Dummy Data 6"
+            'judul' => "Modul Dummy 6"
         ]);
 
         DB::table('modul')->insert([
             'nama_file' => "dummy7.pdf",
-            'judul' => "Dummy Data 7"
+            'judul' => "Modul Dummy 7"
         ]);
 
         DB::table('modul')->insert([
             'nama_file' => "dummy8.pdf",
-            'judul' => "Dummy Data 8"
+            'judul' => "Modul Dummy 8"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy9.pdf",
+            'judul' => "Modul Dummy 9"
+        ]);
+
+        DB::table('modul')->insert([
+            'nama_file' => "dummy10.pdf",
+            'judul' => "Modul Dummy 10"
         ]);
 
         DB::table('modul_training')->insert([
             'id_training' => 1,
-            'nama_file' => "employee.pdf"
+            'nama_file' => "Generic Programming.pdf"
         ]);
 
         DB::table('modul_training')->insert([
             'id_training' => 1,
-            'nama_file' => "document.pdf"
+            'nama_file' => "Pertemuan 11 Collection.pdf"
+        ]);
+
+        DB::table('modul_training')->insert([
+            'id_training' => 1,
+            'nama_file' => "2-Java Fundamental.pdf"
         ]);
 
     }
