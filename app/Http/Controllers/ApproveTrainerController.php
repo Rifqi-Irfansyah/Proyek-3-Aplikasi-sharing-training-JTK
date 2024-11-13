@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JadwalTraining;
+
 use Illuminate\Http\Request;
 use App\Models\TambahanTrainer;
 use App\Models\PengajuanTrainer;
@@ -15,7 +15,7 @@ class ApproveTrainerController extends Controller
 {
     public function approveTrainer()
     {
-        $trainers = PengajuanTrainer::with(['user', 'training'])->get(); 
+        $trainers = PengajuanTrainer::with(['user', 'training'])->whereNot('status_pengajuan', 'Diterima')->get(); 
         return view('admin.ApproveTrainer', ['trainers' => $trainers]);
     }
 
@@ -43,15 +43,17 @@ class ApproveTrainerController extends Controller
         
     }
     
-    public function viewTrainerDetail($email)
+    public function viewTrainerDetail($email, $id_training)
     {
-        $trainer = PengajuanTrainer::where('email_trainer', $email)->with(['user', 'training'])->first();
+        $trainer = PengajuanTrainer::where('email_trainer', $email)->where('id_training', $id_training)->with(['user', 'training'])->first();
         
         if (!$trainer) {
             return redirect()->route('approve-trainer')->withErrors('Trainer not found.');
         }
         
-        return view('admin.detailTrainerApprove', ['trainer' => $trainer]);
+        $tambahanTrainer = TambahanTrainer::where('email', $email)->first();
+
+        return view('admin.detailTrainerApprove', ['trainer' => $trainer,'tambahanTrainer' => $tambahanTrainer]);
     }
     
 }

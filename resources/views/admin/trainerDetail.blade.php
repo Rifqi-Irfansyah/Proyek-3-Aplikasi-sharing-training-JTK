@@ -51,81 +51,129 @@
 @include('footer')
 
 <script>
-    function updateStatus(email, trainerId) {
-        const confirmation = confirm('Apakah Anda yakin ingin mengonfirmasi trainer ini?');
-
-        if (confirmation) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('verif-trainer') }}",
-                method: 'POST',
-                data: {
-                    email: email,
-                    status: 'Terkonfirmasi'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Trainer Dikonfirmasi!',
-                            text: 'Trainer telah berhasil dikonfirmasi.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        }).then(() => {
-                            window.location.href = "{{ route('verifTrainer') }}"; // Redirect to verif-trainer page
-                        });
-                    } else {
-                        alert(response.message);
+    function updateStatus(email) {
+        // Menggunakan SweetAlert untuk konfirmasi
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Apakah Anda ingin mengonfirmasi trainer ini?",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Konfirmasi!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true,
+            backdrop: 'rgba(0,0,0,0.8)',
+            customClass: {
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
+                cancelButton: 'btn-cancel',
+                title: 'title'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan dalam mengonfirmasi trainer.');
-                }
-            });
-        }
+                });
+                $.ajax({
+                    url: "{{ route('verif-trainer') }}",
+                    method: 'POST',
+                    data: {
+                        email: email,
+                        status: 'Terkonfirmasi'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Trainer Dikonfirmasi!',
+                                text: 'Trainer telah berhasil dikonfirmasi.',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }).then(() => {
+                                window.location.href = "{{ route('verifTrainer') }}"; // Redirect ke halaman verif-trainer
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal!',
+                                text: response.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi Kesalahan',
+                            text: 'Gagal mengonfirmasi trainer.',
+                        });
+                    }
+                });
+            }
+        });
     }
 
-    function update2Status(email, trainerId) {
-        const confirmation = confirm('Apakah Anda yakin ingin menolak trainer ini?');
-
-        if (confirmation) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('verif-trainer-delete') }}",
-                method: 'POST',
-                data: {
-                    email: email,
-                    status: 'Ditolak'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Trainer Ditolak!',
-                            text: 'Trainer telah berhasil ditolak.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        }).then(() => {
-                            window.location.href = "{{ route('verifTrainer') }}"; // Redirect to verif-trainer page
-                        });
-                    } else {
-                        alert(response.message);
+    function update2Status(email) {
+        // Menggunakan SweetAlert untuk konfirmasi
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Apakah Anda ingin menolak trainer ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Tolak!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true,
+            backdrop: 'rgba(0,0,0,0.8)',
+            customClass: {
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
+                cancelButton: 'btn-cancel',
+                title: 'title'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan dalam menolak trainer.');
-                }
-            });
-        }
+                });
+                $.ajax({
+                    url: "{{ route('verif-trainer-delete') }}",
+                    method: 'POST',
+                    data: {
+                        email: email,
+                        status: 'Ditolak'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Trainer Ditolak!',
+                                text: 'Trainer telah berhasil ditolak.',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }).then(() => {
+                                window.location.href = "{{ route('verifTrainer') }}"; // Redirect ke halaman verif-trainer
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal!',
+                                text: response.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi Kesalahan',
+                            text: 'Gagal menolak trainer.',
+                        });
+                    }
+                });
+            }
+        });
     }
 </script>

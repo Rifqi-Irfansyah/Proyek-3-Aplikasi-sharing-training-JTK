@@ -92,11 +92,11 @@
                         <tr>
                             <td>{{ $tr->email_trainer }}</td>
                             <td>{{ $tr->user->name }}</td>
-                            <td>{{ $tr->training->nama_training }}</td>
-                            <td>{{ \Carbon\Carbon::parse($tr->training->create_at)->format('d-m-Y') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($tr->training->update_at)->format('d-m-Y') }}</td>
+                            <td>{{ $tr->training->judul_training }}</td>
+                            <td>{{ \Carbon\Carbon::parse($tr->training->jadwalTrainings->first()->waktu_mulai)->format('d-m-Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($tr->training->jadwalTrainings->last()->waktu_selesai)->format('d-m-Y') }}</td>
                             <td>
-                                <a href="{{ route('view-trainer-detail-approve', $tr->email_trainer) }}" class="btn btn-view">
+                                <a href="{{ route('view-trainer-detail-approve', ['email' => $tr->email_trainer, 'id_training' => $tr->id_training]) }}" class="btn btn-view">
                                     <i class="fas fa-eye"></i> View
                                 </a>
                             </td>

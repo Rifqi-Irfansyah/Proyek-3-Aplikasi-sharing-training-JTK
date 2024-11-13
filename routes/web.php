@@ -65,8 +65,8 @@ Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'up
 // });
 
 //Approve
-Route::get('approve-trainer', [ApproveTrainerController::class, 'approveTrainer'])->name('approve-trainer');
-Route::get('/approve-trainer/detail/{email}', [ApproveTrainerController::class, 'viewTrainerDetail'])->name('view-trainer-detail-approve');
+Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
+Route::get('/approve-trainer/detail/{email}/{id_training}', [ApproveTrainerController::class, 'viewTrainerDetail'])->name('view-trainer-detail-approve');
 Route::post('approve-trainer/confirm', [ApproveTrainerController::class, 'updateStatus_1'])->name('approve-trainer-confirm');
 Route::post('approve-trainer/reject', [ApproveTrainerController::class, 'updateStatus_2'])->name('approve-trainer-reject');
 

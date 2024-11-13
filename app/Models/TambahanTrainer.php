@@ -9,7 +9,6 @@ class TambahanTrainer extends Model
 {
     use HasFactory;
 
-    // Name table in database
     protected $table = 'tambahan_trainer';
     protected $nonPrimaryKey = 'email';
     protected $fillable = [
@@ -21,7 +20,6 @@ class TambahanTrainer extends Model
         'status_login'
     ];
 
-    // Define relation one to one
     public function user()
     {
         return $this->belongsTo(User::class, 'email', 'email');
