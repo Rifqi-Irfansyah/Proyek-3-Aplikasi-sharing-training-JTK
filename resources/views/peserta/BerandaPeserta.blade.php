@@ -112,7 +112,7 @@
                     <div class="card-body">
                     <h4 class="card-title pb-4">{{ $trainingView->judul_training }}</h4>
                     <p class="card-text">{{ Str::limit($trainingView->deskripsi,100) }}</p>
-                    <a href="/preview-training/{{ $trainingView->id_training }}" class="btn btn-info float-end rounded-5">Select</a>
+                    <a href="/previewTrainingPeserta/{{ $trainingView->id_training }}" class="btn btn-info float-end rounded-5">Select</a>
                     </div>
                 </div>
             </div>
