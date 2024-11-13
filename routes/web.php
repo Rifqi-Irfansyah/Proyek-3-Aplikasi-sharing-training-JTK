@@ -107,9 +107,9 @@ Route::middleware(['checkRole:admin'])->group(function () {
 
 });
 
-Route::middleware(['checkRole:pemateri'])->group(function () {
-    Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');
-});
+// Route::middleware(['checkRole:pemateri'])->group(function () {
+//     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');
+// });
 
 Route::middleware(['checkRole:admin,pemateri'])->group(function () {
     // Detail Training PAGE
@@ -153,8 +153,13 @@ Route::middleware(['checkRole:peserta'])->group(function () {
 });
 
 Route::middleware(['checkRole:pemateri'])->group(function () {
+    Route::get('/previewTrainingTrainer/{id}',[PreviewTrainingController::class, 'previewTrainingTrainer'])->name('previewTrainingTrainer');
+    Route::post('/joinTrainingTrainer/{id}', [PreviewTrainingController::class, 'joinTrainingTrainer'])->name('joinTrainingTrainer');
+
     Route::get('/berandaTrainer', [BerandaTrainerController::class, 'index'])->name('berandaTrainer');
     Route::get('/detailTrainingTrainer/{id}', [BerandaTrainerController::class, 'detailTraining'])->name('detailTrainingTrainer');
     Route::get('/tambahkanTrainingTrainer/{id}', [BerandaTrainerController::class, 'tambahTraining'])->name('tambahkanTrainingTrainer');
     // Route::post('/usulan', [BerandaTrainerController::class, 'storeUsulan'])->name('usulan.store');
+    Route::get('/berandaTrainer', [BerandaTrainerController::class, 'CardTrainer'])->name('berandaTrainer');
+
 });
