@@ -2,6 +2,36 @@
 
 @section('aboutSelect', 'hovered')
 @section('isi')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-success',
+                    title: 'title',
+                }
+            });
+        @elseif(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "{{ session('error') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-error',
+                    title: 'title',
+                }
+            });
+        @endif
+    });
+</script>
+
 
 <div class="content ms-300 vh-auto w-100" style="background-color: #9BBBF2;">
 

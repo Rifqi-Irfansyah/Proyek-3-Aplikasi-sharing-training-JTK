@@ -141,10 +141,11 @@ Route::middleware(['checkRole:peserta'])->group(function () {
     Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
     Route::get('/Beranda', [BerandaPesertaController::class, 'CardTraining'])->name('beranda_peserta');
     Route::get('/previewTrainingPeserta/{id}',[PreviewTrainingController::class, 'previewTrainingPeserta'])->name('previewTrainingPeserta');
+    Route::post('/joinTrainingPeserta/{id}', [PreviewTrainingController::class, 'joinTrainingPeserta'])->name('joinTrainingPeserta');
 
     Route::post('/usulan', [BerandaPesertaController::class, 'store'])->name('usulan.store');
 
-    Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta']);
+    Route::get('/detailTrainingPeserta/{id}', [DetailTrainingPeserta::class, 'detailTrainingPeserta'])->name('detailTrainingPeserta');
     Route::get('/detailMeetPeserta/{id}', [DetailTrainingPeserta::class, 'detailMeetPeserta']);
     Route::post('detailMeetPeserta/[id]/attendance', [Attendance::class, 'attendancePeserta'])->name('attendancePeserta');
     Route::get('/modulPeserta/{id}', [DetailTrainingPeserta::class, 'modulPeserta']);
