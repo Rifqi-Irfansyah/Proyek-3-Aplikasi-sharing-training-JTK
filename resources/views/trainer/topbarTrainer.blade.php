@@ -44,14 +44,22 @@
                 </li>
                 <li class="nav-link nav-item">
                     <div class="dropdown">
-                        <a class="nav-link align-items-center" style="font-size: 0.9rem; display: flex; gap: 8px;"
-                            href="{{ route('login') }}" id="dropdownMenuButton">
+                        <a class="nav-link align-items-center" style="font-size: 0.9rem; display: flex; gap: 8px;" href="{{ route('login') }}" id="dropdownMenuButton">
                             <i class="fas fa-user"></i> Profile
                         </a>
-                        <ul class="dropdown-menu px-2 rounded-2" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item rounded-3" href="#">Profile</a></li>
-                            <li><a class="dropdown-item rounded-3" href="{{ route('logout') }}">Logout</a></li>
+                        <ul class="dropdown-menu px-3 rounded-2" aria-labelledby="dropdownMenuButton">
+                            <li class="d-flex align-items-center">
+                                <div class="col">
+                                    <span class='h6'>{{ Auth::user()->name }}</span>
+                                    <span>{{ Auth::user()->email }}</span>
+                                    <h6>Role : <span>{{ Auth::user()->role }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <a class="dropdown-item px-0 rounded-3" href="{{ route('logout') }}">Logout</a>
+                            </li>
                         </ul>
+
                     </div>
                 </li>
             </ul>

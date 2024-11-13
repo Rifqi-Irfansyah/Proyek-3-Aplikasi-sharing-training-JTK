@@ -12,7 +12,11 @@
             <span class="title text-white ps-0">Trainify </span>
         </div>
         <div>
+            @if (Auth::user()->role == 'pemateri')
+            <a href="{{route('berandaTrainer')}}">
+            @elseif(Auth::user()->role == 'admin')
             <a href="{{route('beranda.admin')}}">
+            @endif
                 <button class="btn btn-back btn-md fs-6 rounded-5 py-2 w-50px h-50px">
                     <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
                 </button>
