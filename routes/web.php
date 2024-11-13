@@ -140,7 +140,7 @@ Route::middleware(['checkRole:admin,pemateri'])->group(function () {
 Route::middleware(['checkRole:peserta'])->group(function () {
     Route::get('peserta', [LoginController::class, 'beranda'])->name('welcome');
     Route::get('/Beranda', [BerandaPesertaController::class, 'CardTraining'])->name('beranda_peserta');
-    Route::get('/preview-training',[PreviewTrainingController::class, 'previewTraining'])->name('preview-training');
+    Route::get('/previewTrainingPeserta/{id}',[PreviewTrainingController::class, 'previewTrainingPeserta'])->name('previewTrainingPeserta');
 
     Route::post('/usulan', [BerandaPesertaController::class, 'store'])->name('usulan.store');
 

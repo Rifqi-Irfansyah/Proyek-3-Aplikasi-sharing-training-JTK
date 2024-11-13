@@ -1,6 +1,6 @@
 @extends('../layoutmaster')
 
-@section('title', 'Beranda Admin')
+@section('title', 'Modul Trainer')
 
 @section('content')
 
@@ -19,11 +19,14 @@
             @if($modul->isEmpty())
             <div class="d-flex flex-column align-items-center justify-content-center h-100 mb-5">
                 <div class="div ">
-                    <h1>The Are No Module</h1>
+                    <h1 class="pt-5" style="font-size: 3rem !important; font-weight: bold; margin-top: 6rem; margin-bottom: 3rem;">
+                        <span>There Are No Module Here,<span>
+                        <span>Upload Your Module Here.<span>
+                    </h1>
                 </div>
                 <br>
                 <div class="">
-                    <button class="btn btn-md fs-6 rounded-5 btn-custom py-2 px-4" onClick="buttonAddModul()">
+                    <button class="btn btn-md fs-4 rounded-4 btn-custom py-3 px-3" onClick="buttonAddModul()">
                         <i class="fa fa-plus me-2"></i>Upload Module
                     </button>
                 </div>
@@ -44,8 +47,6 @@
                     <i class="fa fa-plus me-1"></i>Upload Module
                 </button>
             </div>
-
-
 
             <div class="row mt-2 px-5 justify-content-center" id="modulContainer">
                 @foreach($modul as $file)
@@ -105,7 +106,7 @@
                             .then(data => {
                                 console.log(data);
                                 const modulContainer = document.getElementById('modulContainer');
-                                modulContainer.innerHTML = ` `; 
+                                modulContainer.innerHTML = ` `;
                                 data.forEach(file => {
                                     const modulItem =
                                         `<div class="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-10 mt-2">
@@ -151,18 +152,18 @@
 
         <script>
             function buttonAddModul() {
-                var title = "Add Modul\n" + "\n\n";
+                var title = "Add Your Modul\n" + "\n\n";
                 (async () => {
                     const {
                         value: formValues
                     } = await Swal.fire({
                         title: title,
                         backdrop: 'rgba(0,0,0,0.8)',
-                        confirmButtonText: 'Submit',
+                        confirmButtonText: 'Submit File',
                         html: `
                                 <div class="row">
-                                    <div class="col-3 d-flex align-self-center">
-                                        Title File
+                                    <div class="col-2 d-flex align-self-center">
+                                        Name
                                     </div>
                                     <div class="col">
                                         <input id="input-title" name="title" type="text" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
@@ -271,7 +272,7 @@
                 $(document).on('click', ".btn-edit", function(e) {
                     e.preventDefault();
                     let file = JSON.parse(this.getAttribute('data-file'));
-                    var title = "Add Modul\n" + "\n\n";
+                    var title = "Add Your Modul\n" + "\n\n";
                     (async () => {
                         const {
                             value: formValues
@@ -281,8 +282,8 @@
                             confirmButtonText: 'Submit',
                             html: `
                                 <div class="row">
-                                    <div class="col-3 d-flex align-self-center">
-                                        Title File
+                                    <div class="col-2 d-flex align-self-center">
+                                        Name
                                     </div>
                                     <div class="col">
                                         <input id="input-title" name="title" value="${file.judul}" type="text" class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
