@@ -51,7 +51,7 @@
 @include('footer')
 
 <script>
-    @if(session('success'))
+    if(session('success'))
         Swal.fire({
             icon: 'success',
             title: 'Success',
@@ -63,7 +63,7 @@
                 title: 'title',
             }
         });
-    @endif
+    endif
 
     function updateStatus(email) {
         Swal.fire({
