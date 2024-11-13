@@ -80,9 +80,9 @@
                 <tr>
                     <th>Trainer Email</th>
                     <th>Trainer Name</th>
-                    <th>Nama Training</th>
-                    <th>Tanggal Mulai</th>
-                    <th>Tanggal Selesai</th>
+                    <th>Training Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>

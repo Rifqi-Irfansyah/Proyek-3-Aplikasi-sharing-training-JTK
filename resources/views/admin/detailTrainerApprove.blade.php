@@ -31,17 +31,17 @@
 
 <div class="container">
     <div class="card" id="trainer-card-{{ $trainer->id }}">
-        <p><strong>Nama Trainer:</strong> {{ $trainer->user->name }}</p>
+        <p><strong>Trainer Name:</strong> {{ $trainer->user->name }}</p>
         <p><strong>Email:</strong> {{ $trainer->user->email }}</p>
-        <p><strong>Tanggal Lahir:</strong> {{ $trainer->user->tanggal_lahir }}</p>
-        <p><strong>No Telepon:</strong> {{ $tambahanTrainer->no_wa }}</p>
-        <p><strong>Pengalaman:</strong> {{ $tambahanTrainer->pengalaman }}</p>
-        <p><strong>Kemampuan:</strong> {{ $tambahanTrainer->kemampuan }}</p>
+        <p><strong>Date of Birth:</strong> {{ $trainer->user->tanggal_lahir }}</p>
+        <p><strong>Phone Number:</strong> {{ $tambahanTrainer->no_wa }}</p>
+        <p><strong>Experience:</strong> {{ $tambahanTrainer->pengalaman }}</p>
+        <p><strong>Ability:</strong> {{ $tambahanTrainer->kemampuan }}</p>
         <p id="status"><strong>Status:</strong> {{ $trainer->status_pengajuan }}</p>
         
         <div class="btn-group">
-            <a href="#" class="btn btn-view" onclick="approveTrainer('{{ $trainer->email }}')">✔️ Terima</a>
-            <a href="#" class="btn btn-delete" onclick="rejectTrainer('{{ $trainer->email }}')">❌ Tolak</a>
+            <a href="#" class="btn btn-view" onclick="approveTrainer('{{ $trainer->email }}')">✔️ Accept</a>
+            <a href="#" class="btn btn-delete" onclick="rejectTrainer('{{ $trainer->email }}')">❌ Reject</a>
         </div>
     </div>
 </div>
@@ -51,17 +51,16 @@
 @endsection
 
 <script>
-    // Definisikan route URL di awal script
     const approveTrainerRoute = "{{ route('approvetrainer') }}";
     
     function approveTrainer(email) {
         Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Apakah Anda ingin menerima trainer ini?",
+            title: 'Are you sure?',
+            text: "Would you like to accept this trainer?",
             icon: 'info',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Terima!',
-            cancelButtonText: 'Batal',
+            confirmButtonText: 'Yes, accept!',
+            cancelButtonText: 'Cancelled',
             reverseButtons: true,
             backdrop: 'rgba(0,0,0,0.8)',
             customClass: {
@@ -87,10 +86,14 @@
                     success: function(response) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Trainer Diterima!',
-                            text: 'Trainer telah berhasil diterima.',
+                            title: 'Success',
+                            text: 'Trainer successfully accepted',
+                            timer: 2000,
                             showConfirmButton: false,
-                            timer: 1000
+                            customClass: {
+                                popup: 'popup-success',
+                                title: 'title'
+                            }
                         }).then(() => {
                             window.location.href = approveTrainerRoute;
                         });
@@ -100,7 +103,11 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Error!',
-                            text: 'Terjadi kesalahan dalam menerima trainer.',
+                            text: 'An error occurred in accepting the trainer.',
+                            customClass: {
+                                popup: 'popup-error',
+                                title: 'title'
+                            }
                         });
                     }
                 });
@@ -110,12 +117,12 @@
 
     function rejectTrainer(email) {
         Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Apakah Anda ingin menolak trainer ini?",
+            title: 'Are you sure?',
+            text: "Do you want to reject this trainer?",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Tolak!',
-            cancelButtonText: 'Batal',
+            confirmButtonText: 'Yes, reject!',
+            cancelButtonText: 'Cancelled',
             reverseButtons: true,
             backdrop: 'rgba(0,0,0,0.8)',
             customClass: {
@@ -141,11 +148,15 @@
                     success: function(response) {
                         if (response.success) {
                             Swal.fire({
-                                icon: 'error',
-                                title: 'Trainer Ditolak!',
-                                text: 'Trainer telah berhasil ditolak.',
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Trainer was successfully rejected',
+                                timer: 2000,
                                 showConfirmButton: false,
-                                timer: 1000
+                                customClass: {
+                                    popup: 'popup-success',
+                                    title: 'title'
+                                }
                             }).then(() => {
                                 window.location.href = approveTrainerRoute;
                             });
@@ -154,6 +165,10 @@
                                 icon: 'error',
                                 title: 'Error!',
                                 text: response.message,
+                                customClass: {
+                                    popup: 'popup-error',
+                                    title: 'title'
+                                }
                             });
                         }
                     },
@@ -162,7 +177,11 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Error!',
-                            text: 'Terjadi kesalahan dalam menolak trainer.',
+                            text: 'An error occurred in rejecting the trainer',
+                            customClass: {
+                                popup: 'popup-error',
+                                title: 'title'
+                            }
                         });
                     }
                 });

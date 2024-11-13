@@ -19,7 +19,7 @@
         padding-bottom: 0px;
     }
     .table-container {
-        width: 50%; /* Lebar lebih kecil */
+        width: 50%;
         margin: 0 auto;
         margin: 30px 0 50px;
         padding-bottom: 20px;
@@ -29,29 +29,29 @@
         border-collapse: collapse;
         border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
         border-radius: 10px;
         overflow: hidden;
     }
     .table th, .table td {
-        padding: 8px 10px; /* Reduced padding for tighter spacing */
+        padding: 8px 10px;
         text-align: center;
         border-bottom: 1px solid #ddd;
         vertical-align: middle;
-        font-size: 16px; /* Standard font size */
+        font-size: 16px; 
     }
     .table th {
         background-color: #91c3f2;
-        font-weight: bold; /* Bold text for header */
+        font-weight: bold; 
         background-color: #91c3f2;
     }
     .table td {
         background-color: white;
-        transition: background-color 0.3s; /* Smooth transition for hover effect */
+        transition: background-color 0.3s; 
         background-color: white;
     }
     .table tr:hover td {
-        background-color: #f1f7fc; /* Highlight row on hover */
+        background-color: #f1f7fc; 
     }
     .btn {
         padding: 8px 12px;
@@ -70,19 +70,19 @@
         background-color: #138496;
     }
     .table th:nth-child(1), .table td:nth-child(1) {
-        width: 30%; /* Lebar kolom "Trainer Email" */
+        width: 30%; 
     }
 
     .table th:nth-child(2), .table td:nth-child(2) {
-        width: 30%; /* Lebar kolom "Trainer Name" */
+        width: 30%; 
     }
 
     .table th:nth-child(3), .table td:nth-child(3) {
-        width: 20%; /* Lebar kolom "No Telepon" */
+        width: 20%; 
     }
 
     .table th:nth-child(4), .table td:nth-child(4) {
-        width: 20%; /* Lebar kolom "Actions" */
+        width: 20%; 
     }
 
 
@@ -100,7 +100,7 @@
             <tr>
                 <th>Trainer Email</th>
                 <th>Trainer Name</th>
-                <th>No Telepon</th>
+                <th>Phone Number</th>
                 <th>Actions</th>
             </tr>
         </thead>
