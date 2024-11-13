@@ -32,7 +32,7 @@
                     <a class="nav-link {{ request()->routeIs('listModul') ? 'text-white' : '' }}"
                         style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
                         href="{{ route('listModul') }}">
-                        <i class="fas fa-book"></i> Module
+                        <i class="fas fa-book"></i> Learning Module
                     </a>
                 </li>
                 </li>
