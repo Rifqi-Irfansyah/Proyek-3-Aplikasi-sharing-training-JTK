@@ -11,6 +11,8 @@ class PengajuanTrainer extends Model
     protected $table = 'pengajuan_trainer';
 
     protected $fillable = [
+        'id_training',
+        'email_trainer',
         'status_pengajuan'
     ];
 

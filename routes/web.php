@@ -153,6 +153,9 @@ Route::middleware(['checkRole:peserta'])->group(function () {
 });
 
 Route::middleware(['checkRole:pemateri'])->group(function () {
+    Route::get('/previewTrainingTrainer/{id}',[PreviewTrainingController::class, 'previewTrainingTrainer'])->name('previewTrainingTrainer');
+    Route::post('/joinTrainingTrainer/{id}', [PreviewTrainingController::class, 'joinTrainingTrainer'])->name('joinTrainingTrainer');
+
     Route::get('/berandaTrainer', [BerandaTrainerController::class, 'index'])->name('berandaTrainer');
     Route::get('/detailTrainingTrainer/{id}', [BerandaTrainerController::class, 'detailTraining'])->name('detailTrainingTrainer');
     Route::get('/tambahkanTrainingTrainer/{id}', [BerandaTrainerController::class, 'tambahTraining'])->name('tambahkanTrainingTrainer');

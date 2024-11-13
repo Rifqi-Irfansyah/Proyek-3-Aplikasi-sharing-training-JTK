@@ -3,6 +3,35 @@
 @section('title', 'Preview Training')
 
 @section('content')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-success',
+                    title: 'title',
+                }
+            });
+        @elseif(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "{{ session('error') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-error',
+                    title: 'title',
+                }
+            });
+        @endif
+    });
+</script>
 @include('peserta.topbarPeserta')
 <section class="container mt-5 mb-5">
     <div class="d-flex justify-content-between align-items-center">
