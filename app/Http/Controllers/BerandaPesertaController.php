@@ -7,6 +7,7 @@ use App\Models\Training;
 use App\Models\Usulan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+USE illuminate\Support\Collection;
 
 class BerandaPesertaController extends Controller
 {
@@ -17,12 +18,30 @@ class BerandaPesertaController extends Controller
             $query->where('email_peserta', $peserta);
         })->get();
 
-        $trainingBelumDiikuti = Training::whereDoesntHave('peserta', function ($query) use ($peserta) {
+        $trainingTidakDiikuti = Training::whereDoesntHave('peserta', function ($query) use ($peserta) {
             $query->where('email_peserta', $peserta);
-        })->get();
+        })
+        ->get();
+
+        $trainingBelumDiikuti = collect();
+
+
+        foreach ($trainingTidakDiikuti as $tr) {
+            $total_kuota= Training::withCount('peserta')->find($tr->id_training);
+            if($tr->kuota > $total_kuota->peserta_count)
+                $trainingBelumDiikuti->push($tr);
+        }
+
         $nama = Auth::user()->name;
         return view('peserta.BerandaPeserta', compact('trainingDiikuti','trainingBelumDiikuti','nama'));
     }
+    
+    // public function kuotaTraining($id)
+    // {
+        //     $kuota_training = Training::withCount('peserta')->find($id);
+        //     return view('peserta.BerandaPeserta',compact('kuota_training'));
+
+    // }
 
     public function store(Request $request)
     {

@@ -107,20 +107,15 @@
             <h4 class="text-center p-5 m-5 text-light"><i><b>No training available. </b></i></h4>
         @else
             @foreach($trainingBelumDiikuti as $trainingView)
-            @if($trainingView->kuota>30)
-
-            @else
             <div class = 'col-md-4 mb-5 mt-4'>
                 <div class="card w-100 rounded-5" style="height: 230px;">
                     <div class="card-body">
                     <h4 class="card-title pb-4">{{ $trainingView->judul_training }}</h4>
                     <p class="card-text">{{ Str::limit($trainingView->deskripsi,100) }}</p>
-                    <a href="{{--{{ $training-> }}--}}" class="btn btn-info float-end rounded-5">Select</a>
+                    <a href="/preview-training/{{ $trainingView->id_training }}" class="btn btn-info float-end rounded-5">Select</a>
                     </div>
                 </div>
             </div>
-            @endif
-
             @endforeach
         @endif
     </div>
