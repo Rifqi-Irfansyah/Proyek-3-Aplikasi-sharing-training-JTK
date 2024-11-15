@@ -333,7 +333,6 @@
 .nav-link:hover {
 transition: color 0.3s;
 }
-.nav-link:hover i,
 .nav-link:hover {
 color: white !important;
 }
@@ -387,16 +386,24 @@ body {
 
 .dropdown:hover>.dropdown-menu {
   display: block;
-  transform: translateX(-40px);
-  margin-right: 5px;
 }
 
 .dropdown>.dropdown-toggle:active {
   pointer-events: none;
 }
 
+.dropdown-menu {
+  transform: translateX(-150px);
+  margin-right: 5px;
+  width: 280px;
+  background: rgb(255, 255, 255); 
+  backdrop-filter: blur(8px);  
+  box-shadow: rgba(41, 41, 41, 0.475) 0px 4px 12px; 
+  position: absolute; 
+}
+
 .dropdown ul li a:hover{
-  background-color: var(--blue);
+  background-color: red;
 }
 
 .sidebar-new {
