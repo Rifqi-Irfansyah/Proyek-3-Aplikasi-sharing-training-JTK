@@ -38,6 +38,20 @@
             });
         @endif
 
+        @if(session('info'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Info',
+                text: "{{ session('info') }}",
+                timer: 2000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-success',
+                    title: 'title',
+                }
+            });
+        @endif
+
 
         document.querySelectorAll('.deleteButton').forEach(function(button) {
             button.addEventListener('click', function (event) {
