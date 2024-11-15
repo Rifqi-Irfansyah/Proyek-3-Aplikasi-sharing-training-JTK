@@ -272,8 +272,21 @@ function buttonDeleteMeet(){
     @if ((\Carbon\Carbon::parse($meet->waktu_mulai)) <= (\Carbon\Carbon::now()->addDays(3)->setTimezone('Asia/Jakarta')))
         Swal.fire({
             icon: 'info',
-            title: 'Meeting Cannot Edit!',
-            text: 'Only meeting scheduled before H-3 are editable',
+            title: 'Meeting Cannot Delete!',
+            text: 'Only meeting scheduled before H-3 are deleteable',
+            backdrop: 'rgba(0,0,0,0.8)',
+            customClass: {
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
+                title: 'title',
+                color: '#DE2323',
+            }
+        })
+    @elseif($training->jadwalTrainings()->count() <= 4)
+        Swal.fire({
+            icon: 'info',
+            title: 'Meeting Cannot Delete!',
+            text: 'The total number of meetings must be 4 or more',
             backdrop: 'rgba(0,0,0,0.8)',
             customClass: {
                 popup: 'popup-edit',
