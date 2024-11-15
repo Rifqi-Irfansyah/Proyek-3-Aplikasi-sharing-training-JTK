@@ -48,15 +48,22 @@
                             <i class="fas fa-user"></i> Profile
                         </a>
                         <ul class="dropdown-menu px-3 rounded-2" aria-labelledby="dropdownMenuButton">
-                            <li class="d-flex align-items-center">
-                                <div class="col">
-                                    <span class='h6'>{{ Auth::user()->name }}</span>
-                                    <span>{{ Auth::user()->email }}</span>
-                                    <h6>Role : <span>{{ Auth::user()->role }}</span>
-                                </div>
+                            <li>
+                                <i class="mx-2 fa-solid fa-user"></i>
+                                <span>{{ Auth::user()->name }}</span>
                             </li>
                             <li>
-                                <a class="dropdown-item px-0 rounded-3" href="{{ route('logout') }}">Logout</a>
+                                <i class="mx-2 fa-solid fa-envelope"></i>
+                                <span>{{ Auth::user()->email }}</span>
+                            </li>
+                            <li>
+                                <i class="mx-2 fa-solid fa-gear"></i>
+                                Role : <span>{{ Auth::user()->role }}</span>
+                            </li>
+                            <li class="mt-3">
+                                <a class="dropdown-item px-0 rounded-3" href="{{ route('logout') }}">
+                                    <i class="mx-2 fa-solid fa-right-from-bracket"></i>Logout
+                                </a>
                             </li>
                         </ul>
 
