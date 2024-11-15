@@ -8,23 +8,23 @@
 
 <style>
     .card {
-        width: 1200px; /* Atur lebar sesuai kebutuhan */
-        margin: 20px auto; /* Margin atas-bawah 20px, margin kiri-kanan auto untuk memusatkan */
-        padding: 30px; /* Padding dalam kartu */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan untuk tampilan lebih menarik */
+        width: 1200px; 
+        margin: 20px auto; 
+        padding: 30px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     }
 
     .card p {
-        font-size: 1.25rem; /* Mengatur ukuran font untuk paragraf di dalam kartu */
-        line-height: 1.5; /* Mengatur jarak antar baris untuk keterbacaan yang lebih baik */
+        font-size: 1.25rem; 
+        line-height: 1.5; 
     }
 
     .card strong {
-        font-size: 1.25rem; /* Mengatur ukuran font untuk teks yang dicetak tebal */
+        font-size: 1.25rem; 
     }
 
     .btn-group {
-        margin-top: 20px; /* Jarak antara tombol dan konten atas */
+        margin-top: 20px; 
     }
 </style>
 
@@ -34,16 +34,16 @@
 
 <div class="container">
     <div class="card" id="trainer-card-{{ $trainer->id }}">
-        <p><strong>Nama Trainer:</strong> {{ $trainer->user->name }}</p>
+        <p><strong>Trainer Name:</strong> {{ $trainer->user->name }}</p>
         <p><strong>Email:</strong> {{ $trainer->email }}</p>
-        <p><strong>Tanggal Lahir:</strong> {{ $trainer->user->tanggal_lahir }}</p>
-        <p><strong>No Telepon:</strong> {{ $trainer->no_wa }}</p>
-        <p><strong>Pengalaman:</strong> {{ $trainer->pengalaman }}</p>
-        <p><strong>Kemampuan:</strong> {{ $trainer->kemampuan }}</p>
+        <p><strong>Date of Birth:</strong> {{ $trainer->user->tanggal_lahir }}</p>
+        <p><strong>Phone Number:</strong> {{ $trainer->no_wa }}</p>
+        <p><strong>Experience:</strong> {{ $trainer->pengalaman }}</p>
+        <p><strong>Ability:</strong> {{ $trainer->kemampuan }}</p>
         
         <div class="btn-group">
-            <a href="#" class="btn btn-view" onclick="updateStatus('{{ $trainer->email }}')">✔️ Verif</a>
-            <a href="#" class="btn btn-delete" onclick="update2Status('{{ $trainer->email }}')">❌ Tolak</a>
+            <a href="#" class="btn btn-view" onclick="updateStatus('{{ $trainer->email }}')">✔️ Verification</a>
+            <a href="#" class="btn btn-delete" onclick="update2Status('{{ $trainer->email }}')">❌ Reject</a>
         </div>
     </div>
 </div>
@@ -51,15 +51,28 @@
 @include('footer')
 
 <script>
-    function updateStatus(email) {
-        // Menggunakan SweetAlert untuk konfirmasi
+    if(session('success'))
         Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Apakah Anda ingin mengonfirmasi trainer ini?",
+            icon: 'success',
+            title: 'Success',
+            text: "{{ session('success') }}",
+            timer: 2000,
+            showConfirmButton: false,
+            customClass: {
+                popup: 'popup-success',
+                title: 'title',
+            }
+        });
+    endif
+
+    function updateStatus(email) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to verify this trainer?",
             icon: 'info',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Konfirmasi!',
-            cancelButtonText: 'Batal',
+            confirmButtonText: 'Yes,verify!',
+            cancelButtonText: 'Cancelled',
             reverseButtons: true,
             backdrop: 'rgba(0,0,0,0.8)',
             customClass: {
@@ -86,18 +99,26 @@
                         if (response.success) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Trainer Dikonfirmasi!',
-                                text: 'Trainer telah berhasil dikonfirmasi.',
+                                title: 'Success',
+                                text: 'Trainer has been successfully verified',
+                                timer: 2000,
                                 showConfirmButton: false,
-                                timer: 1000
+                                customClass: {
+                                    popup: 'popup-success',
+                                    title: 'title'
+                                }
                             }).then(() => {
-                                window.location.href = "{{ route('verifTrainer') }}"; // Redirect ke halaman verif-trainer
+                                window.location.href = "{{ route('verifTrainer') }}";
                             });
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Gagal!',
+                                title: 'Fail!',
                                 text: response.message,
+                                customClass: {
+                                    popup: 'popup-edit',
+                                    title: 'title'
+                                }
                             });
                         }
                     },
@@ -105,8 +126,12 @@
                         console.error('Error:', error);
                         Swal.fire({
                             icon: 'error',
-                            title: 'Terjadi Kesalahan',
-                            text: 'Gagal mengonfirmasi trainer.',
+                            title: 'There is an error',
+                            text: 'Failed to verify trainer',
+                            customClass: {
+                                popup: 'popup-edit',
+                                title: 'title'
+                            }
                         });
                     }
                 });
@@ -115,14 +140,13 @@
     }
 
     function update2Status(email) {
-        // Menggunakan SweetAlert untuk konfirmasi
         Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Apakah Anda ingin menolak trainer ini?",
+            title: 'Are you sure?',
+            text: "Do you want to reject this trainer?",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Tolak!',
-            cancelButtonText: 'Batal',
+            confirmButtonText: 'Yes, Reject!',
+            cancelButtonText: 'Cancelled',
             reverseButtons: true,
             backdrop: 'rgba(0,0,0,0.8)',
             customClass: {
@@ -149,18 +173,26 @@
                         if (response.success) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Trainer Ditolak!',
-                                text: 'Trainer telah berhasil ditolak.',
+                                title: 'Success',
+                                text: 'Trainer was successfully rejected',
+                                timer: 2000,
                                 showConfirmButton: false,
-                                timer: 1000
+                                customClass: {
+                                    popup: 'popup-success',
+                                    title: 'title'
+                                }
                             }).then(() => {
-                                window.location.href = "{{ route('verifTrainer') }}"; // Redirect ke halaman verif-trainer
+                                window.location.href = "{{ route('verifTrainer') }}";
                             });
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Gagal!',
+                                title: 'Fail!',
                                 text: response.message,
+                                customClass: {
+                                    popup: 'popup-edit',
+                                    title: 'title'
+                                }
                             });
                         }
                     },
@@ -168,8 +200,12 @@
                         console.error('Error:', error);
                         Swal.fire({
                             icon: 'error',
-                            title: 'Terjadi Kesalahan',
-                            text: 'Gagal menolak trainer.',
+                            title: 'There is an error',
+                            text: 'Failed to reject the trainer',
+                            customClass: {
+                                popup: 'popup-edit',
+                                title: 'title'
+                            }
                         });
                     }
                 });

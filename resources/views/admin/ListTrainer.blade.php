@@ -80,9 +80,9 @@
                         <th>Email</th>
                         <th>Name</th>
                         <th>Gender</th>
-                        <th>Tanggal Lahir</th>
-                        <th>No Telepon</th> 
-                        <th>Status Akun</th> 
+                        <th>Date of Birth</th>
+                        <th>Phone Numbe</th> 
+                        <th>Account Status</th> 
                     </tr>
                 </thead>
                 <tbody>
