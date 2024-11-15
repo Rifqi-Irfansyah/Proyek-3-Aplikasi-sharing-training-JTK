@@ -45,7 +45,7 @@
                         <input type="text" name="full_name" class="custom-input input-text form-control" placeholder="Full Name" required>
                     </div>
                     <div class="mb-3">
-                        <input type="date" name="date_of_birth" class="custom-input input-text form-control" placeholder="Date of Birth" required>
+                        <input type="date" id="date_of_birth" name="date_of_birth" class="custom-input input-text form-control" placeholder="Date of Birth" required>
                     </div>
 
                     <div class="">
@@ -123,6 +123,16 @@
             svgIcon.src = '{{ asset('asset/eye.svg') }}';
         }
     }
+</script>
+
+<script>
+    const currentYear = new Date().getFullYear();
+
+    const maxDate = new Date(currentYear - 16, 11, 31); 
+    const minDate = new Date(currentYear - 29, 0, 1);
+
+    document.getElementById('date_of_birth').max = maxDate.toISOString().split('T')[0];
+    document.getElementById('date_of_birth').min = minDate.toISOString().split('T')[0];
 </script>
 
 @endsection
