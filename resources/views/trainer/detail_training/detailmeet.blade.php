@@ -73,6 +73,14 @@ function buttonEditMeet() {
         })
     @else
         var title = "Edit Meet h-3" + "\n\n";
+        <?php
+            $lastJadwal = $training->jadwalTrainings->slice(-2, 1)->first();
+            $now = Carbon\Carbon::now('Asia/Jakarta')->addDays(3)->format('Y-m-d');
+            if($lastJadwal->waktu_mulai < $now)
+                $minDate = $now;
+            else
+                $minDate = $lastJadwal && $lastJadwal->waktu_mulai ? Carbon\Carbon::parse($lastJadwal->waktu_mulai)->addDays(1)->format('Y-m-d') : '';
+        ?>
         (async () => {
             const {
                 value: formValues
@@ -87,7 +95,7 @@ function buttonEditMeet() {
                                 <div class="col-5 d-flex align-self-left">Date</div>
                                 <div class="col-7 d-flex align-items-center">
                                     <input id="input-date" name="startMeet" type="date" value="{{ \Carbon\Carbon::parse($meet->waktu_mulai)->format('Y-m-d') }}"
-                                        class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4">
+                                        class="form-control form-control-lg bg-light fs-6 rounded-5 ps-4" min="<?php echo $minDate; ?>">
                                 </div>
                             </div>
 
@@ -158,6 +166,19 @@ function buttonEditMeet() {
                         Swal.showValidationMessage('Please complete all fields!');
                         setTimeout(() => {
                             Swal.close();
+                        }, 3000);
+                        return false;
+                    }
+
+                    const startDateTime = new Date(startMeet);
+                    const endDateTime = new Date(endMeet);
+                    const differenceInHours = (endDateTime - startDateTime) / (1000 * 60 * 60);
+
+                    if (differenceInHours < 1) {
+                        Swal.showValidationMessage('End time must be at least 1 hour after the start time!');
+                        setTimeout(() => {
+                            Swal.getValidationMessage().textContent = '';
+                            Swal.resetValidationMessage()
                         }, 3000);
                         return false;
                     }
