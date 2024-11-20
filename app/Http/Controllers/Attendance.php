@@ -41,23 +41,28 @@ class Attendance extends Controller
     }
 
     public function attendancePeserta(Request $request)
-    {
-        $request->validate([
-            'id_jadwal' => 'required|integer',
-            'email' => 'required|email',
+{
+
+    $request->validate([
+        'id_jadwal' => 'required|integer',
+        'email' => 'required|email',
+    ]);
+
+    $id_jadwal = $request->id_jadwal;
+    $email = $request->email;
+
+    try {
+        DB::table('absen')->insert([
+            'id_jadwal' => $id_jadwal,
+            'email' => $email,
+            'status' => 'Hadir',
+            'created_at' => now()->setTimezone('Asia/Jakarta'),
+            'updated_at' => now()->setTimezone('Asia/Jakarta'),
         ]);
-
-        $id_jadwal = $request->id_jadwal;
-        $email = $request->email;
-
-        if ($request->has('id_jadwal') && $request->has('email')) {
-            DB::table('absen')
-                ->where('id_jadwal', $id_jadwal)
-                ->where('email', $email)
-                ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
-
-            return response()->json(['success' => true, 'message' => 'Attendance marked successfully.']);
-        }
-        return response()->json(['success' => false, 'message' => 'Failed to mark attendance.']);
+        return response()->json(['success' => true, 'message' => 'Attendance marked successfully.']);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => 'Failed to mark attendance. You already take attendancey', 'error' => $e->getMessage()]);
     }
+}
+
 }

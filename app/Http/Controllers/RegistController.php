@@ -86,7 +86,7 @@ class RegistController extends Controller
 
         // Session::flash('success', 'Your Account Success Registered');
         // return view('auth.login', (['title' => 'Login', 'postLogin' => 'loginaksi', 'signup' => true]));
-        return redirect()->route('login')->with('success', 'Your Account Success Registered');
+        return redirect()->route('login')->with('success', 'Successful registration. Wait for admin to verify');
     } else {
         // Session::flash('error', 'Register failed. Please Try again.');
         // return redirect()->back();

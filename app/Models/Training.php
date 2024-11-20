@@ -32,4 +32,9 @@ class Training extends Model
         return $this->hasMany(PesertaTraining::class, 'id_training');
     }
 
+    public function PengajuanTrainer()
+    {
+        return $this->hasMany(PengajuanTrainer::class, 'id_training');
+    }
+
 }
