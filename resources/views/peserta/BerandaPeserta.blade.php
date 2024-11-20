@@ -64,8 +64,8 @@
 
 <div class='container'>
 
-    
-    
+
+
     <h1 class=" pt-5">
         <span>Hi,</span>
         <span class="text-primary">{{$nama}}</span><span>!</span>
@@ -100,7 +100,7 @@
 </div>
 
 <div class='container'>
-    <h1>List Training</h1>
+    <h1>List Available Training</h1>
 
     <div class='row'>
         @if($trainingBelumDiikuti->isEmpty())

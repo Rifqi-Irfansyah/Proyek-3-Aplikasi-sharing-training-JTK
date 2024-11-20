@@ -28,14 +28,14 @@ class BerandaPesertaController extends Controller
 
         foreach ($trainingTidakDiikuti as $tr) {
             $total_kuota= Training::withCount('peserta')->find($tr->id_training);
-            if($tr->kuota > $total_kuota->peserta_count)
+            if($tr->kuota > $total_kuota->peserta_count && $tr->status === 'Pendaftaran')
                 $trainingBelumDiikuti->push($tr);
         }
 
         $nama = Auth::user()->name;
         return view('peserta.BerandaPeserta', compact('trainingDiikuti','trainingBelumDiikuti','nama'));
     }
-    
+
     // public function kuotaTraining($id)
     // {
         //     $kuota_training = Training::withCount('peserta')->find($id);
@@ -54,7 +54,7 @@ class BerandaPesertaController extends Controller
         Usulan::create([
             'judul_materi' => $request->judul_materi,
             'bahasan' => $request->bahasan,
-            'email_pengusul' => $request->email_pengusul, 
+            'email_pengusul' => $request->email_pengusul,
         ]);
 
         return redirect()->back()->with('success', 'Usulan berhasil dikirim!');
