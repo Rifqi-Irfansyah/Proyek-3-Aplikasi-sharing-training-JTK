@@ -36,7 +36,7 @@
 <section class="container mt-5 mb-5">
     <div class="d-flex justify-content-between align-items-center">
         <button class="btn btn-back btn-md fs-5 rounded-5 py-2 w-50px h-50px">
-            <a href="{{ route('beranda_peserta') }}"><i class="fa-solid fa-angle-left" aria-hidden="true"></i></a>
+            <a href="{{ route('berandaTrainer') }}"><i class="fa-solid fa-angle-left" aria-hidden="true"></i></a>
         </button>
         <h1 class="text-center flex-grow-1"><strong>{{ $training->judul_training }}</strong></h1>
     </div>

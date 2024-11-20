@@ -68,7 +68,7 @@ class PreviewTrainingController extends Controller
             ]);
             // Session::flash('success', 'You have successfully joined the training!');
             // return redirect()->route('beranda.admin');PengajuanTrainer redirect()->route('detailTrainingPeserta', ['id' => $id])->with('success', 'You have successfully joined the training!');
-            return redirect()->route('berandaTrainer', ['id' => $id])->with('success', 'You have successfully joined the training!');
+            return redirect()->route('berandaTrainer', ['id' => $id])->with('success', 'Request successfully submitted. Wait for admin to approve');
         }
 
         // Session::flash('error', 'You are already registered for this training.');
