@@ -41,8 +41,12 @@ class DetailTraining extends Controller
     {
         $detailMeet = JadwalTraining::with(['training', 'absen.user'])->find($id);
         $training = Training::with(['jadwalTrainings', 'user'],)->find($detailMeet->id_training);
+        $absenEmails = $detailMeet->absen->pluck('email')->toArray(); 
+        $userNotAbsen = PesertaTraining::with('user')->where('id_training', $training->id_training)
+            ->whereNotIn('email_peserta', $absenEmails)
+            ->get();
         $trainerAbsent = Absen::where('id_jadwal', $id)->where('email', $training->email_trainer)->first();
-        return view('trainer.detail_training.detailmeet', ['meet' => $detailMeet, 'training' => $training, 'trainerAbsent' => $trainerAbsent]);
+        return view('trainer.detail_training.detailmeet', ['meet' => $detailMeet, 'training' => $training, 'trainerAbsent' => $trainerAbsent, 'userNotAbsen' => $userNotAbsen   ]);
     }
 
     public function modul($id)

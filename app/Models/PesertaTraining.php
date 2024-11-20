@@ -19,4 +19,9 @@ class PesertaTraining extends Model
     {
         return $this->belongsTo(Training::class, 'email_peserta', 'email');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email_peserta', 'email');
+    }
 }

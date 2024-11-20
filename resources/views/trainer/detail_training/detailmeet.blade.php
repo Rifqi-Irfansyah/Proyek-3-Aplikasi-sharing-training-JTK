@@ -527,6 +527,18 @@ function buttonAttendance(){
                                 </tr>
                                 @php $i++ @endphp
                             @endforeach
+                            @foreach($userNotAbsen as $absen)
+                                <tr class="text-center">
+                                    <th scope="row">{{$i}}</th>
+                                    <td>{{$absen->user->name}}</td>
+                                    <td>{{$absen->updated_at}}</td>
+                                    <td class="text-danger">
+                                        Tidak Hadir
+                                    </td>
+                                </tr>
+                                @php $i++ @endphp
+                            @endforeach
+                            
                         </tbody>
                     </table>
                 `
