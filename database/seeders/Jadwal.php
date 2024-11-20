@@ -20,7 +20,7 @@ class Jadwal extends Seeder
         DB::table('training')->insert([
             // 'email_trainer' => "pemateri@gmail.com",
             'judul_training' => "Belajar Python",
-            'email_trainer' => "admin@gmail.com",
+            'email_trainer' => "pemateri2@gmail.com",
             'kuota' => 30,
             'deskripsi' => "Pelatihan ini dirancang untuk memberikan pemahaman dasar hingga menengah tentang bahasa pemrograman Python. Peserta akan mempelajari berbagai konsep mulai dari sintaks dasar, pengolahan data, hingga pengembangan aplikasi sederhana",
             'status' => "Pendaftaran"

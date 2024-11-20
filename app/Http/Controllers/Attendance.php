@@ -4,26 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Absen;
+use App\Models\Training;
 use App\Models\JadwalTraining;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Attendance extends Controller
 {
     public function attendanceTrainer(Request $request, $id)
     {
+        $jadwal = JadwalTraining::find($id);
+        $training = Training::find($jadwal->id_training);
+        $trainerAbsent = Absen::where('id_jadwal', $id)->where('email', $training->email_trainer)->first();
         $now = Carbon::now()->setTimezone('Asia/Jakarta');
         $meet = JadwalTraining::find($id);
         $meet->pertemuan_mulai = $now;
         $meet->save();
 
-        DB::table('absen')
-            ->where('id_jadwal', $id)
-            ->where('email', $request->email)
-            ->update(['status' => 'Hadir', 'updated_at' => now()->setTimezone('Asia/Jakarta')]);
-        return response()->json(['success' => 'Meeting added successfully!'], 200);
+        if (
+            $now >= $meet->waktu_mulai && $now <= $meet->waktu_selesai &&
+            (Auth::user()->email ?? 'null') == ($training->email_trainer ?? 'null') &&
+            ($trainerAbsent ?? 'null' == 'null')
+        ) {
+            Absen::create([
+                'id_jadwal' => $id,
+                'email' => $request->email,
+                'status' => 'Hadir',
+                'updated_at' => $now
+            ]);
+            return response()->json(['success' => 'Success Absence!'], 200);
+        }
+        return response()->json(['error' => 'Failed Absence!'], 404);
     }
 
     public function attendancePeserta(Request $request)

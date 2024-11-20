@@ -80,16 +80,6 @@ class DetailTraining extends Controller
             'status' => $request->status,
             'topik_pertemuan' => $request->descMeet
         ]);
-
-        $peserta = PesertaTraining::where('id_training', $request->id_training)->get();
-        foreach ($peserta as $data) {
-            Absen::create([
-                'email' => $data->email_peserta,
-                'status' => 'Tidak Hadir',
-                'id_jadwal' => $addMeet->id_jadwal,
-                'updated_at' => NULL
-            ]);
-        }
         
         return response()->json(['success' => 'Meeting added successfully!'], 200);
     }

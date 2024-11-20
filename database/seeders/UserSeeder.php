@@ -116,6 +116,14 @@ class UserSeeder extends Seeder
             'tanggal_lahir' => now(),
         ]);
 
+        DB::table('users')->insert([
+            'email' => "user11@gmail.com",
+            'role' => "peserta",
+            'name' => "Peserta 11",
+            'password' => Hash::make('123'),
+            'tanggal_lahir' => now(),
+        ]);
+
         // TRAINER
         DB::table('users')->insert([
             'email' => "pemateri@gmail.com",

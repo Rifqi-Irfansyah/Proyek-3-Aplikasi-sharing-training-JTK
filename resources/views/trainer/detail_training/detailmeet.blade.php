@@ -367,6 +367,8 @@ function buttonAttendance(){
     var meetStart = new Date("{{ \Carbon\Carbon::parse($meet->waktu_mulai) }}");
     var meetEnd = new Date("{{ \Carbon\Carbon::parse($meet->waktu_selesai) }}");
     var now = new Date("{{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta') }}");
+    @php
+    @endphp
     if(now < meetStart){
         Swal.fire({
             icon: 'warning',
@@ -381,7 +383,7 @@ function buttonAttendance(){
             }
         })
     }
-    else if(now >= meetStart && now <= meetEnd && ("{{auth()->user()->email ?? 'null'}}") == ("{{$trainerAbsent->email ?? 'null'}}" ) && ("{{$trainerAbsent->status ?? 'null'}}") == "Tidak Hadir"){
+    else if(now >= meetStart && now <= meetEnd && ("{{auth()->user()->email ?? 'null'}}") == ("{{$training->email_trainer ?? 'null'}}" ) && (("{{$trainerAbsent?->status ?? 'null'}}") == 'null' || ("{{$trainerAbsent?->status ?? 'null'}}") == 'Tidak Hadir')){
         (async () => {
             const confirmation = await Swal.fire({
                 icon: 'info',
