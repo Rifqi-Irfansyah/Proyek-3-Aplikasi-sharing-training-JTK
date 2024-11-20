@@ -113,14 +113,36 @@
 
 </div>
 
+<div class="container">
+    @if($trainingPending->isEmpty())
+
+    @else
+        <h2>Pending...</h2>
+        <div class="row">
+            @foreach($trainingPending as $trainingPendings)
+                <div class="col-md-4 mb-5 mt-4">
+                    <div class="card w-100 rounded-5" style="height: 230px;">
+                        <div class="card-body">
+                            <h4 class="card-title pb-4">{{ $trainingPendings->training->judul_training }}</h4>
+                            <p class="card-text">{{ Str::limit($trainingPendings->training->deskripsi, 100) }}</p>
+                            {{-- <a href="/previewTrainingTrainer/{{ $trainingPendings->training->id_training }}" class="btn btn-info float-end rounded-5">Select</a> --}}
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+</div>
+
+
 <div class='container'>
-    <h1>List Training</h1>
+    <h1>List Avaliable Training</h1>
 
     <div class='row'>
-        @if($trainingTidakaDiajarkan->isEmpty())
+        @if($trainingTidakDiajarkan->isEmpty())
             <h4 class="text-center p-5 m-5 text-light"><i><b>No training available. </b></i></h4>
         @else
-            @foreach($trainingTidakaDiajarkan as $trainingView)
+            @foreach($trainingTidakDiajarkan as $trainingView)
             <div class = 'col-md-4 mb-5 mt-4'>
                 <div class="card w-100 rounded-5" style="height: 230px;">
                     <div class="card-body">

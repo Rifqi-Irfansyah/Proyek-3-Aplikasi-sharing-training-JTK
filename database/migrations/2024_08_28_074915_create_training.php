@@ -22,7 +22,7 @@ return new class extends Migration
           $table->string('judul_training');
           $table->string('deskripsi',500);
           $table->enum('status', ['Pendaftaran', 'Berlangsung','Selesai']);
-          $table->string('kuota');
+          $table->integer('kuota');
           $table->timestamps();
 
       });
