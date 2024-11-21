@@ -126,9 +126,9 @@ class UserSeeder extends Seeder
 
         // TRAINER
         DB::table('users')->insert([
-            'email' => "pemateri@gmail.com",
+            'email' => "rifqi.irfansyah.tif23@polban.ac.id",
             'role' => "pemateri",
-            'name' => "Pemateri 1",
+            'name' => "Rifqi Irfansyah",
             'password' => Hash::make('123'),
             'tanggal_lahir' => now(),
         ]);
@@ -142,7 +142,7 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('tambahan_trainer')->insert([
-            'email' => "pemateri@gmail.com",
+            'email' => "rifqi.irfansyah.tif23@polban.ac.id",
             'no_wa' => "08965698171",
             'kemampuan' => "bisa bahasa java",
             'pengalaman' => "1-3 tahun",

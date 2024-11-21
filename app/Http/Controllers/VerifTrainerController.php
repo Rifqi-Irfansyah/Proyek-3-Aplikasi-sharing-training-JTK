@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Trainer; 
 use Illuminate\Http\Request;
 use App\Models\TambahanTrainer;
+use Illuminate\Support\Facades\Log;
+
 
 class VerifTrainerController extends Controller
 {
@@ -19,9 +21,17 @@ class VerifTrainerController extends Controller
 
     public function updateStatus(Request $request)
     {
-        $trainer = TambahanTrainer::where('email', $request->email)->update(['status_akun' => 'Terkonfirmasi']);;
+        $trainer = TambahanTrainer::with(['user'])->where('email', $request->email)->first();
+        $update = TambahanTrainer::where('email', $request->email)->update(['status_akun' => 'Terkonfirmasi']);;
     
-        if ($trainer) {
+        if ($update) {
+            $data = [
+                'name' => $trainer['user']->name,
+                'body' => '<p>Congratulations your account has been approved</p>
+                            <p>Now you can contribute as a trainer!!</p>'
+            ];
+    
+            Mail::to($trainer->email)->send(new SendEmail($data));
             return response()->json(['success' => true]);
         }
     
@@ -31,13 +41,20 @@ class VerifTrainerController extends Controller
 
     public function update2Status(Request $request)
     {
+        $trainer = TambahanTrainer::with(['user'])->where('email', $request->email)->first();
+        $update = TambahanTrainer::where('email', $request->email)->update(['status_akun' => 'Ditolak']);
         
-        $trainer = TambahanTrainer::where('email', $request->email)->update(['status_akun' => 'Ditolak']);;
+        if ($update) {
+            $data = [
+                'name' => $trainer['user']->name,
+                'body' => '<p>Our team has reviewed your capability and don`t meet our quality and technical standards </p>
+                            <p>But, hey! It doesn`t mean you`re bad. You can maximize your potential next time. </p>
+                            <p>Have a Nice Day !!</p>'
+            ];
     
-        if ($trainer) {
+            Mail::to($trainer->email)->send(new SendEmail($data));
             return response()->json(['success' => true]);
         }
-    
         
         return response()->json(['error' => true, 'message' => 'Trainer not found.']);
     }

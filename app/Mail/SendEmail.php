@@ -19,7 +19,6 @@ class SendEmail extends Mailable
 
     public function build()
     {
-        return $this->view('emails.trainer_status')
-                    ->with('data', $this->data);
+        return $this->view('emails.template_email')->with('data', $this->data);
     }
 }

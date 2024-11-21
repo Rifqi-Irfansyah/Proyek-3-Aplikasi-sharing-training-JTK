@@ -6,9 +6,8 @@
     <title>Status Trainer</title>
 </head>
 <body>
-    <h1>Status Akun Trainer</h1>
+    <h1>Status Your Account</h1>
     <p>Dear {{ $data['name'] }},</p>
-    <p>Permohonan Anda telah {{ $data['status_akun'] }}.</p>
-    <p>Terima kasih!</p>
+    <p>{!! $data['body'] !!}.</p>
 </body>
 </html>

@@ -95,6 +95,20 @@
                         email: email,
                         status: 'Terkonfirmasi'
                     },
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Processing...',
+                            text: 'System sending email',
+                            allowOutsideClick: false,
+                            customClass: {
+                                popup: 'popup-edit',
+                                title: 'title'
+                            },
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
                     success: function(response) {
                         if (response.success) {
                             Swal.fire({
@@ -168,6 +182,20 @@
                     data: {
                         email: email,
                         status: 'Ditolak'
+                    },
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Processing...',
+                            text: 'System sending email',
+                            allowOutsideClick: false,
+                            customClass: {
+                                popup: 'popup-edit',
+                                title: 'title'
+                            },
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
                     },
                     success: function(response) {
                         if (response.success) {
