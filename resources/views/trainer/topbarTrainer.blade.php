@@ -23,23 +23,10 @@
                     </a>
                 </li>
                 <li class="nav-link nav-item">
-                    <a class="nav-link {{ request()->routeIs('approvetrainer') ? 'text-white' : '' }}"
-                        style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
-                        href="#">
-                        <i class="fas fa-check"></i> Your Training
-                    </a>
-                <li class="nav-link nav-item">
                     <a class="nav-link {{ request()->routeIs('listModul') ? 'text-white' : '' }}"
                         style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
                         href="{{ route('listModul') }}">
                         <i class="fas fa-book"></i> Learning Module
-                    </a>
-                </li>
-                </li>
-                <li class="nav-link nav-item">
-                    <a class="nav-link" style="font-size: 0.9rem; display: flex; align-items: center; gap: 8px;"
-                        href="#">
-                        <i class="fas fa-cog"></i> Settings
                     </a>
                 </li>
                 <li class="nav-link nav-item">

@@ -129,7 +129,7 @@
     const currentYear = new Date().getFullYear();
 
     const maxDate = new Date(currentYear - 16, 11, 31); 
-    const minDate = new Date(currentYear - 29, 0, 1);
+    const minDate = new Date(currentYear - 65, 0, 1);
 
     document.getElementById('date_of_birth').max = maxDate.toISOString().split('T')[0];
     document.getElementById('date_of_birth').min = minDate.toISOString().split('T')[0];
