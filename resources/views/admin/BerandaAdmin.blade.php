@@ -34,6 +34,20 @@
             });
         @endif
 
+        @if(session('warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: "{{ session('warning') }}",
+                timer: 5000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'popup-warning',
+                    title: 'title',
+                }
+            });
+        @endif
+
 
         document.querySelectorAll('.deleteButton').forEach(function(button) {
             button.addEventListener('click', function (event) {
@@ -96,7 +110,7 @@
                 @else
                     <span class="text-muted">No Trainer Yet</span>
                 @endif
-                
+
                         </td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->first()->waktu_mulai)->format('l, d M Y') }}</td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_selesai)->format('l, d M Y') }}</td>
