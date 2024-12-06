@@ -20,11 +20,24 @@ class BerandaAdminController extends Controller
         foreach ($trainings as $training) {
             $meetStart = $training->jadwalTrainings->first()->waktu_mulai;
             $meetEnd = $training->jadwalTrainings->last()->waktu_mulai;
+            $total_peserta = Training::withCount('peserta')->find($training->id_training);
 
             if ($meetStart) {
                 $timeMinusOneDay = Carbon::parse($meetStart)->subDay();
+
                 if ($training->email_trainer === NULL && $now >= $timeMinusOneDay) {
-                    $deletedTrainings[] = $training->judul_training;
+                    $deletedTrainingsNoTrainer[] = $training->judul_training;
+                    foreach ($training->jadwalTrainings as $jadwal) {
+                        $jadwal->absen()->delete();
+                    }
+                    $training->jadwalTrainings()->delete();
+                    $training->Modul()->delete();
+                    $training->delete();
+                    continue;
+                }
+
+                if ($total_peserta->peserta_count <= 10 && $now >= $timeMinusOneDay) {
+                    $deletedTrainingsLowParticipants[] = $training->judul_training;
                     foreach ($training->jadwalTrainings as $jadwal) {
                         $jadwal->absen()->delete();
                     }
@@ -43,8 +56,13 @@ class BerandaAdminController extends Controller
             $training->save();
         }
 
-        if (!empty($deletedTrainings)) {
-            $message = 'The trainings below were deleted because they did not have trainers by the deadline : ' . implode(', ', $deletedTrainings);
+        if (!empty($deletedTrainingsNoTrainer)) {
+            $message = 'The trainings below were deleted because they did not have trainers: ' . implode(', ', $deletedTrainingsNoTrainer);
+            session()->flash('warning', $message);
+        }
+
+        if (!empty($deletedTrainingsLowParticipants)) {
+            $message = 'The trainings below were deleted because they had less than 10 participants: ' . implode(', ', $deletedTrainingsLowParticipants);
             session()->flash('warning', $message);
         }
 

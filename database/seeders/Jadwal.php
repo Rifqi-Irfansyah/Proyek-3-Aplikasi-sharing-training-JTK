@@ -32,7 +32,7 @@ class Jadwal extends Seeder
             'status' => "offline",
             'waktu_mulai' => now()->subDays(2)->setTimezone('Asia/Jakarta'),
             'waktu_selesai' => now()->setTimezone('Asia/Jakarta'),
-            'topik_pertemuan' => 
+            'topik_pertemuan' =>
             "Pengenalan Python, sintaks dasar, tipe data, variabel, dan operasi sederhana."
         ]);
 
@@ -42,7 +42,7 @@ class Jadwal extends Seeder
             'status' => "offline",
             'waktu_mulai' => now()->setTimezone('Asia/Jakarta'),
             'waktu_selesai' => now()->addHours(3)->setTimezone('Asia/Jakarta'),
-            'topik_pertemuan' => 
+            'topik_pertemuan' =>
             "Penggunaan if-else, looping (for, while), dan pengenalan fungsi untuk mengorganisir kode."
         ]);
 
@@ -52,12 +52,13 @@ class Jadwal extends Seeder
             'status' => "offline",
             'waktu_mulai' => now()->addDays(4)->setTimezone('Asia/Jakarta'),
             'waktu_selesai' => now()->addDays(4)->setTimezone('Asia/Jakarta'),
-            'topik_pertemuan' => 
+            'topik_pertemuan' =>
             "Pengenalan list, tuple, set, dan dictionary untuk menyimpan dan memanipulasi data."
         ]);
 
         DB::table('training')->insert([
             'judul_training' => "Belajar Java",
+            'email_trainer' => "pemateri2@gmail.com",
             'kuota' => 30,
             'deskripsi' => "Pelatihan ini bertujuan untuk memberikan pemahaman komprehensif tentang pemrograman Java, dari dasar hingga pengembangan aplikasi sederhana. Peserta akan mempelajari dasar-dasar Java, konsep berorientasi objek, struktur data, dan penerapan praktis dalam pembuatan aplikasi. Setiap sesi mencakup pembelajaran teoritis yang diikuti dengan latihan praktis.",
             'status' => "Pendaftaran"
@@ -69,7 +70,7 @@ class Jadwal extends Seeder
             'status' => "offline",
             'waktu_mulai' => now()->subDays(4)->setTimezone('Asia/Jakarta'),
             'waktu_selesai' => now()->subDays(4)->setTimezone('Asia/Jakarta'),
-            'topik_pertemuan' => 
+            'topik_pertemuan' =>
             "Pengenalan list, tuple, set, dan dictionary untuk menyimpan dan memanipulasi data."
         ]);
     }

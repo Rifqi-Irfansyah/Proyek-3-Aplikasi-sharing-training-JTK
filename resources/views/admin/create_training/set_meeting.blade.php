@@ -145,6 +145,13 @@
                     break;
                 }
 
+                if ((endTime - startTime) / (1000 * 60 * 60) > 3) {
+                    valid = false;
+                    errorMessage += `The finish time for Meeting ${i} must not be more than 3 hours after the start time.\n`;
+                    jamSelesaiInput.focus();
+                    break;
+                }
+
                 previousDate = currentDate;
             }
 
