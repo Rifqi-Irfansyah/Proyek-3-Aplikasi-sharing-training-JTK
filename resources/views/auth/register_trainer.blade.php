@@ -39,10 +39,10 @@
                 <form method="POST" action="{{ route('register.trainer.submit') }}">
                     @csrf
                     <div class="mb-3">
-                        <input type="email" name="email" class="custom-input input-text form-control" placeholder="Email" required>
+                        <input type="email" name="email" class="custom-input input-text form-control" placeholder="Email" maxlength="255" required>
                     </div>
                     <div class="mb-3">
-                        <input type="text" name="full_name" class="custom-input input-text form-control" placeholder="Full Name" required>
+                        <input type="text" name="full_name" class="custom-input input-text form-control" placeholder="Full Name" maxlength="50" required>
                     </div>
                     <div class="mb-3">
                         <input type="date" id="date_of_birth" name="date_of_birth" class="custom-input input-text form-control" placeholder="Date of Birth" required>
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" name="kemampuan" class="custom-input input-text form-control" placeholder="Kemampuan" required>
+                        <input type="text" name="kemampuan" class="custom-input input-text form-control" placeholder="Kemampuan" maxlength="255" required>
                     </div>
 
                     <div class="mb-3">
@@ -74,14 +74,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <input type="tel" name="no_wa" class="custom-input input-text form-control" placeholder="Nomor WhatsApp" pattern="^\+?[0-9]{10,13}$" required>
+                        <input type="tel" name="no_wa" class="custom-input input-text form-control" placeholder="Nomor WhatsApp" pattern="^\+?[0-9]{10,13}$" maxlength="20" required>
                     </div>
 
                     <div class="mb-3">
-                        <input type="password" name="password" class="custom-input input-text form-control" placeholder="Password" required>
+                        <input type="password" name="password" class="custom-input input-text form-control" placeholder="Password" maxlength="255" required>
                     </div>
                     <div class="mb-4">
-                        <input type="password" name="password_confirmation" class="custom-input input-text form-control" placeholder="Confirm Password" required>
+                        <input type="password" name="password_confirmation" class="custom-input input-text form-control" placeholder="Confirm Password" maxlength="255" required>
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-md w-100 fs-6 rounded-5 btn-custom" style="background-color: #6cace4; color: white;"> <!-- Sudut tombol dibuat melingkar -->
@@ -128,7 +128,7 @@
 <script>
     const currentYear = new Date().getFullYear();
 
-    const maxDate = new Date(currentYear - 16, 11, 31); 
+    const maxDate = new Date(currentYear - 16, 11, 31);
     const minDate = new Date(currentYear - 65, 0, 1);
 
     document.getElementById('date_of_birth').max = maxDate.toISOString().split('T')[0];

@@ -39,7 +39,7 @@
 
                         <div class="form-group mb-3">
                             <label for="topik_pertemuan_{{ $i }}" class="form-label">Meeting Discussion</label>
-                            <input type="text" class="form-control rounded-5" id="topik_pertemuan_{{ $i }}" name="topik_pertemuan[]" required>
+                            <input type="text" class="form-control rounded-5" id="topik_pertemuan_{{ $i }}" name="topik_pertemuan[]" maxlength="500" required>
                         </div>
 
                         <div class="row mb-3">
@@ -70,7 +70,7 @@
 
                             <div class="col-6 form-group mb-3">
                                 <label for="tempat_pelaksana_{{ $i }}" class="form-label">Location or Media</label>
-                                <input type="text" class="form-control rounded-5" id="tempat_pelaksana_{{ $i }}" name="tempat_pelaksana[]" required>
+                                <input type="text" class="form-control rounded-5" id="tempat_pelaksana_{{ $i }}" name="tempat_pelaksana[]" maxlength="255" required>
                             </div>
                         </div>
                         <hr style="border: 2px solid #000; margin-top: 25px; margin-bottom: 25px;">

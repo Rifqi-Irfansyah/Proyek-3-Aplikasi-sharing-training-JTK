@@ -40,10 +40,10 @@
                 <form method="POST" action="{{ route('register.peserta.submit') }}">
                     @csrf
                     <div class="mb-4">
-                        <input type="email" name="email" class="custom-input input-text form-control" placeholder="Email" required>
+                        <input type="email" name="email" class="custom-input input-text form-control" placeholder="Email" maxlength="255" required>
                     </div>
                     <div class="mb-4">
-                        <input type="text" name="full_name" class="custom-input input-text form-control" placeholder="Full Name" required>
+                        <input type="text" name="full_name" class="custom-input input-text form-control" placeholder="Full Name" maxlength="50" required>
                     </div>
                     <div class="mb-4">
                         <input type="date" id="date_of_birth" name="date_of_birth" class="custom-input input-text form-control" placeholder="Date of Birth" required>
@@ -61,10 +61,10 @@
                     </div>
 
                     <div class="mb-4">
-                        <input type="password" name="password" class="custom-input input-text form-control" placeholder="Password" required>
+                        <input type="password" name="password" class="custom-input input-text form-control" placeholder="Password" maxlength="255" required>
                     </div>
                     <div class="mb-4">
-                        <input type="password" name="password_confirmation" class="custom-input input-text form-control" placeholder="Confirm Password" required>
+                        <input type="password" name="password_confirmation" class="custom-input input-text form-control" placeholder="Confirm Password" maxlength="255" required>
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-md w-100 fs-6 rounded-5 btn-custom" style="background-color: #6cace4; color: white;">

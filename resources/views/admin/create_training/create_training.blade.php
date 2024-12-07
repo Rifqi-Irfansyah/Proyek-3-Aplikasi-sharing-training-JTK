@@ -15,7 +15,7 @@
                     @csrf
                     <div class="form-group mb-3 text-start">
                         <label for="judul_training" class="form-label">Training Name</label>
-                        <input type="text" class="form-control rounded-5" id="judul_training" name="judul_training" required>
+                        <input type="text" class="form-control rounded-5" id="judul_training" name="judul_training" maxlength="255" required>
                     </div>
 
                     <div class="form-group mb-3 text-start">
@@ -35,7 +35,7 @@
 
                     <div class="form-group mb-3 text-start">
                         <label for="deskripsi" class="form-label">Training Description</label>
-                        <textarea class="form-control rounded-5" id="deskripsi" name="deskripsi" rows="4" required></textarea>
+                        <textarea class="form-control rounded-5" id="deskripsi" name="deskripsi" rows="4" maxlength="500" required></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-lg w-100 fs-6 rounded-5 mt-3" style="background-color: #6cace4; color: white; transition: background-color 0.3s, transform 0.2s;"
