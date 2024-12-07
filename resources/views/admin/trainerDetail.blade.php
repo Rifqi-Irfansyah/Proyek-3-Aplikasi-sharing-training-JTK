@@ -4,51 +4,58 @@
 
 @section('content')
 
-@include('admin.topbar')
+<div class="d-flex flex-column min-vh-100">
+    <div class="flex-grow-1">
+        @include('admin.topbar')
 
-<style>
-    .card {
-        width: 1200px; 
-        margin: 20px auto; 
-        padding: 30px; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    }
+        <style>
+            .card {
+                width: 1200px; 
+                margin: 20px auto; 
+                padding: 30px; 
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            }
 
-    .card p {
-        font-size: 1.25rem; 
-        line-height: 1.5; 
-    }
+            .card p {
+                font-size: 1.25rem; 
+                line-height: 1.5; 
+            }
 
-    .card strong {
-        font-size: 1.25rem; 
-    }
+            .card strong {
+                font-size: 1.25rem; 
+            }
 
-    .btn-group {
-        margin-top: 20px; 
-    }
-</style>
+            .btn-group {
+                margin-top: 20px; 
+            }
+        </style>
 
-<div class="container mt-5">
-    <h1>Detail Trainer</h1>
-</div>
-
-<div class="container">
-    <div class="card" id="trainer-card-{{ $trainer->id }}">
-        <p><strong>Trainer Name:</strong> {{ $trainer->user->name }}</p>
-        <p><strong>Email:</strong> {{ $trainer->email }}</p>
-        <p><strong>Date of Birth:</strong> {{ $trainer->user->tanggal_lahir }}</p>
-        <p><strong>Phone Number:</strong> {{ $trainer->no_wa }}</p>
-        <p><strong>Experience:</strong> {{ $trainer->pengalaman }}</p>
-        <p><strong>Ability:</strong> {{ $trainer->kemampuan }}</p>
-        
-        <div class="btn-group">
-            <a href="#" class="btn btn-view" onclick="updateStatus('{{ $trainer->email }}')">✔️ Verification</a>
-            <a href="#" class="btn btn-delete" onclick="update2Status('{{ $trainer->email }}')">❌ Reject</a>
+        <div class="container mt-5">
+            <h1>Detail Trainer</h1>
         </div>
-    </div>
+
+        <div class="container">
+            <div class="card" id="trainer-card-{{ $trainer->id }}">
+                <p><strong>Trainer Name:</strong> {{ $trainer->user->name }}</p>
+                <p><strong>Email:</strong> {{ $trainer->email }}</p>
+                <p><strong>Date of Birth:</strong> {{ $trainer->user->tanggal_lahir }}</p>
+                <p><strong>Phone Number:</strong> {{ $trainer->no_wa }}</p>
+                <p><strong>Experience:</strong> {{ $trainer->pengalaman }}</p>
+                <p><strong>Ability:</strong> {{ $trainer->kemampuan }}</p>
+                
+                <div class="btn-group">
+                    <a href="#" class="btn btn-view" onclick="updateStatus('{{ $trainer->email }}')">✔️ Verification</a>
+                    <a href="#" class="btn btn-delete" onclick="update2Status('{{ $trainer->email }}')">❌ Reject</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+        </div>
+    </footer>
 </div>
 
 @include('footer')
+@endsection
 
 <script>
     if(session('success'))

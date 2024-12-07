@@ -59,11 +59,6 @@ Route::get('verif-trainer', [VerifTrainerController::class, 'verifTrainer'])->na
 Route::post('/verif-trainer/update-status', [VerifTrainerController::class, 'updateStatus'])->name('verif-trainer');
 Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
 
-// Route::get('/verif-trainer/{Id}/{status}',function(){
-//      Mail::to('yulina.anggraeni.tif23@polban.ac.id')
-//      ->send(new template_email());
-// });
-
 //Approve
 Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
 Route::get('/approve-trainer/detail/{email}/{id_training}', [ApproveTrainerController::class, 'viewTrainerDetail'])->name('view-trainer-detail-approve');
@@ -78,9 +73,6 @@ Route::put('/usulan/{id_usulan}', [UsulanController::class, 'update'])->name('us
 Route::get('/admin/usulan', [UsulanController::class, 'view_usulan'])->name('admin.usulan');
 Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name('training.delete');
 
-//Route::get('/delete/{id}',[BerandaAdminController::class, 'delete'])->name('delete');
-
-// User Access
 Route::middleware(['checkRole:admin'])->group(function () {
     Route::get('admin', [LoginController::class, 'beranda'])->name('welcome');
 
@@ -97,6 +89,9 @@ Route::middleware(['checkRole:admin'])->group(function () {
     Route::post('/verif-trainer/update2-status', [VerifTrainerController::class, 'update2Status'])->name('verif-trainer-delete');
     //Approve
     Route::get('approve-trainer', [ApproveTrainerController::class, 'approvetrainer'])->name('approvetrainer');
+    Route::get('/approve-trainer/detail/{email}/{id_training}', [ApproveTrainerController::class, 'viewTrainerDetail'])->name('view-trainer-detail-approve');
+    Route::post('approve-trainer/confirm', [ApproveTrainerController::class, 'updateStatus_1'])->name('approve-trainer-confirm');
+    Route::post('approve-trainer/reject', [ApproveTrainerController::class, 'updateStatus_2'])->name('approve-trainer-reject');
 
     Route::get('/BerandaAdmin',[BerandaAdminController::class, 'beranda_admin'])->name('beranda.admin');
 
@@ -106,10 +101,6 @@ Route::middleware(['checkRole:admin'])->group(function () {
     Route::delete('/training/{id}', [BerandaAdminController::class, 'delete'])->name('training.delete');
 
 });
-
-// Route::middleware(['checkRole:pemateri'])->group(function () {
-//     Route::get('pemateri', [LoginController::class, 'beranda'])->name('welcome');
-// });
 
 Route::middleware(['checkRole:admin,pemateri'])->group(function () {
     // Detail Training PAGE
