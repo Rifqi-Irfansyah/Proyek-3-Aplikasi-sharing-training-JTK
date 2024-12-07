@@ -68,6 +68,24 @@ class Jadwal extends Seeder
             'id_training' => 2,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
+            'waktu_mulai' => now()->subDays(2)->setTimezone('Asia/Jakarta'),
+            'waktu_selesai' => now()->subDays(2)->setTimezone('Asia/Jakarta'),
+            'topik_pertemuan' =>
+            "Pengenalan list, tuple, set, dan dictionary untuk menyimpan dan memanipulasi data."
+        ]);
+
+        DB::table('training')->insert([
+            'judul_training' => "Belajar CI CD",
+            'email_trainer' => "pemateri2@gmail.com",
+            'kuota' => 30,
+            'deskripsi' => "Pelatihan ini bertujuan untuk memberikan pengenalan mengenai developing program website, dimana sebuah deploy sistem dapat dilakukan secara otomatis dengan konsep CI Cd",
+            'status' => "Pendaftaran"
+        ]);
+
+        DB::table('jadwal_training')->insert([
+            'id_training' => 3,
+            'tempat_pelaksana' => "R101",
+            'status' => "offline",
             'waktu_mulai' => now()->subDays(4)->setTimezone('Asia/Jakarta'),
             'waktu_selesai' => now()->subDays(4)->setTimezone('Asia/Jakarta'),
             'topik_pertemuan' =>

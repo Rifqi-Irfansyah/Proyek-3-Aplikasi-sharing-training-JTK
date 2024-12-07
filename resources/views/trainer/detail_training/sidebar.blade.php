@@ -57,7 +57,10 @@
             <?php $i++; ?>
             @endforeach
 
-            @if( $i <= 7)
+            <?php
+                $availableAddMett = Carbon\Carbon::now('Asia/Jakarta')->subDay(3)->format('Y-m-d');
+            ?>
+            @if($i <= 7 AND $training->jadwalTrainings[$i-2]->waktu_selesai > $availableAddMett)
             <li class="d-flex align-items-center ps-4 py-1 mb-3 last-sidebar" onClick="buttonEdit()">
                 <a href="#" class=" text-decoration-none">
                     <span class="fs-6 fw-bold my-1">Add Meet {{$i}}st</span>
