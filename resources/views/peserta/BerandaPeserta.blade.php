@@ -89,7 +89,26 @@
                     <div class="card-body">
                     <h5 class="card-title">{{ $training->judul_training }}</h5>
                     <p class="card-text">{{ Str::limit($training->deskripsi,100) }}</p>
-                    <a href="/detailTrainingPeserta/{{ $training->id_training }}" class="btn btn-info float-end rounded-5">Select</a>
+                    <a href="/detailTrainingPeserta/{{ $training->id_training }}" class="btn btn-info float-end  rounded-5">Select</a>
+                </div>
+                </div>
+            </div>
+            @endforeach
+        @endif
+    </div>
+    <div class='row'>
+        @if($trainingSelesai->isEmpty())
+
+        @else
+        <h2>Your finished Training</h2>
+
+        @foreach($trainingSelesai as $trainings)
+            <div class = 'col-md-4 mb-5'>
+                <div class="card w-100 rounded-5" style="height: 230px;">
+                    <div class="card-body">
+                    <h5 class="card-title text-body-tertiary">{{ $trainings->judul_training }}</h5>
+                    <p class="card-text text-body-tertiary">{{ Str::limit($trainings->deskripsi,100) }}</p>
+                    <a href="/detailTrainingPeserta/{{ $trainings->id_training }}" class="btn btn-secondary float-end rounded-5 ">Select</a>
                 </div>
                 </div>
             </div>

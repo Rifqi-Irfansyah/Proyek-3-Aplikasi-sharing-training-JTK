@@ -15,7 +15,13 @@ class BerandaPesertaController extends Controller
     {
         $peserta = Auth::user()->email;
         $trainingDiikuti = Training::whereHas('peserta', function ($query) use ($peserta) {
-            $query->where('email_peserta', $peserta);
+            $query->where('email_peserta', $peserta)
+            ->whereIn('status',['Pendaftaran','Berlangsung']);
+        })->get();
+
+        $trainingSelesai = Training::whereHas('peserta', function ($query) use ($peserta) {
+            $query->where('email_peserta', $peserta)
+            ->where('status','Selesai');
         })->get();
 
         $trainingTidakDiikuti = Training::whereDoesntHave('peserta', function ($query) use ($peserta) {
@@ -33,7 +39,7 @@ class BerandaPesertaController extends Controller
         }
 
         $nama = Auth::user()->name;
-        return view('peserta.BerandaPeserta', compact('trainingDiikuti','trainingBelumDiikuti','nama'));
+        return view('peserta.BerandaPeserta', compact('trainingDiikuti', 'trainingSelesai', 'trainingBelumDiikuti', 'nama'));
     }
 
     // public function kuotaTraining($id)
