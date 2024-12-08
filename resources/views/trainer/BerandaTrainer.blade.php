@@ -86,7 +86,7 @@
     </h1>
     <h1 class="pt-2">
         <span>What would you like to </span>
-        <span class="text-primary">Learn </span>
+        <span class="text-primary">Teach </span>
         <span>Today?</span>
     </h1>
 </div>
