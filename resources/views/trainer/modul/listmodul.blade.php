@@ -214,7 +214,7 @@
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Success Saved!',
-                                    text: 'Meet has been added',
+                                    text: 'Modul has been added',
                                     showConfirmButton: false,
                                     backdrop: 'rgba(0,0,0,0.8)',
                                     timer: 1000,
@@ -272,7 +272,7 @@
                 $(document).on('click', ".btn-edit", function(e) {
                     e.preventDefault();
                     let file = JSON.parse(this.getAttribute('data-file'));
-                    var title = "Add Your Modul\n" + "\n\n";
+                    var title = "Edit Modul\n" + "\n\n";
                     (async () => {
                         const {
                             value: formValues
@@ -333,10 +333,10 @@
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Success Saved!',
-                                        text: 'Meet has been added',
+                                        text: 'Modul has been updated',
                                         showConfirmButton: false,
                                         backdrop: 'rgba(0,0,0,0.8)',
-                                        timer: 1000,
+                                        timer: 2000,
                                         customClass: {
                                             popup: 'popup-success',
                                             title: 'title',
