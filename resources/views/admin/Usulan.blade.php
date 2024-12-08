@@ -23,7 +23,6 @@
             <tr>
                 <th class="text-center">Training Name</th>
                 <th class="text-center">Disscusion</th>
-                <th class="text-center">Suggestion</th>
                 <th class="text-center">Email User</th>
                 <th class="text-center">Date Submitted</th>
             </tr>
@@ -38,7 +37,6 @@
                 <tr>
                     <td class="text-center">{{ $usulan->judul_materi }}</td>
                     <td class="text-center">{{ $usulan->bahasan }}</td>
-                    <td class="text-center">{{ $usulan->usulan }}</td>
                     <td class="text-center">{{ $usulan->email_pengusul }}</td>
                     <td class="text-center">{{ Carbon\Carbon::parse($usulan->created_at)->timezone('Asia/Jakarta')->format('l, d M Y - H:i:s') }}</td>
                 </tr>
