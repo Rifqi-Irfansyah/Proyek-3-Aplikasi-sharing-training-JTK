@@ -34,40 +34,33 @@
             });
         @endif
 
-        @if(session('warning'))
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: "{{ session('warning') }}",
-                timer: 5000,
-                showConfirmButton: false,
-                customClass: {
-                    popup: 'popup-warning',
-                    title: 'title',
-                }
-            });
-        @endif
-
 
         document.querySelectorAll('.deleteButton').forEach(function(button) {
-            button.addEventListener('click', function (event) {
-                const formId = this.getAttribute('data-form-id');
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "This action cannot be undone.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'Cancel'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById(formId).submit();
-                    }
-                });
-            });
+    button.addEventListener('click', function (event) {
+        const formId = this.getAttribute('data-form-id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to delete this training ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Delete!',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true,
+            backdrop: 'rgba(0,0,0,0.8)',
+            customClass: {
+                popup: 'popup-edit',
+                confirmButton: 'btn-confirm',
+                cancelButton: 'btn-cancel',
+                title: 'title'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
         });
+    });
+});
+
     });
 </script>
 
@@ -110,7 +103,7 @@
                 @else
                     <span class="text-muted">No Trainer Yet</span>
                 @endif
-
+                
                         </td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->first()->waktu_mulai)->format('l, d M Y') }}</td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($training->jadwalTrainings->last()->waktu_selesai)->format('l, d M Y') }}</td>
