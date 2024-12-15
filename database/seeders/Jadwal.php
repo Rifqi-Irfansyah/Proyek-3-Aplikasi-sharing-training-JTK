@@ -56,22 +56,14 @@ class Jadwal extends Seeder
             "Pengenalan list, tuple, set, dan dictionary untuk menyimpan dan memanipulasi data."
         ]);
 
-        DB::table('training')->insert([
-            'judul_training' => "Belajar Java",
-            'email_trainer' => "pemateri2@gmail.com",
-            'kuota' => 30,
-            'deskripsi' => "Pelatihan ini bertujuan untuk memberikan pemahaman komprehensif tentang pemrograman Java, dari dasar hingga pengembangan aplikasi sederhana. Peserta akan mempelajari dasar-dasar Java, konsep berorientasi objek, struktur data, dan penerapan praktis dalam pembuatan aplikasi. Setiap sesi mencakup pembelajaran teoritis yang diikuti dengan latihan praktis.",
-            'status' => "Pendaftaran"
-        ]);
-
         DB::table('jadwal_training')->insert([
-            'id_training' => 2,
+            'id_training' => 1,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
-            'waktu_mulai' => now()->subDays(2)->setTimezone('Asia/Jakarta'),
-            'waktu_selesai' => now()->subDays(2)->setTimezone('Asia/Jakarta'),
+            'waktu_mulai' => now()->addDays(5)->setTimezone('Asia/Jakarta'),
+            'waktu_selesai' => now()->addDays(5)->setTimezone('Asia/Jakarta'),
             'topik_pertemuan' =>
-            "Pengenalan list, tuple, set, dan dictionary untuk menyimpan dan memanipulasi data."
+            "Pengenalan Projecting, sinkronisasi database dan input hardware"
         ]);
 
         DB::table('training')->insert([
@@ -83,13 +75,44 @@ class Jadwal extends Seeder
         ]);
 
         DB::table('jadwal_training')->insert([
-            'id_training' => 3,
+            'id_training' => 2,
+            'tempat_pelaksana' => "R102",
+            'status' => "online",
+            'waktu_mulai' => now()->subDays(8)->setTimezone('Asia/Jakarta'),
+            'waktu_selesai' => now()->subDays(8)->addHours(2)->setTimezone('Asia/Jakarta'),
+            'topik_pertemuan' =>
+            "Implementasi pipeline sederhana untuk CI/CD menggunakan GitHub Actions."
+        ]);
+        
+        DB::table('jadwal_training')->insert([
+            'id_training' => 2,
+            'tempat_pelaksana' => "R103",
+            'status' => "offline",
+            'waktu_mulai' => now()->subDays(7)->setTimezone('Asia/Jakarta')->addHours(3),
+            'waktu_selesai' => now()->subDays(7)->setTimezone('Asia/Jakarta')->addHours(5),
+            'topik_pertemuan' =>
+            "Konfigurasi CI/CD untuk deployment aplikasi berbasis Laravel."
+        ]);
+        
+        DB::table('jadwal_training')->insert([
+            'id_training' => 2,
+            'tempat_pelaksana' => "R104",
+            'status' => "online",
+            'waktu_mulai' => now()->subDays(5)->setTimezone('Asia/Jakarta')->addHours(6),
+            'waktu_selesai' => now()->subDays(5)->setTimezone('Asia/Jakarta')->addHours(8),
+            'topik_pertemuan' =>
+            "Pengenalan tools CI/CD: Jenkins dan GitLab CI/CD."
+        ]);
+        
+
+        DB::table('jadwal_training')->insert([
+            'id_training' => 2,
             'tempat_pelaksana' => "R101",
             'status' => "offline",
             'waktu_mulai' => now()->subDays(4)->setTimezone('Asia/Jakarta'),
             'waktu_selesai' => now()->subDays(4)->setTimezone('Asia/Jakarta'),
             'topik_pertemuan' =>
-            "Pengenalan list, tuple, set, dan dictionary untuk menyimpan dan memanipulasi data."
+            "Implementasi CI/CD pada Gitlab menggunakan virtual machine Linux"
         ]);
     }
 }

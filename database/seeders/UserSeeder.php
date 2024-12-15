@@ -157,13 +157,13 @@ class UserSeeder extends Seeder
             'status_akun' => "Belum direview",
         ]);
 
-        DB::table('tambahan_trainer')->insert([
-            'email' => "muhammad.wildan.tif23@polban.ac.id",
-            'no_wa' => "08965698171",
-            'kemampuan' => "bisa bahasa java",
-            'pengalaman' => "1-3 tahun",
-            'status_akun' => "Belum direview",
-        ]);
+        // DB::table('tambahan_trainer')->insert([
+        //     'email' => "muhammad.wildan.tif23@polban.ac.id",
+        //     'no_wa' => "08965698171",
+        //     'kemampuan' => "bisa bahasa java",
+        //     'pengalaman' => "1-3 tahun",
+        //     'status_akun' => "Belum direview",
+        // ]);
 
         DB::table('tambahan_trainer')->insert([
             'email' => "pemateri2@gmail.com",

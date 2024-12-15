@@ -95,5 +95,15 @@ class ModulSeeder extends Seeder
             'nama_file' => "2-Java Fundamental.pdf"
         ]);
 
+        DB::table('modul_training')->insert([
+            'id_training' => 2,
+            'nama_file' => "Pertemuan 11 Collection.pdf"
+        ]);
+
+        DB::table('modul_training')->insert([
+            'id_training' => 2,
+            'nama_file' => "2-Java Fundamental.pdf"
+        ]);
+
     }
 }

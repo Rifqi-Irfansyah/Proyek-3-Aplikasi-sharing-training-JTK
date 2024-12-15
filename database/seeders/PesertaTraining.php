@@ -16,7 +16,7 @@ class PesertaTraining extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i < 4; $i++) { 
+        for ($i=1; $i < 3; $i++) { 
             DB::table('peserta_training')->insert([
                 'id_training' => $i,
                 'email_peserta' => "user1@gmail.com",
